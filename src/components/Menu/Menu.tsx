@@ -6,16 +6,14 @@ import {
   UsersFour,
 } from "@phosphor-icons/react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import "./Menu.scss";
 
 const Menu = () => {
   const [collapseMenu, setCollapseMenu] = useState(false);
 
   return (
-    <div
-      className={`menu ${collapseMenu ? "menu--collapsed" : null}`}
-      onClick={() => setCollapseMenu(!collapseMenu)}
-    >
+    <div className={`menu ${collapseMenu ? "menu--collapsed" : null}`}>
       <button
         className="menu__collapse-button"
         onClick={() => setCollapseMenu(!collapseMenu)}
@@ -36,20 +34,20 @@ const Menu = () => {
       <div
         className={`menu__navigation-list ${collapseMenu && "menu__navigation-list--collapsed"}`}
       >
-        <button>
+        <Link to="/pets">
           <Dog size={32} />
           {!collapseMenu ? "Pets" : null}
-        </button>
+        </Link>
 
-        <button>
+        <Link to="/owners">
           <Users size={32} />
           {!collapseMenu ? "Tutores" : null}
-        </button>
+        </Link>
 
-        <button>
+        <Link to="/employees">
           <UsersFour size={32} />
           {!collapseMenu ? "Funcionários" : null}
-        </button>
+        </Link>
       </div>
     </div>
   );
