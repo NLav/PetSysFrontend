@@ -1,10 +1,25 @@
+import { DefaultLayout } from "layouts";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Pets } from "views";
 import "./index.css";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <DefaultLayout />,
+    children: [
+      {
+        path: "/pets",
+        element: <Pets />,
+      },
+    ],
+  },
+]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
