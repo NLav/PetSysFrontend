@@ -1,2 +1,15 @@
 .default-layout {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-areas: "menu-container content-container";
+  grid-template-columns: max-content 1fr;
+
+  &__menu-container {
+    grid-area: menu-container;
+  }
+
+  &__content-container {
+    grid-area: content-container;
+  }
 }

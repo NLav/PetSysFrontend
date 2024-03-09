@@ -1,0 +1,44 @@
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  height: 100%;
+  padding: 32px;
+  border-radius: 0 32px 32px 0;
+  background-color: var(--primary);
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5) inset;
+  color: var(--white);
+
+  &__logo-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+
+    font-size: 1.5rem;
+  }
+
+  &__navigation-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: start;
+
+    & > button {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      width: 100%;
+      padding: 4px 8px;
+      border: 1px solid var(--white);
+      color: var(--white);
+
+      font-size: 1rem;
+
+      &:hover {
+        background-color: var(--primaryDark);
+        transform: translateX(10px);
+      }
+    }
+  }
+}

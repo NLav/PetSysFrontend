@@ -3,7 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Pets } from "views";
-import "./index.css";
+import "./index.scss";
 
 const router = createBrowserRouter([
   {
