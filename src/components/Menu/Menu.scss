@@ -52,7 +52,7 @@
     gap: 8px;
     align-items: start;
 
-    & > a {
+    & a {
       display: flex;
       gap: 4px;
       align-items: center;
@@ -74,7 +74,7 @@
     &--collapsed {
       align-items: center;
 
-      & > a {
+      & a {
         border: none;
         width: fit-content;
       }

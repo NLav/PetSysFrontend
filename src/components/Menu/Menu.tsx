@@ -8,6 +8,7 @@ import {
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Menu.scss";
+import { MenuTooltip } from "./components";
 
 const Menu = () => {
   const [collapseMenu, setCollapseMenu] = useState(false);
@@ -34,20 +35,47 @@ const Menu = () => {
       <div
         className={`menu__navigation-list ${collapseMenu && "menu__navigation-list--collapsed"}`}
       >
-        <Link to="/pets">
-          <Dog size={32} />
-          {!collapseMenu ? "Pets" : null}
-        </Link>
+        {collapseMenu ? (
+          <MenuTooltip text="Pets">
+            <Link to="/pets">
+              <Dog size={32} />
+              {!collapseMenu ? "Pets" : null}
+            </Link>
+          </MenuTooltip>
+        ) : (
+          <Link to="/pets">
+            <Dog size={32} />
+            {!collapseMenu ? "Pets" : null}
+          </Link>
+        )}
 
-        <Link to="/owners">
-          <Users size={32} />
-          {!collapseMenu ? "Tutores" : null}
-        </Link>
+        {collapseMenu ? (
+          <MenuTooltip text="Tutores">
+            <Link to="/owners">
+              <Users size={32} />
+              {!collapseMenu ? "Tutores" : null}
+            </Link>
+          </MenuTooltip>
+        ) : (
+          <Link to="/owners">
+            <Users size={32} />
+            {!collapseMenu ? "Tutores" : null}
+          </Link>
+        )}
 
-        <Link to="/employees">
-          <UsersFour size={32} />
-          {!collapseMenu ? "Funcionários" : null}
-        </Link>
+        {collapseMenu ? (
+          <MenuTooltip text="Funcionários">
+            <Link to="/employees">
+              <UsersFour size={32} />
+              {!collapseMenu ? "Funcionários" : null}
+            </Link>
+          </MenuTooltip>
+        ) : (
+          <Link to="/owners">
+            <UsersFour size={32} />
+            {!collapseMenu ? "Tutores" : null}
+          </Link>
+        )}
       </div>
     </div>
   );
