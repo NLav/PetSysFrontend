@@ -17,10 +17,33 @@
   transition: 0.2s;
 
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--gray1);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--gray2);
+    border-radius: 16px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--gray3);
+  }
 }
 
 button {
   border: none;
   background-color: transparent;
   cursor: pointer;
+
+  &:hover {
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
 }
