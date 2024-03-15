@@ -29,7 +29,7 @@ const Menu = () => {
       <div className="menu__logo-container">
         <PawPrint size={collapseMenu ? 64 : 120} />
 
-        {!collapseMenu ? "Meu Pet" : null}
+        {!collapseMenu ? "PetSys" : null}
       </div>
 
       <div
