@@ -1,0 +1,1 @@
+export { CardPet } from "./CardPet";

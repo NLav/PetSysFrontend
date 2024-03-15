@@ -1,0 +1,38 @@
+.pagination {
+  display: flex;
+  gap: 32px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+
+  &__caret-button {
+    user-select: none;
+
+    &:hover {
+      &:not(:disabled) {
+        scale: 1.25;
+      }
+    }
+  }
+
+  &__path {
+    display: flex;
+    gap: 8px;
+
+    & > span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
+      background-color: var(--secondary);
+      color: var(--white);
+      cursor: pointer;
+
+      &:hover {
+        scale: 1.15;
+      }
+    }
+  }
+}
