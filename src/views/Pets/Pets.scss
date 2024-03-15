@@ -1,2 +1,27 @@
 .pets {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  height: 100%;
+
+  &__listing-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 360px;
+    justify-content: space-evenly;
+    gap: 24px;
+    height: 100%;
+    padding: 16px;
+    border-radius: 16px;
+    background-color: var(--secondary);
+    overflow: auto;
+
+    @media (min-width: 1280px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    @media (min-width: 1600px) {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
 }
