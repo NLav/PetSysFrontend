@@ -1,36 +1,36 @@
 import { ActionBarModal } from "components";
 import { petsModals } from "../../Pets";
-import "./PetsModalFilter.scss";
+import "./PetsModalSearch.scss";
 
-interface IPetsModalFilterProps {
+interface IPetsModalSearchProps {
   setShowModal: React.Dispatch<React.SetStateAction<typeof petsModals>>;
 }
 
-const PetsModalFilter = ({ setShowModal }: IPetsModalFilterProps) => {
+const PetsModalSearch = ({ setShowModal }: IPetsModalSearchProps) => {
   return (
     <ActionBarModal
-      title="Filtros"
+      title="Pesquisar"
       closeModal={() => setShowModal(null)}
       buttons={[
         {
-          label: "Limpar Filtros",
+          label: "Limpar Pesquisa",
           onClick: () => {
-            alert("Limpar Filtros");
+            alert("Limpar Pesquisa");
           },
         },
         {
-          label: "Filtrar",
+          label: "Pesquisar",
           onClick: () => {
-            alert("Filtrar");
+            alert("Pesquisar");
           },
         },
       ]}
     >
-      <div className="pets-modal-filter">
-        <span>PetsModalFilter</span>
+      <div className="pets-modal-search">
+        <span>PetsModalSearch</span>
       </div>
     </ActionBarModal>
   );
 };
 
-export { PetsModalFilter };
+export { PetsModalSearch };

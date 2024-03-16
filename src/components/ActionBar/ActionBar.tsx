@@ -3,7 +3,7 @@ import "./ActionBar.scss";
 
 interface IActionBarProps {
   title: string;
-  children?: React.ReactElement | React.ReactElement[];
+  children?: React.ReactNode | React.ReactNode[];
 }
 
 const ActionBar = ({ title, children }: IActionBarProps) => {

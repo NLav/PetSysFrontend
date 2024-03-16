@@ -2,25 +2,57 @@ import {
   ArrowsDownUp,
   FunnelSimple,
   MagnifyingGlass,
+  Plus,
 } from "@phosphor-icons/react";
 import { ActionBar, CardPet, Pagination } from "components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { PetService } from "services";
+import { IPetDTO } from "services/dtos";
 import { IPaginationMeta } from "types";
 import "./Pets.scss";
-import { PetsModalFilter } from "./components";
+import {
+  PetsModalAdd,
+  PetsModalFilter,
+  PetsModalOrder,
+  PetsModalSearch,
+} from "./components";
+
+export let petsModals:
+  | "add-modal"
+  | "search-modal"
+  | "order-modal"
+  | "filter-modal"
+  | null;
 
 const Pets = () => {
-  const [showModal, setShowModal] = useState<
-    "search-modal" | "order-modal" | "filter-modal" | null
-  >(null);
+  const [pets, setPets] = useState<IPetDTO[]>([]);
+  const [showModal, setShowModal] = useState<typeof petsModals>(null);
   const [paginationMeta, setPaginationMeta] = useState<IPaginationMeta>({
     currentPage: 1,
     totalPages: 15,
   });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    PetService.getAll().then((response) => {
+      setPets(response.data);
+      setLoading(false);
+    });
+  }, []);
 
   return (
     <div className="pets">
       <ActionBar title="Pets">
+        <button
+          onClick={() =>
+            setShowModal(showModal !== "add-modal" ? "add-modal" : null)
+          }
+        >
+          <Plus size={16} weight="bold" />
+
+          <span>Adicionar</span>
+        </button>
+
         <button
           onClick={() =>
             setShowModal(showModal !== "search-modal" ? "search-modal" : null)
@@ -51,38 +83,39 @@ const Pets = () => {
           <span>Filtros</span>
         </button>
 
-        {showModal === "filter-modal" ? (
+        {showModal === "add-modal" && (
+          <PetsModalAdd setShowModal={setShowModal} />
+        )}
+
+        {showModal === "search-modal" && (
+          <PetsModalSearch setShowModal={setShowModal} />
+        )}
+
+        {showModal === "order-modal" && (
+          <PetsModalOrder setShowModal={setShowModal} />
+        )}
+
+        {showModal === "filter-modal" && (
           <PetsModalFilter setShowModal={setShowModal} />
-        ) : (
-          <></>
         )}
       </ActionBar>
 
       <div className="pets__listing-container">
-        <CardPet
-          imageUrl="https://www.thesprucepets.com/thmb/y4YEErOurgco9QQO-zJ6Ld1yVkQ=/3000x0/filters:no_upscale():strip_icc()/english-dog-breeds-4788340-hero-14a64cf053ca40f78e5bd078b052d97f.jpg"
-          name="Totó"
-          birthDate={new Date()}
-          breed="Vira-lata"
-        />
-        <CardPet
-          imageUrl="https://images.pexels.com/photos/1805164/pexels-photo-1805164.jpeg?cs=srgb&dl=pexels-valeria-boltneva-1805164.jpg&fm=jpg"
-          name="Totó"
-          birthDate={new Date()}
-          breed="Vira-lata"
-        />
-        <CardPet
-          imageUrl="https://www.shutterstock.com/image-photo/studio-portrait-sitting-tabby-cat-600nw-2269389471.jpg"
-          name="Totó"
-          birthDate={new Date()}
-          breed="Vira-lata"
-        />
-        <CardPet
-          imageUrl="https://hips.hearstapps.com/hmg-prod/images/beautiful-smooth-haired-red-cat-lies-on-the-sofa-royalty-free-image-1678488026.jpg"
-          name="Totó"
-          birthDate={new Date()}
-          breed="Vira-lata"
-        />
+        {loading ? (
+          <div>carregando</div>
+        ) : pets.length === 0 ? (
+          <div>nenhum pet</div>
+        ) : (
+          pets.map((pet) => (
+            <CardPet
+              key={pet.id}
+              name={pet.name}
+              imageUrl={pet.image_url}
+              birthDate={pet.birth_date}
+              breed={pet.breed}
+            />
+          ))
+        )}
       </div>
 
       <Pagination
