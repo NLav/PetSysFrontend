@@ -1,5 +1,7 @@
 import { X } from "@phosphor-icons/react";
 import { Button } from "components";
+import { useRef } from "react";
+import { useOnClickOutside } from "usehooks-ts";
 import "./ActionBarModal.scss";
 
 interface IButton {
@@ -20,8 +22,12 @@ const ActionBarModal = ({
   children,
   buttons,
 }: IActionBarModalProps) => {
+  const modalRef = useRef<HTMLDivElement | null>(null);
+
+  useOnClickOutside(modalRef, closeModal);
+
   return (
-    <div className="action-bar-modal">
+    <div className="action-bar-modal" ref={modalRef}>
       <div className="action-bar-modal__header">
         {title}
         <button>
