@@ -1,3 +1,4 @@
+import { CardImage } from "components/CardImage";
 import { format } from "date-fns";
 import "./CardPet.scss";
 
@@ -12,11 +13,7 @@ const CardPet = ({ name, imageUrl, birthDate, breed }: ICardPetProps) => {
   return (
     <div className="card-pet">
       <span className="card-pet__image-container">
-        {imageUrl ? (
-          <img src={imageUrl} alt={`${name}-picture`} />
-        ) : (
-          <div>não</div>
-        )}
+        <CardImage imageUrl={imageUrl} alt={`${name}-picture`} />
       </span>
 
       <span className="card-pet__name">{name}</span>
