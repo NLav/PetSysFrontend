@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ActionBarModal, Button, Input } from "components";
 import { ToastContext } from "contexts";
+import { format } from "date-fns";
 import { useContext } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { PetService } from "services";
@@ -38,7 +39,15 @@ const PetsModalAdd = ({
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<addPetFormData>({ resolver: zodResolver(addPetSchema) });
+  } = useForm<addPetFormData>({
+    resolver: zodResolver(addPetSchema),
+    defaultValues: {
+      name: "",
+      image_url: "",
+      birth_date: format(new Date(), "yyyy-MM-dd"),
+      breed: "",
+    },
+  });
 
   const onSubmit = (data: addPetFormData) => {
     PetService.create({
