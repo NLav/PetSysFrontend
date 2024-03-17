@@ -1,3 +1,4 @@
+import { ToastProvider } from "contexts";
 import { DefaultLayout } from "layouts";
 import React from "react";
 import ReactDOM from "react-dom/client";
@@ -20,6 +21,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ToastProvider>
+      <RouterProvider router={router} />
+    </ToastProvider>
   </React.StrictMode>
 );

@@ -5,6 +5,7 @@
   height: 100%;
 
   &__listing-container {
+    position: relative;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 360px;
@@ -22,6 +23,15 @@
 
     @media (min-width: 1600px) {
       grid-template-columns: repeat(5, 1fr);
+    }
+
+    &__no-pets-container {
+      position: absolute;
+      inset: 50% 50% auto auto;
+      transform: translate(50%, -50%);
+      color: var(--white);
+
+      font-size: 2rem;
     }
   }
 }

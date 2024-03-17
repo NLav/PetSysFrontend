@@ -5,3 +5,5 @@ export { CardPet } from "./CardPet";
 export { Input } from "./Input";
 export { Menu } from "./Menu";
 export { Pagination } from "./Pagination";
+export { Spinner } from "./Spinner";
+export { Toast } from "./Toast";

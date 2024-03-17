@@ -4,8 +4,9 @@ import {
   MagnifyingGlass,
   Plus,
 } from "@phosphor-icons/react";
-import { ActionBar, CardPet, Pagination } from "components";
-import { useEffect, useState } from "react";
+import { ActionBar, CardPet, Pagination, Spinner } from "components";
+import { ToastContext } from "contexts";
+import { useContext, useEffect, useState } from "react";
 import { PetService } from "services";
 import { IPetDTO } from "services/dtos";
 import { IPaginationMeta } from "types";
@@ -33,12 +34,23 @@ const Pets = () => {
   });
   const [loading, setLoading] = useState(true);
 
+  const { setToast } = useContext(ToastContext);
+
   useEffect(() => {
-    PetService.getAll().then((response) => {
-      setPets(response.data);
-      setLoading(false);
-    });
-  }, []);
+    PetService.getAll()
+      .then((response) => {
+        setPets(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setToast({
+          variant: "danger",
+          title: "Erro na requisição dos itens",
+          description: error.message,
+        });
+        setLoading(false);
+      });
+  }, [setToast]);
 
   return (
     <div className="pets">
@@ -102,9 +114,11 @@ const Pets = () => {
 
       <div className="pets__listing-container">
         {loading ? (
-          <div>carregando</div>
-        ) : pets.length === 0 ? (
-          <div>nenhum pet</div>
+          <Spinner />
+        ) : !pets.length ? (
+          <span className="pets__listing-container__no-pets-container">
+            Nenhum pet encontrado
+          </span>
         ) : (
           pets.map((pet) => (
             <CardPet

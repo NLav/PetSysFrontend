@@ -1,5 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ActionBarModal, Button, Input } from "components";
+import { ToastContext } from "contexts";
+import { useContext } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { PetService } from "services";
 import { z } from "zod";
@@ -26,6 +28,8 @@ const addPetSchema = z.object({
 type addPetFormData = z.infer<typeof addPetSchema>;
 
 const PetsModalAdd = ({ setShowModal }: IPetsModalAddProps) => {
+  const { setToast } = useContext(ToastContext);
+
   const {
     control,
     handleSubmit,
@@ -41,7 +45,11 @@ const PetsModalAdd = ({ setShowModal }: IPetsModalAddProps) => {
         setShowModal(null);
       })
       .catch((error: any) => {
-        console.log(error);
+        setToast({
+          variant: "danger",
+          title: "Erro",
+          description: error.message,
+        });
       });
   };
 
