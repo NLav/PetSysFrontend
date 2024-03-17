@@ -10,6 +10,7 @@ import "./PetsModalAdd.scss";
 
 interface IPetsModalAddProps {
   setShowModal: React.Dispatch<React.SetStateAction<typeof petsModals>>;
+  setRefreshListing: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const addPetSchema = z.object({
@@ -27,7 +28,10 @@ const addPetSchema = z.object({
 
 type addPetFormData = z.infer<typeof addPetSchema>;
 
-const PetsModalAdd = ({ setShowModal }: IPetsModalAddProps) => {
+const PetsModalAdd = ({
+  setShowModal,
+  setRefreshListing,
+}: IPetsModalAddProps) => {
   const { setToast } = useContext(ToastContext);
 
   const {
@@ -42,12 +46,19 @@ const PetsModalAdd = ({ setShowModal }: IPetsModalAddProps) => {
       birth_date: new Date(data.birth_date),
     })
       .then(() => {
+        setToast({
+          variant: "success",
+          title: "Sucesso",
+          description: "Pet criado com sucesso",
+        });
+
         setShowModal(null);
+        setRefreshListing(true);
       })
       .catch((error: any) => {
         setToast({
           variant: "danger",
-          title: "Erro",
+          title: "Erro ao adicionar Pet",
           description: error.message,
         });
       });

@@ -33,24 +33,31 @@ const Pets = () => {
     totalPages: 15,
   });
   const [loading, setLoading] = useState(true);
+  const [refreshListing, setRefreshListing] = useState(true);
 
   const { setToast } = useContext(ToastContext);
 
   useEffect(() => {
-    PetService.getAll()
-      .then((response) => {
-        setPets(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setToast({
-          variant: "danger",
-          title: "Erro na requisição dos itens",
-          description: error.message,
+    if (refreshListing) {
+      setRefreshListing(false);
+
+      PetService.getAll()
+        .then((response) => {
+          setPets(response.data);
+
+          setLoading(false);
+        })
+        .catch((error) => {
+          setToast({
+            variant: "danger",
+            title: "Erro na requisição dos itens",
+            description: error.message,
+          });
+
+          setLoading(false);
         });
-        setLoading(false);
-      });
-  }, [setToast]);
+    }
+  }, [refreshListing, setToast]);
 
   return (
     <div className="pets">
@@ -96,7 +103,10 @@ const Pets = () => {
         </button>
 
         {showModal === "add-modal" && (
-          <PetsModalAdd setShowModal={setShowModal} />
+          <PetsModalAdd
+            setShowModal={setShowModal}
+            setRefreshListing={setRefreshListing}
+          />
         )}
 
         {showModal === "search-modal" && (
