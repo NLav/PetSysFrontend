@@ -12,7 +12,11 @@ const CardPet = ({ name, imageUrl, birthDate, breed }: ICardPetProps) => {
   return (
     <div className="card-pet">
       <span className="card-pet__image-container">
-        <img src={imageUrl} alt={`${name}-picture`} />
+        {imageUrl ? (
+          <img src={imageUrl} alt={`${name}-picture`} />
+        ) : (
+          <div>não</div>
+        )}
       </span>
 
       <span className="card-pet__name">{name}</span>

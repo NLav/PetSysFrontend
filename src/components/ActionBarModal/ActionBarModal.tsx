@@ -1,4 +1,5 @@
 import { X } from "@phosphor-icons/react";
+import { Button } from "components";
 import "./ActionBarModal.scss";
 
 interface IButton {
@@ -33,9 +34,9 @@ const ActionBarModal = ({
       {buttons && (
         <div className="action-bar-modal__footer">
           {buttons.map((button) => (
-            <button key={button.label} onClick={() => button.onClick()}>
+            <Button key={button.label} onClick={() => button.onClick()}>
               {button.label}
-            </button>
+            </Button>
           ))}
         </div>
       )}

@@ -9,7 +9,7 @@ class PetService {
     return response;
   }
 
-  public static async create(newPet: IPetDTO): Promise<IPetDTO> {
+  public static async create(newPet: Omit<IPetDTO, "id">): Promise<IPetDTO> {
     return await api.post("/pets", newPet);
   }
 }
