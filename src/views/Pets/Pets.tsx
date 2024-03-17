@@ -5,7 +5,7 @@ import {
   Plus,
 } from "@phosphor-icons/react";
 import { ActionBar, CardPet, Pagination, Spinner } from "components";
-import { ToastContext } from "contexts";
+import { RefreshListingContext, ToastContext } from "contexts";
 import { useContext, useEffect, useState } from "react";
 import { PetService } from "services";
 import { IPetDTO } from "services/dtos";
@@ -33,8 +33,10 @@ const Pets = () => {
     totalPages: 15,
   });
   const [loading, setLoading] = useState(true);
-  const [refreshListing, setRefreshListing] = useState(true);
 
+  const { refreshListing, setRefreshListing } = useContext(
+    RefreshListingContext
+  );
   const { setToast } = useContext(ToastContext);
 
   useEffect(() => {
@@ -57,7 +59,7 @@ const Pets = () => {
           setLoading(false);
         });
     }
-  }, [refreshListing, setToast]);
+  }, [refreshListing, setRefreshListing, setToast]);
 
   return (
     <div className="pets">
@@ -103,10 +105,7 @@ const Pets = () => {
         </button>
 
         {showModal === "add-modal" && (
-          <PetsModalAdd
-            setShowModal={setShowModal}
-            setRefreshListing={setRefreshListing}
-          />
+          <PetsModalAdd setShowModal={setShowModal} />
         )}
 
         {showModal === "search-modal" && (
@@ -130,15 +129,7 @@ const Pets = () => {
             Nenhum pet encontrado
           </span>
         ) : (
-          pets.map((pet) => (
-            <CardPet
-              key={pet.id}
-              name={pet.name}
-              imageUrl={pet.image_url}
-              birthDate={pet.birth_date}
-              breed={pet.breed}
-            />
-          ))
+          pets.map((pet) => <CardPet key={pet.id} {...pet} />)
         )}
       </div>
 

@@ -5,6 +5,12 @@
   padding: 16px;
   border-radius: 16px;
   background-color: var(--white);
+  box-shadow: var(--box-shadow);
+  cursor: pointer;
+
+  &:hover {
+    scale: 1.05;
+  }
 
   &__image-container {
     display: flex;

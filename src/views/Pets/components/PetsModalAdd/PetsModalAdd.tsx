@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ActionBarModal, Button, Input } from "components";
-import { ToastContext } from "contexts";
+import { RefreshListingContext, ToastContext } from "contexts";
 import { format } from "date-fns";
 import { useContext } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -11,7 +11,6 @@ import "./PetsModalAdd.scss";
 
 interface IPetsModalAddProps {
   setShowModal: React.Dispatch<React.SetStateAction<typeof petsModals>>;
-  setRefreshListing: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const addPetSchema = z.object({
@@ -29,10 +28,8 @@ const addPetSchema = z.object({
 
 type addPetFormData = z.infer<typeof addPetSchema>;
 
-const PetsModalAdd = ({
-  setShowModal,
-  setRefreshListing,
-}: IPetsModalAddProps) => {
+const PetsModalAdd = ({ setShowModal }: IPetsModalAddProps) => {
+  const { setRefreshListing } = useContext(RefreshListingContext);
   const { setToast } = useContext(ToastContext);
 
   const {
