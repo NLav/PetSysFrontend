@@ -1,4 +1,4 @@
-@keyframes showModal {
+@keyframes showActionBarModal {
   from {
     transform: translateX(100%);
     opacity: 0;
@@ -21,7 +21,7 @@
   border-radius: 16px;
   background-color: var(--white);
   box-shadow: var(--box-shadow);
-  animation: showModal 0.2s linear;
+  animation: showActionBarModal 0.2s linear;
   z-index: 100;
 
   * {
