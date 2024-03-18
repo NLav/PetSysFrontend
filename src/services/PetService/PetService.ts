@@ -12,6 +12,13 @@ class PetService {
   public static async create(newPet: Omit<IPetDTO, "id">): Promise<IPetDTO> {
     return await api.post("/pets", newPet);
   }
+
+  public static async update(
+    petId: number,
+    newPet: Omit<IPetDTO, "id">
+  ): Promise<IPetDTO> {
+    return await api.put(`/pets/${petId}`, newPet);
+  }
 }
 
 export { PetService };
