@@ -6,6 +6,7 @@ import "./ActionBarModal.scss";
 
 interface IButton {
   label: string;
+  variant: "primary" | "secondary" | "success" | "danger" | "ghost";
   onClick: () => void;
 }
 
@@ -40,7 +41,11 @@ const ActionBarModal = ({
       {buttons && (
         <div className="action-bar-modal__footer">
           {buttons.map((button) => (
-            <Button key={button.label} onClick={() => button.onClick()}>
+            <Button
+              key={button.label}
+              variant={button.variant}
+              onClick={() => button.onClick()}
+            >
               {button.label}
             </Button>
           ))}

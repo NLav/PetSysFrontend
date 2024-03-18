@@ -6,6 +6,7 @@ import "./Modal.scss";
 
 interface IButton {
   label: string;
+  variant: "primary" | "secondary" | "success" | "danger" | "ghost";
   onClick: () => void;
 }
 
@@ -37,7 +38,11 @@ const Modal = ({ title, closeModal, children, buttons }: IModalProps) => {
         {buttons && (
           <div className="modal__footer">
             {buttons.map((button) => (
-              <Button key={button.label} onClick={() => button.onClick()}>
+              <Button
+                key={button.label}
+                variant={button.variant}
+                onClick={() => button.onClick()}
+              >
                 {button.label}
               </Button>
             ))}

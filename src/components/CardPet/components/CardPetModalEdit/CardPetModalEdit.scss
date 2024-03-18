@@ -11,4 +11,9 @@
     padding-bottom: 16px;
     border-bottom: 2px solid var(--gray2);
   }
+
+  &__buttons-container {
+    display: flex;
+    gap: 8px;
+  }
 }

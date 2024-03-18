@@ -2,13 +2,57 @@
   width: 100%;
   border-radius: 16px;
   padding: 4px 8px;
-  background-color: var(--primary);
-  color: var(--white);
 
   font-size: 1.25rem;
 
   &:hover {
-    background-color: var(--primaryDark);
     scale: 1.05;
+  }
+
+  &--primary {
+    color: var(--white);
+    background-color: var(--primary);
+
+    &:hover {
+      background-color: var(--primaryDark);
+    }
+  }
+
+  &--secondary {
+    color: var(--white);
+    background-color: var(--secondary);
+
+    &:hover {
+      background-color: var(--secondaryDark);
+    }
+  }
+
+  &--success {
+    color: var(--white);
+    background-color: var(--success);
+
+    &:hover {
+      background-color: var(--successDark);
+    }
+  }
+
+  &--danger {
+    color: var(--white);
+    background-color: var(--error);
+
+    &:hover {
+      background-color: var(--errorDark);
+    }
+  }
+
+  &--ghost {
+    color: var(--black);
+    color: var(--primaryDark);
+    border: 2px solid var(--primaryDark);
+
+    &:hover {
+      color: var(--primaryDark);
+      border-color: var(--primaryDark);
+    }
   }
 }

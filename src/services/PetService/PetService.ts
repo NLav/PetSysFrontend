@@ -4,9 +4,7 @@ import { IPetDTO } from "services/dtos";
 
 class PetService {
   public static async getAll(): Promise<AxiosResponse<IPetDTO[]>> {
-    const response = await api.get("/pets");
-
-    return response;
+    return await api.get("/pets");
   }
 
   public static async create(newPet: Omit<IPetDTO, "id">): Promise<IPetDTO> {
@@ -18,6 +16,10 @@ class PetService {
     newPet: Omit<IPetDTO, "id">
   ): Promise<IPetDTO> {
     return await api.put(`/pets/${petId}`, newPet);
+  }
+
+  public static async delete(petId: number): Promise<IPetDTO> {
+    return await api.delete(`/pets/${petId}`);
   }
 }
 

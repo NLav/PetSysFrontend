@@ -135,7 +135,9 @@ const PetsModalAdd = ({ setShowModal }: IPetsModalAddProps) => {
           />
         </div>
 
-        <Button type="submit">Adicionar</Button>
+        <Button type="submit" variant="primary">
+          Adicionar
+        </Button>
       </form>
     </ActionBarModal>
   );

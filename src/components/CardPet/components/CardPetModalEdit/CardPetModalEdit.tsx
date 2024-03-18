@@ -53,6 +53,27 @@ const CardPetModalEdit = ({
     },
   });
 
+  const handleDelete = () => {
+    PetService.delete(id)
+      .then(() => {
+        setToast({
+          variant: "success",
+          title: "Sucesso",
+          description: "Pet deletado com sucesso",
+        });
+
+        setShowModalEdit(false);
+        setRefreshListing(true);
+      })
+      .catch((error: any) => {
+        setToast({
+          variant: "danger",
+          title: "Erro ao deletar Pet",
+          description: error.message,
+        });
+      });
+  };
+
   const onSubmit = (data: editPetFormData) => {
     PetService.update(id, {
       ...data,
@@ -142,7 +163,15 @@ const CardPetModalEdit = ({
           />
         </div>
 
-        <Button type="submit">Atualizar</Button>
+        <div className="card-pet-modal-edit__buttons-container">
+          <Button type="button" variant="danger" onClick={() => handleDelete()}>
+            Deletar
+          </Button>
+
+          <Button type="submit" variant="primary">
+            Atualizar
+          </Button>
+        </div>
       </form>
     </Modal>
   );
