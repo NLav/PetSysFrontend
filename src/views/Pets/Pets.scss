@@ -8,6 +8,7 @@
     position: relative;
     display: grid;
     grid-template-columns: repeat(3, 32%);
+    grid-template-rows: max-content;
     gap: 24px 0;
     justify-content: space-between;
     height: 100%;

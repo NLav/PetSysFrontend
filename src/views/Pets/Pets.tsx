@@ -33,6 +33,7 @@ const Pets = () => {
     totalPages: 15,
   });
   const [loading, setLoading] = useState(true);
+  const [quickSearch, setQuickSearch] = useState<string>("");
 
   const { refreshListing, setRefreshListing } = useContext(
     RefreshListingContext
@@ -43,7 +44,7 @@ const Pets = () => {
     if (refreshListing) {
       setRefreshListing(false);
 
-      PetService.getAll()
+      PetService.getAll(quickSearch)
         .then((response) => {
           setPets(response.data);
 
@@ -59,7 +60,7 @@ const Pets = () => {
           setLoading(false);
         });
     }
-  }, [refreshListing, setRefreshListing, setToast]);
+  }, [refreshListing, quickSearch, setRefreshListing, setToast]);
 
   return (
     <div className="pets">
@@ -109,7 +110,11 @@ const Pets = () => {
         )}
 
         {showModal === "search-modal" && (
-          <PetsModalSearch setShowModal={setShowModal} />
+          <PetsModalSearch
+            quickSearch={quickSearch}
+            setQuickSearch={setQuickSearch}
+            setShowModal={setShowModal}
+          />
         )}
 
         {showModal === "order-modal" && (
