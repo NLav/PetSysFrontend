@@ -14,6 +14,7 @@ const PetsModalOrder = ({ setShowModal }: IPetsModalOrderProps) => {
       buttons={[
         {
           label: "Ordenar",
+          variant: "primary",
           onClick: () => {
             alert("Ordenar");
           },

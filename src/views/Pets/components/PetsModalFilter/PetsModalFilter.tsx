@@ -14,12 +14,14 @@ const PetsModalFilter = ({ setShowModal }: IPetsModalFilterProps) => {
       buttons={[
         {
           label: "Limpar Filtros",
+          variant: "ghost",
           onClick: () => {
             alert("Limpar Filtros");
           },
         },
         {
           label: "Filtrar",
+          variant: "primary",
           onClick: () => {
             alert("Filtrar");
           },

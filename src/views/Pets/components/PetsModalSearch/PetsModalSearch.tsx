@@ -14,12 +14,14 @@ const PetsModalSearch = ({ setShowModal }: IPetsModalSearchProps) => {
       buttons={[
         {
           label: "Limpar Pesquisa",
+          variant: "ghost",
           onClick: () => {
             alert("Limpar Pesquisa");
           },
         },
         {
           label: "Pesquisar",
+          variant: "primary",
           onClick: () => {
             alert("Pesquisar");
           },
