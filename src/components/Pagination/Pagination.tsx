@@ -5,14 +5,13 @@ import {
   CaretRight,
 } from "@phosphor-icons/react";
 import { Combobox } from "components";
-import { RefreshListingContext } from "contexts";
-import { useContext } from "react";
-import { IPaginationMeta } from "types";
+import { IPaginationMeta } from "interfaces";
+import { useAppDispatch, useAppSelector } from "stores/hooks";
+import { getPetsPaginated } from "stores/pets/thunks";
 import "./Pagination.scss";
 
 interface IPaginationProps extends IPaginationMeta {
   limitOptions: string[];
-  setPaginationMeta: React.Dispatch<React.SetStateAction<IPaginationMeta>>;
 }
 
 const Pagination = ({
@@ -20,9 +19,10 @@ const Pagination = ({
   restTotal,
   restLimit,
   limitOptions,
-  setPaginationMeta,
 }: IPaginationProps) => {
-  const { setRefreshListing } = useContext(RefreshListingContext);
+  const { listingParams, meta } = useAppSelector((state) => state.pets);
+
+  const dispatch = useAppDispatch();
 
   const normalizeNumber = (value: string) => {
     const normalizedValue = "0" + value;
@@ -43,13 +43,12 @@ const Pagination = ({
           options={limitOptions}
           value={restLimit}
           setValue={(value) => {
-            setPaginationMeta((current) => ({
-              ...current,
-              restLimit: value,
-              restPage: "1",
-            }));
-
-            setRefreshListing(true);
+            dispatch(
+              getPetsPaginated({
+                listingParams,
+                meta: { ...meta, restLimit: value },
+              })
+            );
           }}
           searchable={false}
         />
@@ -58,9 +57,12 @@ const Pagination = ({
       <button
         className="pagination__caret-button"
         onClick={() => {
-          setPaginationMeta((current) => ({ ...current, restPage: "1" }));
-
-          setRefreshListing(true);
+          dispatch(
+            getPetsPaginated({
+              listingParams,
+              meta: { ...meta, restPage: "1" },
+            })
+          );
         }}
         disabled={restPage === "1"}
       >
@@ -70,12 +72,12 @@ const Pagination = ({
       <button
         className="pagination__caret-button"
         onClick={() => {
-          setPaginationMeta((current) => ({
-            ...current,
-            restPage: String(Number(restPage) - 1),
-          }));
-
-          setRefreshListing(true);
+          dispatch(
+            getPetsPaginated({
+              listingParams,
+              meta: { ...meta, restPage: String(Number(restPage) - 1) },
+            })
+          );
         }}
         disabled={restPage === "1"}
       >
@@ -87,12 +89,12 @@ const Pagination = ({
           <span
             key={index + 1}
             onClick={() => {
-              setPaginationMeta((current) => ({
-                ...current,
-                restPage: String(index + 1),
-              }));
-
-              setRefreshListing(true);
+              dispatch(
+                getPetsPaginated({
+                  listingParams,
+                  meta: { ...meta, restPage: String(index + 1) },
+                })
+              );
             }}
             style={{
               ...(restPage === String(index + 1)
@@ -112,14 +114,14 @@ const Pagination = ({
       <button
         className="pagination__caret-button"
         onClick={() => {
-          setPaginationMeta((current) => ({
-            ...current,
-            restPage: String(Number(restPage) + 1),
-          }));
-
-          setRefreshListing(true);
+          dispatch(
+            getPetsPaginated({
+              listingParams,
+              meta: { ...meta, restPage: String(Number(restPage) + 1) },
+            })
+          );
         }}
-        disabled={restPage === String(paginationPath.length)}
+        disabled={restPage === String(restTotal)}
       >
         <CaretRight size={16} weight="bold" />
       </button>
@@ -127,14 +129,14 @@ const Pagination = ({
       <button
         className="pagination__caret-button"
         onClick={() => {
-          setPaginationMeta((current) => ({
-            ...current,
-            restPage: String(paginationPath.length),
-          }));
-
-          setRefreshListing(true);
+          dispatch(
+            getPetsPaginated({
+              listingParams,
+              meta: { ...meta, restPage: String(restTotal) },
+            })
+          );
         }}
-        disabled={restPage === String(paginationPath.length)}
+        disabled={restPage === String(restTotal)}
       >
         <CaretDoubleRight size={16} weight="bold" />
       </button>

@@ -1,23 +1,18 @@
 import { SortAscending, SortDescending } from "@phosphor-icons/react";
 import { ActionBarModal } from "components";
-import { RefreshListingContext } from "contexts";
-import { useContext } from "react";
-import { IPetGetAllParams } from "services/dtos";
+import { useAppDispatch, useAppSelector } from "stores/hooks";
+import { getPetsPaginated } from "stores/pets/thunks";
 import { petsModals } from "../../Pets";
 import "./PetsModalOrder.scss";
 
 interface IPetsModalOrderProps {
-  listingParams: IPetGetAllParams;
-  setListingParams: React.Dispatch<React.SetStateAction<IPetGetAllParams>>;
   setShowModal: React.Dispatch<React.SetStateAction<typeof petsModals>>;
 }
 
-const PetsModalOrder = ({
-  listingParams,
-  setListingParams,
-  setShowModal,
-}: IPetsModalOrderProps) => {
-  const { setRefreshListing } = useContext(RefreshListingContext);
+const PetsModalOrder = ({ setShowModal }: IPetsModalOrderProps) => {
+  const dispatch = useAppDispatch();
+
+  const { listingParams, meta } = useAppSelector((state) => state.pets);
 
   return (
     <ActionBarModal title="Ordenação" closeModal={() => setShowModal(null)}>
@@ -32,13 +27,18 @@ const PetsModalOrder = ({
               "pets-modal-order__option-container__selected"
             }`}
             onClick={() => {
-              setListingParams((current) => ({
-                ...current,
-                orderBy: "name",
-                orderDirection: "asc",
-              }));
+              dispatch(
+                getPetsPaginated({
+                  listingParams: {
+                    ...listingParams,
+                    orderBy: "name",
+                    orderDirection: "asc",
+                  },
+                  meta,
+                })
+              );
 
-              setRefreshListing(true);
+              setShowModal(null);
             }}
           >
             <SortAscending size={32} />
@@ -51,13 +51,18 @@ const PetsModalOrder = ({
               "pets-modal-order__option-container__selected"
             }`}
             onClick={() => {
-              setListingParams((current) => ({
-                ...current,
-                orderBy: "name",
-                orderDirection: "desc",
-              }));
+              dispatch(
+                getPetsPaginated({
+                  listingParams: {
+                    ...listingParams,
+                    orderBy: "name",
+                    orderDirection: "desc",
+                  },
+                  meta,
+                })
+              );
 
-              setRefreshListing(true);
+              setShowModal(null);
             }}
           >
             <SortDescending size={32} />
@@ -74,13 +79,18 @@ const PetsModalOrder = ({
               "pets-modal-order__option-container__selected"
             }`}
             onClick={() => {
-              setListingParams((current) => ({
-                ...current,
-                orderBy: "birth_date",
-                orderDirection: "asc",
-              }));
+              dispatch(
+                getPetsPaginated({
+                  listingParams: {
+                    ...listingParams,
+                    orderBy: "birth_date",
+                    orderDirection: "asc",
+                  },
+                  meta,
+                })
+              );
 
-              setRefreshListing(true);
+              setShowModal(null);
             }}
           >
             <SortAscending size={32} />
@@ -93,13 +103,18 @@ const PetsModalOrder = ({
               "pets-modal-order__option-container__selected"
             }`}
             onClick={() => {
-              setListingParams((current) => ({
-                ...current,
-                orderBy: "birth_date",
-                orderDirection: "desc",
-              }));
+              dispatch(
+                getPetsPaginated({
+                  listingParams: {
+                    ...listingParams,
+                    orderBy: "birth_date",
+                    orderDirection: "desc",
+                  },
+                  meta,
+                })
+              );
 
-              setRefreshListing(true);
+              setShowModal(null);
             }}
           >
             <SortDescending size={32} />
@@ -116,13 +131,18 @@ const PetsModalOrder = ({
               "pets-modal-order__option-container__selected"
             }`}
             onClick={() => {
-              setListingParams((current) => ({
-                ...current,
-                orderBy: "breed",
-                orderDirection: "asc",
-              }));
+              dispatch(
+                getPetsPaginated({
+                  listingParams: {
+                    ...listingParams,
+                    orderBy: "breed",
+                    orderDirection: "asc",
+                  },
+                  meta,
+                })
+              );
 
-              setRefreshListing(true);
+              setShowModal(null);
             }}
           >
             <SortAscending size={32} />
@@ -135,13 +155,18 @@ const PetsModalOrder = ({
               "pets-modal-order__option-container__selected"
             }`}
             onClick={() => {
-              setListingParams((current) => ({
-                ...current,
-                orderBy: "breed",
-                orderDirection: "desc",
-              }));
+              dispatch(
+                getPetsPaginated({
+                  listingParams: {
+                    ...listingParams,
+                    orderBy: "breed",
+                    orderDirection: "desc",
+                  },
+                  meta,
+                })
+              );
 
-              setRefreshListing(true);
+              setShowModal(null);
             }}
           >
             <SortDescending size={32} />

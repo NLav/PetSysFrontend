@@ -22,7 +22,7 @@ const Toast = ({ title, description, variant }: IToastProps) => {
 
       setShowToast(false);
     }, 4000);
-  }, [title, description, variant, setToast]);
+  }, [title, setToast]);
 
   if (!showToast || title === "") {
     return;

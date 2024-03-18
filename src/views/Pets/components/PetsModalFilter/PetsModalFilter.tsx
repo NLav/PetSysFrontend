@@ -1,16 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ActionBarModal, Button, Input } from "components";
-import { RefreshListingContext } from "contexts";
-import { useContext } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { IPetGetAllParams } from "services/dtos";
+import { useAppDispatch, useAppSelector } from "stores/hooks";
+import { getPetsPaginated } from "stores/pets/thunks";
 import { z } from "zod";
 import { petsModals } from "../../Pets";
 import "./PetsModalFilter.scss";
 
 interface IPetsModalFilterProps {
-  listingParams: IPetGetAllParams;
-  setListingParams: React.Dispatch<React.SetStateAction<IPetGetAllParams>>;
   setShowModal: React.Dispatch<React.SetStateAction<typeof petsModals>>;
 }
 
@@ -22,12 +19,10 @@ const filterSchema = z.object({
 
 type filterFormData = z.infer<typeof filterSchema>;
 
-const PetsModalFilter = ({
-  listingParams,
-  setListingParams,
-  setShowModal,
-}: IPetsModalFilterProps) => {
-  const { setRefreshListing } = useContext(RefreshListingContext);
+const PetsModalFilter = ({ setShowModal }: IPetsModalFilterProps) => {
+  const dispatch = useAppDispatch();
+
+  const { listingParams, meta } = useAppSelector((state) => state.pets);
 
   const {
     control,
@@ -43,24 +38,34 @@ const PetsModalFilter = ({
   });
 
   const handleClearFilter = () => {
-    setListingParams((current) => ({
-      ...current,
-      name: "",
-      birth_date: undefined,
-      breed: "",
-    }));
+    dispatch(
+      getPetsPaginated({
+        listingParams: {
+          ...listingParams,
+          name: "",
+          birth_date: undefined,
+          breed: "",
+        },
+        meta,
+      })
+    );
 
-    setRefreshListing(true);
+    setShowModal(null);
   };
 
   const onSubmit = (data: filterFormData) => {
-    setListingParams((current) => ({
-      ...current,
-      ...data,
-      birth_date: new Date(data.birth_date),
-    }));
+    dispatch(
+      getPetsPaginated({
+        listingParams: {
+          ...listingParams,
+          ...data,
+          birth_date: new Date(data.birth_date),
+        },
+        meta,
+      })
+    );
 
-    setRefreshListing(true);
+    setShowModal(null);
   };
 
   return (

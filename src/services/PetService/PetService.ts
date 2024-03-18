@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
+import { IPaginatedList, IPaginationMeta } from "interfaces";
 import { api } from "services/api";
 import { IPetDTO, IPetGetAllParams } from "services/dtos";
-import { IPaginatedList, IPaginationMeta } from "types";
 
 class PetService {
   public static async getAll(
@@ -10,7 +10,7 @@ class PetService {
       orderDirection,
       quickSearch,
       name,
-      birth_date,
+      // birth_date,
       breed,
     }: IPetGetAllParams,
     { restPage: restPage, restLimit: restLimit }: IPaginationMeta
