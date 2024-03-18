@@ -38,9 +38,12 @@ const Pets = () => {
   const [showModal, setShowModal] = useState<typeof petsModals>(null);
   const [loading, setLoading] = useState(true);
   const [listingParams, setListingParams] = useState<IPetGetAllParams>({
-    quickSearch: "",
     orderBy: "name",
     orderDirection: "asc",
+    quickSearch: "",
+    name: "",
+    birth_date: undefined,
+    breed: "",
   });
 
   const { refreshListing, setRefreshListing } = useContext(
@@ -77,6 +80,11 @@ const Pets = () => {
     setRefreshListing,
     setToast,
   ]);
+
+  useEffect(() => {
+    setPaginationMeta((current) => ({ ...current, restPage: "1" }));
+    setRefreshListing(true);
+  }, [listingParams, setRefreshListing]);
 
   return (
     <div className="pets">
@@ -135,14 +143,18 @@ const Pets = () => {
 
         {showModal === "order-modal" && (
           <PetsModalOrder
-            setShowModal={setShowModal}
             listingParams={listingParams}
             setListingParams={setListingParams}
+            setShowModal={setShowModal}
           />
         )}
 
         {showModal === "filter-modal" && (
-          <PetsModalFilter setShowModal={setShowModal} />
+          <PetsModalFilter
+            listingParams={listingParams}
+            setListingParams={setListingParams}
+            setShowModal={setShowModal}
+          />
         )}
       </ActionBar>
 

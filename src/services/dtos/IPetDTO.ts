@@ -1,7 +1,8 @@
-export interface IPetGetAllParams {
+export interface IPetGetAllParams
+  extends Partial<Omit<IPetDTO, "id" | "image_url">> {
+  orderBy: "name" | "birth_date" | "breed";
+  orderDirection: "asc" | "desc";
   quickSearch?: string;
-  orderBy?: "created_date" | "name" | "birth_date" | "breed";
-  orderDirection?: "asc" | "desc";
 }
 
 export interface IPetDTO {

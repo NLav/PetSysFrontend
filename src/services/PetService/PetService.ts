@@ -5,15 +5,25 @@ import { IPaginatedList, IPaginationMeta } from "types";
 
 class PetService {
   public static async getAll(
-    { quickSearch, orderBy, orderDirection }: IPetGetAllParams,
+    {
+      orderBy,
+      orderDirection,
+      quickSearch,
+      name,
+      birth_date,
+      breed,
+    }: IPetGetAllParams,
     { restPage: restPage, restLimit: restLimit }: IPaginationMeta
   ): Promise<AxiosResponse<IPaginatedList<IPetDTO>>> {
     return await api.get("/pets", {
       headers: { "rest-page": restPage, "rest-limit": restLimit },
       params: {
-        quickSearch: quickSearch !== "" ? quickSearch : null,
         orderBy,
         orderDirection,
+        quickSearch: quickSearch !== "" ? quickSearch : null,
+        name: name !== "" ? name : null,
+        birth_date: undefined,
+        breed: breed !== "" ? breed : null,
       },
     });
   }
