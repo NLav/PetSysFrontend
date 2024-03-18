@@ -8,8 +8,8 @@ import { ActionBar, CardPet, Pagination, Spinner } from "components";
 import { RefreshListingContext, ToastContext } from "contexts";
 import { useContext, useEffect, useState } from "react";
 import { PetService } from "services";
-import { IPetDTO } from "services/dtos";
-import { IPaginationMeta } from "types";
+import { IPetDTO, IPetGetAllParams } from "services/dtos";
+import { IPaginatedList, IPaginationMeta } from "types";
 import "./Pets.scss";
 import {
   PetsModalAdd,
@@ -26,14 +26,22 @@ export let petsModals:
   | null;
 
 const Pets = () => {
-  const [pets, setPets] = useState<IPetDTO[]>([]);
-  const [showModal, setShowModal] = useState<typeof petsModals>(null);
-  const [paginationMeta, setPaginationMeta] = useState<IPaginationMeta>({
-    currentPage: 1,
-    totalPages: 15,
+  const [paginatedPets, setPaginatedPets] = useState<IPaginatedList<IPetDTO>>({
+    items: [],
+    meta: { restLimit: "4", restPage: "1", restTotal: 1 },
   });
+  const [paginationMeta, setPaginationMeta] = useState<IPaginationMeta>({
+    restPage: "1",
+    restLimit: "4",
+    restTotal: 1,
+  });
+  const [showModal, setShowModal] = useState<typeof petsModals>(null);
   const [loading, setLoading] = useState(true);
-  const [quickSearch, setQuickSearch] = useState<string>("");
+  const [listingParams, setListingParams] = useState<IPetGetAllParams>({
+    quickSearch: "",
+    orderBy: "name",
+    orderDirection: "asc",
+  });
 
   const { refreshListing, setRefreshListing } = useContext(
     RefreshListingContext
@@ -42,13 +50,16 @@ const Pets = () => {
 
   useEffect(() => {
     if (refreshListing) {
+      setLoading(true);
       setRefreshListing(false);
 
-      PetService.getAll(quickSearch)
+      PetService.getAll(listingParams, paginationMeta)
         .then((response) => {
-          setPets(response.data);
+          console.log(response.data);
+          setPaginatedPets(response.data);
 
           setLoading(false);
+          setShowModal(null);
         })
         .catch((error) => {
           setToast({
@@ -60,7 +71,13 @@ const Pets = () => {
           setLoading(false);
         });
     }
-  }, [refreshListing, quickSearch, setRefreshListing, setToast]);
+  }, [
+    refreshListing,
+    listingParams,
+    paginationMeta,
+    setRefreshListing,
+    setToast,
+  ]);
 
   return (
     <div className="pets">
@@ -111,14 +128,18 @@ const Pets = () => {
 
         {showModal === "search-modal" && (
           <PetsModalSearch
-            quickSearch={quickSearch}
-            setQuickSearch={setQuickSearch}
+            listingParams={listingParams}
+            setListingParams={setListingParams}
             setShowModal={setShowModal}
           />
         )}
 
         {showModal === "order-modal" && (
-          <PetsModalOrder setShowModal={setShowModal} />
+          <PetsModalOrder
+            setShowModal={setShowModal}
+            listingParams={listingParams}
+            setListingParams={setListingParams}
+          />
         )}
 
         {showModal === "filter-modal" && (
@@ -129,18 +150,19 @@ const Pets = () => {
       <div className="pets__listing-container">
         {loading ? (
           <Spinner />
-        ) : !pets.length ? (
+        ) : !paginatedPets.items.length ? (
           <span className="pets__listing-container__no-pets-container">
             Nenhum pet encontrado
           </span>
         ) : (
-          pets.map((pet) => <CardPet key={pet.id} {...pet} />)
+          paginatedPets.items.map((pet) => <CardPet key={pet.id} {...pet} />)
         )}
       </div>
 
       <Pagination
-        currentPage={paginationMeta.currentPage}
-        totalPages={paginationMeta.totalPages}
+        restPage={paginatedPets.meta.restPage}
+        restLimit={paginatedPets.meta.restLimit}
+        restTotal={paginatedPets.meta.restTotal}
         setPaginationMeta={setPaginationMeta}
       />
     </div>

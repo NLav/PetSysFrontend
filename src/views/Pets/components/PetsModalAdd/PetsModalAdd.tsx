@@ -58,7 +58,6 @@ const PetsModalAdd = ({ setShowModal }: IPetsModalAddProps) => {
           description: "Pet criado com sucesso",
         });
 
-        setShowModal(null);
         setRefreshListing(true);
       })
       .catch((error: any) => {

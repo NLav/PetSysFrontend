@@ -3,13 +3,14 @@ import { ActionBarModal, Button, Input } from "components";
 import { RefreshListingContext } from "contexts";
 import { useContext } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { IPetGetAllParams } from "services/dtos";
 import { z } from "zod";
 import { petsModals } from "../../Pets";
 import "./PetsModalSearch.scss";
 
 interface IPetsModalSearchProps {
-  quickSearch: string;
-  setQuickSearch: React.Dispatch<React.SetStateAction<string>>;
+  listingParams: IPetGetAllParams;
+  setListingParams: React.Dispatch<React.SetStateAction<IPetGetAllParams>>;
   setShowModal: React.Dispatch<React.SetStateAction<typeof petsModals>>;
 }
 
@@ -20,8 +21,8 @@ const quickSearchSchema = z.object({
 type quickSearchFormData = z.infer<typeof quickSearchSchema>;
 
 const PetsModalSearch = ({
-  quickSearch,
-  setQuickSearch,
+  listingParams,
+  setListingParams,
   setShowModal,
 }: IPetsModalSearchProps) => {
   const { setRefreshListing } = useContext(RefreshListingContext);
@@ -33,20 +34,21 @@ const PetsModalSearch = ({
   } = useForm<quickSearchFormData>({
     resolver: zodResolver(quickSearchSchema),
     defaultValues: {
-      quickSearch: quickSearch,
+      quickSearch: listingParams.quickSearch,
     },
   });
 
   const onSubmit = (data: quickSearchFormData) => {
-    setQuickSearch(data.quickSearch);
+    setListingParams((current) => ({
+      ...current,
+      quickSearch: data.quickSearch,
+    }));
     setRefreshListing(true);
-    setShowModal(null);
   };
 
   const handleClearSearch = () => {
-    setQuickSearch("");
+    setListingParams((current) => ({ ...current, quickSearch: "" }));
     setRefreshListing(true);
-    setShowModal(null);
   };
 
   return (

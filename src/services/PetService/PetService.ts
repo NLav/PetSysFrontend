@@ -1,13 +1,20 @@
 import { AxiosResponse } from "axios";
 import { api } from "services/api";
-import { IPetDTO } from "services/dtos";
+import { IPetDTO, IPetGetAllParams } from "services/dtos";
+import { IPaginatedList, IPaginationMeta } from "types";
 
 class PetService {
   public static async getAll(
-    quickSearch?: string
-  ): Promise<AxiosResponse<IPetDTO[]>> {
+    { quickSearch, orderBy, orderDirection }: IPetGetAllParams,
+    { restPage: restPage, restLimit: restLimit }: IPaginationMeta
+  ): Promise<AxiosResponse<IPaginatedList<IPetDTO>>> {
     return await api.get("/pets", {
-      params: { quickSearch: quickSearch !== "" ? quickSearch : null },
+      headers: { "rest-page": restPage, "rest-limit": restLimit },
+      params: {
+        quickSearch: quickSearch !== "" ? quickSearch : null,
+        orderBy,
+        orderDirection,
+      },
     });
   }
 

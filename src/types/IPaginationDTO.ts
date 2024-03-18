@@ -1,4 +1,10 @@
 export interface IPaginationMeta {
-  currentPage: number;
-  totalPages: number;
+  restPage: string;
+  restLimit: string;
+  restTotal: number;
+}
+
+export interface IPaginatedList<T> {
+  items: T[];
+  meta: IPaginationMeta;
 }
