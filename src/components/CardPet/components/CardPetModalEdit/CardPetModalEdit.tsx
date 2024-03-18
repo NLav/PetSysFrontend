@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Input, Modal } from "components";
 import { RefreshListingContext, ToastContext } from "contexts";
 import { format } from "date-fns";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { PetService } from "services";
 import { IPetDTO } from "services/dtos";
@@ -36,6 +36,8 @@ const CardPetModalEdit = ({
   breed,
   setShowModalEdit,
 }: ICardPetModalEditProps) => {
+  const [showModalConfirmDelete, setShowModalConfirmDelete] = useState(false);
+
   const { setToast } = useContext(ToastContext);
   const { setRefreshListing } = useContext(RefreshListingContext);
 
@@ -164,7 +166,11 @@ const CardPetModalEdit = ({
         </div>
 
         <div className="card-pet-modal-edit__buttons-container">
-          <Button type="button" variant="danger" onClick={() => handleDelete()}>
+          <Button
+            type="button"
+            variant="danger"
+            onClick={() => setShowModalConfirmDelete(true)}
+          >
             Deletar
           </Button>
 
@@ -173,6 +179,28 @@ const CardPetModalEdit = ({
           </Button>
         </div>
       </form>
+
+      {showModalConfirmDelete && (
+        <Modal
+          title="Deletar Pet?"
+          closeModal={() => setShowModalConfirmDelete(false)}
+          buttons={[
+            {
+              label: "Não",
+              variant: "danger",
+              onClick: () => setShowModalConfirmDelete(false),
+            },
+            {
+              label: "Sim",
+              variant: "primary",
+              onClick: () => handleDelete(),
+            },
+          ]}
+        >
+          O Pet <b>{name}</b> será deletado, essa ação é IRREVERSÍVEL. Tem
+          certeza?
+        </Modal>
+      )}
     </Modal>
   );
 };

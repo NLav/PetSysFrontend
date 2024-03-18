@@ -24,6 +24,7 @@
   border-radius: 16px;
   transform: scale(1) translate(50%, -50%);
   background-color: var(--white);
+  box-shadow: var(--box-shadow);
   animation: showModal 0.2s linear;
   z-index: 101;
   transform-origin: top right;
