@@ -28,11 +28,11 @@ export let petsModals:
 const Pets = () => {
   const [paginatedPets, setPaginatedPets] = useState<IPaginatedList<IPetDTO>>({
     items: [],
-    meta: { restLimit: "4", restPage: "1", restTotal: 1 },
+    meta: { restLimit: "8", restPage: "1", restTotal: 1 },
   });
   const [paginationMeta, setPaginationMeta] = useState<IPaginationMeta>({
     restPage: "1",
-    restLimit: "4",
+    restLimit: "8",
     restTotal: 1,
   });
   const [showModal, setShowModal] = useState<typeof petsModals>(null);
@@ -55,7 +55,6 @@ const Pets = () => {
 
       PetService.getAll(listingParams, paginationMeta)
         .then((response) => {
-          console.log(response.data);
           setPaginatedPets(response.data);
 
           setLoading(false);
@@ -163,6 +162,7 @@ const Pets = () => {
         restPage={paginatedPets.meta.restPage}
         restLimit={paginatedPets.meta.restLimit}
         restTotal={paginatedPets.meta.restTotal}
+        limitOptions={["3", "4", "5", "6", "8", "10"]}
         setPaginationMeta={setPaginationMeta}
       />
     </div>

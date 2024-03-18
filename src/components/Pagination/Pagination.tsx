@@ -4,18 +4,22 @@ import {
   CaretLeft,
   CaretRight,
 } from "@phosphor-icons/react";
+import { Combobox } from "components";
 import { RefreshListingContext } from "contexts";
 import { useContext } from "react";
 import { IPaginationMeta } from "types";
 import "./Pagination.scss";
 
 interface IPaginationProps extends IPaginationMeta {
+  limitOptions: string[];
   setPaginationMeta: React.Dispatch<React.SetStateAction<IPaginationMeta>>;
 }
 
 const Pagination = ({
   restPage,
   restTotal,
+  restLimit,
+  limitOptions,
   setPaginationMeta,
 }: IPaginationProps) => {
   const { setRefreshListing } = useContext(RefreshListingContext);
@@ -33,6 +37,23 @@ const Pagination = ({
 
   return (
     <div className="pagination">
+      <div className="pagination__combobox-container">
+        <Combobox
+          title="Itens por página"
+          options={limitOptions}
+          value={restLimit}
+          setValue={(value) => {
+            setPaginationMeta((current) => ({
+              ...current,
+              restLimit: value,
+            }));
+
+            setRefreshListing(true);
+          }}
+          searchable={false}
+        />
+      </div>
+
       <button
         className="pagination__caret-button"
         onClick={() => {
