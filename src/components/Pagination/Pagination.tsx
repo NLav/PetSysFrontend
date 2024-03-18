@@ -5,21 +5,15 @@ import {
   CaretRight,
 } from "@phosphor-icons/react";
 import { Combobox } from "components";
-import { IPaginationMeta } from "interfaces";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
 import { getPetsPaginated } from "stores/pets/thunks";
 import "./Pagination.scss";
 
-interface IPaginationProps extends IPaginationMeta {
+interface IPaginationProps {
   limitOptions: string[];
 }
 
-const Pagination = ({
-  restPage,
-  restTotal,
-  restLimit,
-  limitOptions,
-}: IPaginationProps) => {
+const Pagination = ({ limitOptions }: IPaginationProps) => {
   const { listingParams, meta } = useAppSelector((state) => state.pets);
 
   const dispatch = useAppDispatch();
@@ -33,7 +27,7 @@ const Pagination = ({
     );
   };
 
-  const paginationPath = Array.from({ length: Number(restTotal) });
+  const paginationPath = Array.from({ length: Number(meta.restTotal) });
 
   return (
     <div className="pagination">
@@ -41,12 +35,12 @@ const Pagination = ({
         <Combobox
           title="Itens por página"
           options={limitOptions}
-          value={restLimit}
+          value={meta.restLimit}
           setValue={(value) => {
             dispatch(
               getPetsPaginated({
                 listingParams,
-                meta: { ...meta, restLimit: value },
+                meta: { ...meta, restPage: "1", restLimit: value },
               })
             );
           }}
@@ -64,7 +58,7 @@ const Pagination = ({
             })
           );
         }}
-        disabled={restPage === "1"}
+        disabled={meta.restPage === "1"}
       >
         <CaretDoubleLeft size={16} weight="bold" />
       </button>
@@ -75,11 +69,11 @@ const Pagination = ({
           dispatch(
             getPetsPaginated({
               listingParams,
-              meta: { ...meta, restPage: String(Number(restPage) - 1) },
+              meta: { ...meta, restPage: String(Number(meta.restPage) - 1) },
             })
           );
         }}
-        disabled={restPage === "1"}
+        disabled={meta.restPage === "1"}
       >
         <CaretLeft size={16} weight="bold" />
       </button>
@@ -97,7 +91,7 @@ const Pagination = ({
               );
             }}
             style={{
-              ...(restPage === String(index + 1)
+              ...(meta.restPage === String(index + 1)
                 ? {
                     backgroundColor: "var(--primary)",
                     border: "2px solid var(--secondary)",
@@ -117,11 +111,11 @@ const Pagination = ({
           dispatch(
             getPetsPaginated({
               listingParams,
-              meta: { ...meta, restPage: String(Number(restPage) + 1) },
+              meta: { ...meta, restPage: String(Number(meta.restPage) + 1) },
             })
           );
         }}
-        disabled={restPage === String(restTotal)}
+        disabled={meta.restPage === String(meta.restTotal)}
       >
         <CaretRight size={16} weight="bold" />
       </button>
@@ -132,11 +126,11 @@ const Pagination = ({
           dispatch(
             getPetsPaginated({
               listingParams,
-              meta: { ...meta, restPage: String(restTotal) },
+              meta: { ...meta, restPage: String(meta.restTotal) },
             })
           );
         }}
-        disabled={restPage === String(restTotal)}
+        disabled={meta.restPage === String(meta.restTotal)}
       >
         <CaretDoubleRight size={16} weight="bold" />
       </button>

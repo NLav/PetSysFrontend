@@ -116,12 +116,7 @@ const Pets = () => {
         )}
       </div>
 
-      <Pagination
-        restPage={meta.restPage}
-        restLimit={meta.restLimit}
-        restTotal={meta.restTotal}
-        limitOptions={["3", "4", "5", "6", "8", "10"]}
-      />
+      <Pagination limitOptions={["3", "4", "5", "6", "8", "10"]} />
     </div>
   );
 };
