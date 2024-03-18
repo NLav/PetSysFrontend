@@ -46,6 +46,7 @@ const Pagination = ({
             setPaginationMeta((current) => ({
               ...current,
               restLimit: value,
+              restPage: "1",
             }));
 
             setRefreshListing(true);
