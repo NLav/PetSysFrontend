@@ -11,11 +11,12 @@ const DefaultLayout = () => {
   const { error: petsError } = useAppSelector((state) => state.pets);
 
   useEffect(() => {
-    setToast({
-      variant: "danger",
-      title: petsError.petsPaginated?.statusCode || "Erro na listagem",
-      description: petsError.petsPaginated?.message || "Erro ao listar Pets",
-    });
+    petsError.petsPaginated &&
+      setToast({
+        variant: "danger",
+        title: petsError.petsPaginated?.statusCode || "Erro na listagem",
+        description: petsError.petsPaginated?.message || "Erro ao listar Pets",
+      });
   }, [petsError, setToast]);
 
   return (
