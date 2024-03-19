@@ -8,7 +8,7 @@ import { PetService } from "services";
 import { IPetDTO } from "services/dtos";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
 import { getPetsPaginated } from "stores/pets/thunks";
-import { convertInputDateToDate } from "utils";
+import { convertInputDateToDate, getInputDateMinMax } from "utils";
 import { z } from "zod";
 import "./CardPetModalEdit.scss";
 
@@ -153,6 +153,8 @@ const CardPetModalEdit = ({
                 onChange={onChange}
                 errorMessage={errors.birth_date?.message}
                 required={true}
+                min={getInputDateMinMax.min}
+                max={getInputDateMinMax.max}
               />
             )}
           />

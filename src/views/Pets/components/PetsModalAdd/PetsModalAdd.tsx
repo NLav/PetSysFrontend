@@ -7,7 +7,7 @@ import { Controller, useForm } from "react-hook-form";
 import { PetService } from "services";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
 import { getPetsPaginated } from "stores/pets/thunks";
-import { convertInputDateToDate } from "utils";
+import { convertInputDateToDate, getInputDateMinMax } from "utils";
 import { z } from "zod";
 import { petsModals } from "../../Pets";
 import "./PetsModalAdd.scss";
@@ -122,6 +122,8 @@ const PetsModalAdd = ({ setShowModal }: IPetsModalAddProps) => {
                 onChange={onChange}
                 errorMessage={errors.birth_date?.message}
                 required={true}
+                min={getInputDateMinMax.min}
+                max={getInputDateMinMax.max}
               />
             )}
           />
