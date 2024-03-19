@@ -22,7 +22,7 @@ const initialState: IPetState = {
     orderDirection: "asc",
     quickSearch: "",
     name: "",
-    birth_date: undefined,
+    birth_date: "",
     breed: "",
   },
   meta: { restPage: "1", restLimit: "8", restTotal: 1 },
@@ -42,7 +42,14 @@ const petsSlice = createSlice({
     addCase(getPetsPaginated.pending, (state, { meta }) => {
       state.loading.petsPaginated = true;
       state.error.petsPaginated = null;
-      state.listingParams = meta.arg.listingParams;
+
+      state.listingParams = {
+        ...meta.arg.listingParams,
+        birth_date:
+          String(meta.arg.listingParams.birth_date) !== ""
+            ? String(meta.arg.listingParams.birth_date)
+            : "",
+      };
     });
 
     addCase(getPetsPaginated.rejected, (state, { error }) => {

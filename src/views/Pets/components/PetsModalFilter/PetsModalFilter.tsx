@@ -1,8 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ActionBarModal, Button, Input } from "components";
+import { format } from "date-fns";
 import { Controller, useForm } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
 import { getPetsPaginated } from "stores/pets/thunks";
+import { convertInputDateToDate } from "utils";
 import { z } from "zod";
 import { petsModals } from "../../Pets";
 import "./PetsModalFilter.scss";
@@ -32,7 +34,12 @@ const PetsModalFilter = ({ setShowModal }: IPetsModalFilterProps) => {
     resolver: zodResolver(filterSchema),
     defaultValues: {
       name: listingParams.name,
-      birth_date: String(listingParams.birth_date),
+      birth_date: listingParams.birth_date
+        ? listingParams.birth_date === "undefined" ||
+          listingParams.birth_date === ""
+          ? ""
+          : format(new Date(listingParams.birth_date), "yyyy-MM-dd")
+        : "",
       breed: listingParams.breed,
     },
   });
@@ -43,7 +50,7 @@ const PetsModalFilter = ({ setShowModal }: IPetsModalFilterProps) => {
         listingParams: {
           ...listingParams,
           name: "",
-          birth_date: undefined,
+          birth_date: "",
           breed: "",
         },
         meta,
@@ -59,7 +66,12 @@ const PetsModalFilter = ({ setShowModal }: IPetsModalFilterProps) => {
         listingParams: {
           ...listingParams,
           ...data,
-          birth_date: new Date(data.birth_date),
+          birth_date:
+            data.birth_date &&
+            data.birth_date !== "Invalid Date" &&
+            data.birth_date !== "undefined"
+              ? convertInputDateToDate(data.birth_date)
+              : undefined,
         },
         meta,
       })

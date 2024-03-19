@@ -10,7 +10,7 @@ class PetService {
       orderDirection,
       quickSearch,
       name,
-      // birth_date,
+      birth_date,
       breed,
     }: IPetGetAllParams,
     { restPage: restPage, restLimit: restLimit }: IPaginationMeta
@@ -22,7 +22,7 @@ class PetService {
         orderDirection,
         quickSearch: quickSearch !== "" ? quickSearch : null,
         name: name !== "" ? name : null,
-        birth_date: undefined,
+        birth_date: birth_date !== "" ? birth_date : null,
         breed: breed !== "" ? breed : null,
       },
     });
