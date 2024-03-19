@@ -28,11 +28,7 @@ const DefaultLayout = () => {
         <Outlet />
       </div>
 
-      <Toast
-        variant={toast.variant}
-        title={toast.title}
-        description={toast.description}
-      />
+      {toast.title !== "" && <Toast />}
     </div>
   );
 };

@@ -1,30 +1,18 @@
-import { Check, Warning } from "@phosphor-icons/react";
+import { Check, Warning, X } from "@phosphor-icons/react";
 import { ToastContext } from "contexts";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import "./Toast.scss";
 
-interface IToastProps {
-  variant: "success" | "danger";
-  title: string;
-  description: string;
-}
-
-const Toast = ({ title, description, variant }: IToastProps) => {
-  const [showToast, setShowToast] = useState(false);
-
-  const { setToast } = useContext(ToastContext);
+const Toast = () => {
+  const { toast, setToast } = useContext(ToastContext);
 
   useEffect(() => {
-    setShowToast(true);
-
     setTimeout(() => {
       setToast({ variant: "success", title: "", description: "" });
-
-      setShowToast(false);
     }, 4000);
-  }, [title, setToast]);
+  }, [toast, setToast]);
 
-  if (!showToast || title === "") {
+  if (toast.title === "") {
     return;
   }
 
@@ -33,16 +21,33 @@ const Toast = ({ title, description, variant }: IToastProps) => {
       className="toast"
       style={{
         backgroundColor:
-          variant === "success" ? "var(--success)" : "var(--error)",
+          toast.variant === "success" ? "var(--success)" : "var(--error)",
       }}
     >
-      {variant === "success" ? <Check size={32} /> : <Warning size={32} />}
+      <button
+        className="toast__close-button"
+        onClick={() =>
+          setToast({ variant: "success", title: "", description: "" })
+        }
+      >
+        <X size={24} />
+      </button>
 
-      <div className="toast__text">
-        <span className="toast__text__title">{title}</span>
+      {toast.variant === "success" ? (
+        <Check size={32} />
+      ) : (
+        <Warning size={32} />
+      )}
 
-        <span className="toast__text__description">{description}</span>
+      <div className="toast__text-container">
+        <span className="toast__text-container__title">{toast.title}</span>
+
+        <span className="toast__text-container__description">
+          {toast.description}
+        </span>
       </div>
+
+      <div className="toast__count-down-bar"></div>
     </div>
   );
 };

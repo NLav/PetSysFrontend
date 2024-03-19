@@ -13,6 +13,16 @@
   }
 }
 
+@keyframes toastCountDownBar {
+  from {
+    width: 100%;
+  }
+
+  to {
+    width: 0;
+  }
+}
+
 .toast {
   position: absolute;
   inset: 10% 0 auto auto;
@@ -30,7 +40,13 @@
   z-index: 100;
   color: var(--white);
 
-  &__text {
+  &__close-button {
+    position: absolute;
+    inset: 8px 8px auto auto;
+    color: var(--white);
+  }
+
+  &__text-container {
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -42,5 +58,17 @@
     &__description {
       font-size: 0.9rem;
     }
+  }
+
+  &__count-down-bar {
+    position: absolute;
+    inset: auto 2px 0;
+    display: flex;
+    width: 0;
+    height: 8px;
+    border-radius: 0 0 16px 16px;
+    animation: toastCountDownBar calc(4s - 0.4s) linear;
+
+    background-color: var(--white);
   }
 }
