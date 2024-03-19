@@ -116,7 +116,10 @@ const Pets = () => {
         )}
       </div>
 
-      <Pagination limitOptions={["3", "4", "5", "6", "8", "10"]} />
+      <Pagination
+        limitOptions={["3", "4", "5", "6", "8", "10"]}
+        numbersAroundRestPage={3}
+      />
     </div>
   );
 };
