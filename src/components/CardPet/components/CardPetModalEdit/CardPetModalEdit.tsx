@@ -8,6 +8,7 @@ import { PetService } from "services";
 import { IPetDTO } from "services/dtos";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
 import { getPetsPaginated } from "stores/pets/thunks";
+import { convertInputDateToDate } from "utils";
 import { z } from "zod";
 import "./CardPetModalEdit.scss";
 
@@ -85,7 +86,7 @@ const CardPetModalEdit = ({
   const onSubmit = (data: editPetFormData) => {
     PetService.update(id, {
       ...data,
-      birth_date: new Date(data.birth_date),
+      birth_date: convertInputDateToDate(data.birth_date),
     })
       .then(() => {
         setToast({
