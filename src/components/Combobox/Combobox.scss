@@ -1,3 +1,13 @@
+@keyframes showComboboxOptions {
+  from {
+    height: 0;
+  }
+
+  to {
+    height: 200px;
+  }
+}
+
 .combobox {
   position: relative;
   display: flex;
@@ -35,7 +45,7 @@
     position: absolute;
     display: flex;
     flex-direction: column;
-    max-height: 400px;
+    max-height: 200px;
     padding: 8px;
     border: 2px solid var(--primary);
     border-radius: 8px;
@@ -43,6 +53,7 @@
     box-shadow: var(--box-shadow);
     overflow: auto;
     z-index: -1;
+    animation: showComboboxOptions 0.2s linear;
 
     & > button {
       padding: 4px 8px;

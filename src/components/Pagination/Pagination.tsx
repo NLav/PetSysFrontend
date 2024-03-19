@@ -53,12 +53,12 @@ const Pagination = ({
     event.preventDefault();
 
     if (Number(restPageInput) < 1) {
-      setRestPageInput("1");
+      setRestPageInput("01");
 
       return handleChangeRestPage("1");
     }
     if (Number(restPageInput) > meta.restTotal) {
-      setRestPageInput(String(meta.restTotal));
+      setRestPageInput(normalizeNumber(String(meta.restTotal)));
 
       return handleChangeRestPage(String(meta.restTotal));
     }

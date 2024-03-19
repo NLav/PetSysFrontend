@@ -30,22 +30,25 @@ const Combobox = ({
     ? options
     : options.filter((value) => value.includes(String(comboboxSearch)));
 
+  useEffect(() => {
+    setTimeout(
+      () =>
+        showOptions &&
+        setOptionsPosition(
+          window.innerHeight -
+            (comboboxRef.current?.getBoundingClientRect().bottom || 0) >
+            (optionsRef.current?.getBoundingClientRect().height || 0)
+            ? "bottom"
+            : "top"
+        ),
+      100
+    );
+  }, [showOptions]);
+
   useOnClickOutside(optionsRef, () => {
     setShowOptions(false);
     setShowEveryOption(true);
   });
-
-  useEffect(() => {
-    if (showOptions) {
-      setOptionsPosition(
-        window.innerHeight -
-          (comboboxRef.current?.getBoundingClientRect().bottom || 0) >
-          (optionsRef.current?.getBoundingClientRect().height || 0)
-          ? "bottom"
-          : "top"
-      );
-    }
-  }, [showOptions]);
 
   return (
     <div className="combobox" ref={comboboxRef}>
