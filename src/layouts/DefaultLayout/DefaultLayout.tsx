@@ -13,8 +13,8 @@ const DefaultLayout = () => {
   useEffect(() => {
     setToast({
       variant: "danger",
-      title: petsError.petsPaginated?.statusCode || "",
-      description: petsError.petsPaginated?.message || "Não informado",
+      title: petsError.petsPaginated?.statusCode || "Erro na listagem",
+      description: petsError.petsPaginated?.message || "Erro ao listar Pets",
     });
   }, [petsError, setToast]);
 
@@ -28,13 +28,11 @@ const DefaultLayout = () => {
         <Outlet />
       </div>
 
-      {toast.title !== "" && (
-        <Toast
-          variant={toast.variant}
-          title={toast.title}
-          description={toast.description}
-        />
-      )}
+      <Toast
+        variant={toast.variant}
+        title={toast.title}
+        description={toast.description}
+      />
     </div>
   );
 };
