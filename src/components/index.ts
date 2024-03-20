@@ -10,3 +10,4 @@ export { Modal } from "./Modal";
 export { Pagination } from "./Pagination";
 export { Spinner } from "./Spinner";
 export { Toast } from "./Toast";
+export { Toggle } from "./Toggle";

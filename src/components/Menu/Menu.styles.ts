@@ -33,6 +33,7 @@ export const CollapseButton = styled.button`
     border-radius: 0 32px 32px 0;
     transform: translateX(2px);
     color: ${theme.white};
+    z-index: 10;
 
     & > svg {
       transition: 0s;
@@ -43,10 +44,6 @@ export const CollapseButton = styled.button`
       background-color: #ffffff88;
       backdrop-filter: blur(2px);
       color: ${theme.black};
-
-      & > svg {
-        transition: 0s;
-      }
     }
   `}
 `;
@@ -93,5 +90,12 @@ export const NavigationList = styled.div<{
     css`
       align-items: center;
     `}
+  `}
+`;
+
+export const ToggleContainer = styled.div`
+  ${() => css`
+    margin-top: auto;
+    z-index: 0;
   `}
 `;

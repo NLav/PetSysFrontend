@@ -1,17 +1,23 @@
 import {
   CaretDoubleLeft,
   Dog,
+  Moon,
   PawPrint,
+  Sun,
   Users,
   UsersFour,
 } from "@phosphor-icons/react";
+import { Toggle } from "components";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDarkMode } from "usehooks-ts";
 import * as S from "./Menu.styles";
 import { MenuTooltip } from "./components";
 
 const Menu = () => {
   const [collapseMenu, setCollapseMenu] = useState(false);
+
+  const { isDarkMode, set } = useDarkMode();
 
   return (
     <S.Container collapseMenu={collapseMenu}>
@@ -24,7 +30,7 @@ const Menu = () => {
       </S.CollapseButton>
 
       <S.LogoContainer>
-        <PawPrint size={collapseMenu ? 64 : 120} />
+        <PawPrint size={collapseMenu ? 64 : 136} />
 
         {!collapseMenu ? "PetSys" : null}
       </S.LogoContainer>
@@ -72,6 +78,16 @@ const Menu = () => {
           </Link>
         )}
       </S.NavigationList>
+
+      <S.ToggleContainer>
+        <Toggle
+          id="dark-mode-toggle"
+          leftSideSibling={!collapseMenu && <Sun size={32} />}
+          rightSideSibling={!collapseMenu && <Moon size={32} />}
+          defaultChecked={isDarkMode}
+          onChange={(event) => set(event.target.checked)}
+        />
+      </S.ToggleContainer>
     </S.Container>
   );
 };
