@@ -22,7 +22,13 @@ export const ComboboxContainer = styled.div`
 `;
 
 export const CaretButton = styled.button`
-  ${() => css`
+  ${({ theme }) => css`
+    color: ${theme.black};
+
+    &:disabled {
+      color: ${theme.gray2};
+    }
+
     &:hover {
       &:not(:disabled) {
         scale: 1.25;

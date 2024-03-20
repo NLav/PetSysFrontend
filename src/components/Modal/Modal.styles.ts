@@ -32,6 +32,7 @@ export const Container = styled.div<Pick<IModalProps, "width" | "height">>`
     border-radius: 16px;
     transform: scale(1) translate(50%, -50%);
     background-color: ${theme.white};
+    color: ${theme.black};
     box-shadow: ${theme.boxShadow};
     animation: ${showModal} 0.2s linear;
     z-index: 101;
@@ -53,11 +54,12 @@ export const Container = styled.div<Pick<IModalProps, "width" | "height">>`
 `;
 
 export const Header = styled.div`
-  ${() => css`
+  ${({ theme }) => css`
     display: flex;
     gap: 8px;
     justify-content: space-between;
     align-items: center;
+    color: ${theme.black};
   `}
 `;
 

@@ -75,8 +75,8 @@ const Pagination = ({
   );
 
   return (
-    <S.Container className="pagination">
-      <S.ComboboxContainer className="pagination__combobox-container">
+    <S.Container>
+      <S.ComboboxContainer>
         <Combobox
           title="Itens por página"
           options={limitOptions}
@@ -94,7 +94,6 @@ const Pagination = ({
       </S.ComboboxContainer>
 
       <S.CaretButton
-        className="pagination__caret-button"
         onClick={() => {
           dispatch(
             getPetsPaginated({
@@ -109,7 +108,6 @@ const Pagination = ({
       </S.CaretButton>
 
       <S.CaretButton
-        className="pagination__caret-button"
         onClick={() => {
           dispatch(
             getPetsPaginated({
@@ -123,7 +121,7 @@ const Pagination = ({
         <CaretLeft size={16} weight="bold" />
       </S.CaretButton>
 
-      <S.PathContainer className="pagination__path">
+      <S.PathContainer>
         <>
           {Number(meta.restPage) - numbersAroundRestPage === 2 && (
             <DotsThree
@@ -202,14 +200,15 @@ const Pagination = ({
         })}
 
         <>
-          {Number(meta.restPage) + numbersAroundRestPage !== meta.restTotal && (
+          {Number(meta.restPage) + numbersAroundRestPage !==
+            meta.restTotal - 1 && (
             <DotsThree
               size={16}
               weight="bold"
               style={{
                 visibility:
                   Number(meta.restPage) + numbersAroundRestPage <
-                  meta.restTotal + 1
+                  meta.restTotal - 1
                     ? "unset"
                     : "hidden",
               }}
@@ -225,10 +224,11 @@ const Pagination = ({
             }}
             onClick={() => handleChangeRestPage(String(meta.restTotal))}
           >
-            {meta.restTotal}
+            {normalizeNumber(String(meta.restTotal))}
           </S.NumberAround>
 
-          {Number(meta.restPage) + numbersAroundRestPage === meta.restTotal && (
+          {Number(meta.restPage) + numbersAroundRestPage ===
+            meta.restTotal - 1 && (
             <DotsThree
               size={16}
               weight="bold"
@@ -241,7 +241,6 @@ const Pagination = ({
       </S.PathContainer>
 
       <S.CaretButton
-        className="pagination__caret-button"
         onClick={() => {
           dispatch(
             getPetsPaginated({
@@ -256,7 +255,6 @@ const Pagination = ({
       </S.CaretButton>
 
       <S.CaretButton
-        className="pagination__caret-button"
         onClick={() => {
           dispatch(
             getPetsPaginated({

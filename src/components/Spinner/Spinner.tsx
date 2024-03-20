@@ -3,7 +3,7 @@ import * as S from "./Spinner.styles";
 
 const Spinner = () => {
   return (
-    <S.Container className="spinner">
+    <S.Container>
       <CircleNotch size={"20%"} />
     </S.Container>
   );

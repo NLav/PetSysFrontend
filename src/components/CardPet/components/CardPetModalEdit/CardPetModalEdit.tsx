@@ -116,11 +116,8 @@ const CardPetModalEdit = ({
           closeModal={() => setShowModalEdit(false)}
           width="30vw"
         >
-          <S.Container
-            className="card-pet-modal-edit"
-            onSubmit={handleSubmit(onSubmit)}
-          >
-            <S.InputsContainer className="card-pet-modal-edit__inputs-container">
+          <S.Container onSubmit={handleSubmit(onSubmit)}>
+            <S.InputsContainer>
               <Controller
                 name="name"
                 control={control}
@@ -184,7 +181,7 @@ const CardPetModalEdit = ({
               />
             </S.InputsContainer>
 
-            <S.ButtonsContainer className="card-pet-modal-edit__buttons-container">
+            <S.ButtonsContainer>
               <Button
                 type="button"
                 variant="danger"
