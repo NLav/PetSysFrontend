@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from "stores/hooks";
 import { getPetsPaginated } from "stores/pets/thunks";
 import { convertInputDateToDate, getInputDateMinMax } from "utils";
 import { z } from "zod";
-import "./CardPetModalEdit.scss";
+import * as S from "./CardPetModalEdit.styles";
 
 interface ICardPetModalEditProps extends IPetDTO {
   setShowModalEdit: React.Dispatch<React.SetStateAction<boolean>>;
@@ -109,86 +109,97 @@ const CardPetModalEdit = ({
   };
 
   return (
-    <Modal title="Editar Pet" closeModal={() => setShowModalEdit(false)}>
-      <form className="card-pet-modal-edit" onSubmit={handleSubmit(onSubmit)}>
-        <div className="card-pet-modal-edit__inputs-container">
-          <Controller
-            name="name"
-            control={control}
-            render={({ field: { value, onChange } }) => (
-              <Input
-                id="input-nome-pet"
-                title="Nome"
-                value={value}
-                onChange={onChange}
-                errorMessage={errors.name?.message}
-                required={true}
-              />
-            )}
-          />
-
-          <Controller
-            name="image_url"
-            control={control}
-            render={({ field: { value, onChange } }) => (
-              <Input
-                id="input-link-da-imagem-pet"
-                title="Link da imagem"
-                value={value}
-                onChange={onChange}
-                errorMessage={errors.image_url?.message}
-              />
-            )}
-          />
-
-          <Controller
-            name="birth_date"
-            control={control}
-            render={({ field: { value, onChange } }) => (
-              <Input
-                id="input-data-de-nascimento-pet"
-                title="Data de nascimento"
-                type="date"
-                value={value}
-                onChange={onChange}
-                errorMessage={errors.birth_date?.message}
-                required={true}
-                min={getInputDateMinMax.min}
-                max={getInputDateMinMax.max}
-              />
-            )}
-          />
-
-          <Controller
-            name="breed"
-            control={control}
-            render={({ field: { value, onChange } }) => (
-              <Input
-                id="input-raca-pet"
-                title="Raça"
-                value={value}
-                onChange={onChange}
-                errorMessage={errors.breed?.message}
-                required={true}
-              />
-            )}
-          />
-        </div>
-
-        <div className="card-pet-modal-edit__buttons-container">
-          <Button
-            type="button"
-            variant="danger"
-            onClick={() => setShowModalConfirmDelete(true)}
+    <>
+      {!showModalConfirmDelete && (
+        <Modal
+          title="Editar Pet"
+          closeModal={() => setShowModalEdit(false)}
+          width="30vw"
+        >
+          <S.Container
+            className="card-pet-modal-edit"
+            onSubmit={handleSubmit(onSubmit)}
           >
-            Deletar
-          </Button>
+            <S.InputsContainer className="card-pet-modal-edit__inputs-container">
+              <Controller
+                name="name"
+                control={control}
+                render={({ field: { value, onChange } }) => (
+                  <Input
+                    id="input-nome-pet"
+                    title="Nome"
+                    value={value}
+                    onChange={onChange}
+                    errorMessage={errors.name?.message}
+                    required={true}
+                  />
+                )}
+              />
 
-          <Button type="submit" variant="primary">
-            Atualizar
-          </Button>
-        </div>
-      </form>
+              <Controller
+                name="image_url"
+                control={control}
+                render={({ field: { value, onChange } }) => (
+                  <Input
+                    id="input-link-da-imagem-pet"
+                    title="Link da imagem"
+                    value={value}
+                    onChange={onChange}
+                    errorMessage={errors.image_url?.message}
+                  />
+                )}
+              />
+
+              <Controller
+                name="birth_date"
+                control={control}
+                render={({ field: { value, onChange } }) => (
+                  <Input
+                    id="input-data-de-nascimento-pet"
+                    title="Data de nascimento"
+                    type="date"
+                    value={value}
+                    onChange={onChange}
+                    errorMessage={errors.birth_date?.message}
+                    required={true}
+                    min={getInputDateMinMax.min}
+                    max={getInputDateMinMax.max}
+                  />
+                )}
+              />
+
+              <Controller
+                name="breed"
+                control={control}
+                render={({ field: { value, onChange } }) => (
+                  <Input
+                    id="input-raca-pet"
+                    title="Raça"
+                    value={value}
+                    onChange={onChange}
+                    errorMessage={errors.breed?.message}
+                    required={true}
+                  />
+                )}
+              />
+            </S.InputsContainer>
+
+            <S.ButtonsContainer className="card-pet-modal-edit__buttons-container">
+              <Button
+                type="button"
+                variant="danger"
+                onClick={() => setShowModalConfirmDelete(true)}
+              >
+                Deletar
+              </Button>
+
+              <Button type="submit" variant="primary">
+                Atualizar
+              </Button>
+            </S.ButtonsContainer>
+          </S.Container>
+        </Modal>
+      )}
 
       {showModalConfirmDelete && (
         <Modal
@@ -211,7 +222,7 @@ const CardPetModalEdit = ({
           certeza?
         </Modal>
       )}
-    </Modal>
+    </>
   );
 };
 

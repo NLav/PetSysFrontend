@@ -1,16 +1,29 @@
-.menu {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 64px;
-  height: 100%;
-  padding: 32px;
-  border-radius: 0 32px 32px 0;
-  background-color: var(--primary);
-  box-shadow: 8px 0 16px rgba(0, 0, 0, 0.5);
-  color: var(--white);
+import styled, { css } from "styled-components";
 
-  &__collapse-button {
+export const Container = styled.div<{
+  collapseMenu: boolean;
+}>`
+  ${({ collapseMenu }) => css`
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+    height: 100%;
+    padding: 32px;
+    border-radius: 0 32px 32px 0;
+    background-color: var(--primary);
+    box-shadow: 8px 0 16px rgba(0, 0, 0, 0.5);
+    color: var(--white);
+
+    ${collapseMenu &&
+    css`
+      padding: 32px 8px;
+    `}
+  `}
+`;
+
+export const CollapseButton = styled.button`
+  ${() => css`
     position: absolute;
     inset: 0 0 0 auto;
     display: flex;
@@ -27,7 +40,7 @@
 
     &:hover {
       box-shadow: 0 0 16px white;
-      background-color: rgba($color: #fff, $alpha: 0.5);
+      background-color: #ffffff88;
       backdrop-filter: blur(2px);
       color: var(--black);
 
@@ -35,18 +48,24 @@
         transition: 0s;
       }
     }
-  }
+  `}
+`;
 
-  &__logo-container {
+export const LogoContainer = styled.div`
+  ${() => css`
     display: flex;
     flex-direction: column;
     gap: 4px;
     align-items: center;
 
     font-size: 1.5rem;
-  }
+  `}
+`;
 
-  &__navigation-list {
+export const NavigationList = styled.div<{
+  collapseMenu: boolean;
+}>`
+  ${({ collapseMenu }) => css`
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -70,17 +89,9 @@
       }
     }
 
-    &--collapsed {
+    ${collapseMenu &&
+    css`
       align-items: center;
-
-      & a {
-        border: none;
-        width: fit-content;
-      }
-    }
-  }
-
-  &--collapsed {
-    padding: 32px 8px;
-  }
-}
+    `}
+  `}
+`;

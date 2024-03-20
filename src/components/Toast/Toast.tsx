@@ -1,7 +1,7 @@
 import { Check, Warning, X } from "@phosphor-icons/react";
 import { ToastContext } from "contexts";
 import { useContext, useEffect } from "react";
-import "./Toast.scss";
+import * as S from "./Toast.styles";
 
 const Toast = () => {
   const { toast, setToast } = useContext(ToastContext);
@@ -17,21 +17,19 @@ const Toast = () => {
   }
 
   return (
-    <div
-      className="toast"
+    <S.Container
       style={{
         backgroundColor:
           toast.variant === "success" ? "var(--success)" : "var(--error)",
       }}
     >
-      <button
-        className="toast__close-button"
+      <S.CloseButton
         onClick={() =>
           setToast({ variant: "success", title: "", description: "" })
         }
       >
         <X size={24} />
-      </button>
+      </S.CloseButton>
 
       {toast.variant === "success" ? (
         <Check size={32} />
@@ -39,16 +37,14 @@ const Toast = () => {
         <Warning size={32} />
       )}
 
-      <div className="toast__text-container">
-        <span className="toast__text-container__title">{toast.title}</span>
+      <S.TextContainer>
+        <S.Title>{toast.title}</S.Title>
 
-        <span className="toast__text-container__description">
-          {toast.description}
-        </span>
-      </div>
+        <S.Description>{toast.description}</S.Description>
+      </S.TextContainer>
 
-      <div className="toast__count-down-bar"></div>
-    </div>
+      <S.CountdownBar className="toast__count-down-bar"></S.CountdownBar>
+    </S.Container>
   );
 };
 

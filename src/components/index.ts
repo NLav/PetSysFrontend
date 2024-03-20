@@ -1,5 +1,6 @@
 export { ActionBar } from "./ActionBar";
 export { ActionBarModal } from "./ActionBarModal";
+export { ActionBarModalForm } from "./ActionBarModalForm";
 export { Button } from "./Button";
 export { CardPet } from "./CardPet";
 export { Combobox } from "./Combobox";

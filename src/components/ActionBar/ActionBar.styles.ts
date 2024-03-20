@@ -1,19 +1,27 @@
-.action-bar {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 16px;
-  border-radius: 16px;
-  background-color: var(--secondary);
+import styled, { css } from "styled-components";
 
-  &__title {
+export const Container = styled.div`
+  ${() => css`
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: 16px;
+    background-color: var(--secondary);
+  `}
+`;
+
+export const Title = styled.span`
+  ${() => css`
     font-size: 2rem;
     font-weight: bold;
     color: var(--white);
-  }
+  `}
+`;
 
-  &__children-container {
+export const ChildrenContainer = styled.div`
+  ${() => css`
     display: flex;
     gap: 16px;
 
@@ -36,5 +44,5 @@
         background-color: var(--secondaryDark);
       }
     }
-  }
-}
+  `}
+`;

@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { store } from "stores";
 import { Pets } from "views";
-import "./index.scss";
+import "./index.css";
 
 const router = createBrowserRouter([
   {

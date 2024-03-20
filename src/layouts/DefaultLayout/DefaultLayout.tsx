@@ -3,7 +3,7 @@ import { ToastContext } from "contexts";
 import { useContext, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { useAppSelector } from "stores/hooks";
-import "./DefaultLayout.scss";
+import * as S from "./DefaultLayout.styles";
 
 const DefaultLayout = () => {
   const { toast, setToast } = useContext(ToastContext);
@@ -20,17 +20,17 @@ const DefaultLayout = () => {
   }, [petsError, setToast]);
 
   return (
-    <div className="default-layout">
-      <div className="default-layout__menu-container">
+    <S.Container>
+      <S.MenuContainer>
         <Menu />
-      </div>
+      </S.MenuContainer>
 
-      <div className="default-layout__content-container">
+      <S.ContentContainer>
         <Outlet />
-      </div>
+      </S.ContentContainer>
 
       {toast.title !== "" && <Toast />}
-    </div>
+    </S.Container>
   );
 };
 

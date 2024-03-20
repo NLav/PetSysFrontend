@@ -10,7 +10,7 @@ import { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
 import { getPetsPaginated } from "stores/pets/thunks";
 import { useOnClickOutside } from "usehooks-ts";
-import "./Pagination.scss";
+import * as S from "./Pagination.styles";
 
 interface IPaginationProps {
   limitOptions: string[];
@@ -75,8 +75,8 @@ const Pagination = ({
   );
 
   return (
-    <div className="pagination">
-      <div className="pagination__combobox-container">
+    <S.Container className="pagination">
+      <S.ComboboxContainer className="pagination__combobox-container">
         <Combobox
           title="Itens por página"
           options={limitOptions}
@@ -91,9 +91,9 @@ const Pagination = ({
           }}
           searchable={false}
         />
-      </div>
+      </S.ComboboxContainer>
 
-      <button
+      <S.CaretButton
         className="pagination__caret-button"
         onClick={() => {
           dispatch(
@@ -106,9 +106,9 @@ const Pagination = ({
         disabled={meta.restPage === "1"}
       >
         <CaretDoubleLeft size={16} weight="bold" />
-      </button>
+      </S.CaretButton>
 
-      <button
+      <S.CaretButton
         className="pagination__caret-button"
         onClick={() => {
           dispatch(
@@ -121,9 +121,9 @@ const Pagination = ({
         disabled={meta.restPage === "1"}
       >
         <CaretLeft size={16} weight="bold" />
-      </button>
+      </S.CaretButton>
 
-      <div className="pagination__path">
+      <S.PathContainer className="pagination__path">
         <>
           {Number(meta.restPage) - numbersAroundRestPage === 2 && (
             <DotsThree
@@ -234,9 +234,9 @@ const Pagination = ({
             />
           )}
         </>
-      </div>
+      </S.PathContainer>
 
-      <button
+      <S.CaretButton
         className="pagination__caret-button"
         onClick={() => {
           dispatch(
@@ -249,9 +249,9 @@ const Pagination = ({
         disabled={meta.restPage === String(meta.restTotal)}
       >
         <CaretRight size={16} weight="bold" />
-      </button>
+      </S.CaretButton>
 
-      <button
+      <S.CaretButton
         className="pagination__caret-button"
         onClick={() => {
           dispatch(
@@ -264,8 +264,8 @@ const Pagination = ({
         disabled={meta.restPage === String(meta.restTotal)}
       >
         <CaretDoubleRight size={16} weight="bold" />
-      </button>
-    </div>
+      </S.CaretButton>
+    </S.Container>
   );
 };
 

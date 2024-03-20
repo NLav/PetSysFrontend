@@ -1,57 +1,59 @@
 import { X } from "@phosphor-icons/react";
 import { Button } from "components";
-import { useRef } from "react";
+import { FormHTMLAttributes, useRef } from "react";
 import { useOnClickOutside } from "usehooks-ts";
-import "./ActionBarModal.scss";
+import * as S from "./ActionBarModal.styles";
 
 interface IButton {
   label: string;
   variant: "primary" | "secondary" | "success" | "danger" | "ghost";
-  onClick: () => void;
+  onClick?: () => void;
+  type?: "button" | "submit";
 }
 
-interface IActionBarModalProps {
-  title: string;
+export interface IActionBarModalProps
+  extends FormHTMLAttributes<HTMLFormElement> {
   closeModal: () => void;
-  children: React.ReactNode | React.ReactNode[];
   buttons?: IButton[];
 }
 
 const ActionBarModal = ({
-  title,
   closeModal,
-  children,
   buttons,
+  title,
+  children,
 }: IActionBarModalProps) => {
   const modalRef = useRef<HTMLDivElement | null>(null);
 
   useOnClickOutside(modalRef, closeModal);
 
   return (
-    <div className="action-bar-modal" ref={modalRef}>
-      <div className="action-bar-modal__header">
+    <S.Container ref={modalRef}>
+      <S.Header>
         {title}
+
         <button>
           <X size={16} onClick={() => closeModal()} />
         </button>
-      </div>
+      </S.Header>
 
-      <div className="action-bar-modal__content">{children}</div>
+      {children}
 
       {buttons && (
-        <div className="action-bar-modal__footer">
+        <S.Footer>
           {buttons.map((button) => (
             <Button
               key={button.label}
               variant={button.variant}
-              onClick={() => button.onClick()}
+              onClick={button.onClick}
+              type={button.type ? button.type : "button"}
             >
               {button.label}
             </Button>
           ))}
-        </div>
+        </S.Footer>
       )}
-    </div>
+    </S.Container>
   );
 };
 

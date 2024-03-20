@@ -1,11 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ActionBarModal, Button, Input } from "components";
+import { ActionBarModalForm, Input } from "components";
 import { Controller, useForm } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
 import { getPetsPaginated } from "stores/pets/thunks";
 import { z } from "zod";
 import { petsModals } from "../../Pets";
-import "./PetsModalSearch.scss";
 
 interface IPetsModalSearchProps {
   setShowModal: React.Dispatch<React.SetStateAction<typeof petsModals>>;
@@ -56,43 +55,37 @@ const PetsModalSearch = ({ setShowModal }: IPetsModalSearchProps) => {
   };
 
   return (
-    <ActionBarModal
+    <ActionBarModalForm
       title="Pesquisa Rápida"
       closeModal={() => setShowModal(null)}
+      onSubmit={handleSubmit(onSubmit)}
+      buttons={[
+        {
+          label: "Limpar Pesquisa",
+          variant: "ghost",
+          onClick: () => handleClearSearch(),
+        },
+        {
+          label: "Pesquisar",
+          variant: "primary",
+          type: "submit",
+        },
+      ]}
     >
-      <form className="pets-modal-search" onSubmit={handleSubmit(onSubmit)}>
-        <div className="pets-modal-search__input-container">
-          <Controller
-            name="quickSearch"
-            control={control}
-            render={({ field: { value, onChange } }) => (
-              <Input
-                id="pets-modal-search-input"
-                title="Pesquisar"
-                value={value}
-                onChange={onChange}
-                errorMessage={errors.quickSearch?.message}
-              />
-            )}
+      <Controller
+        name="quickSearch"
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <Input
+            id="pets-modal-search-input"
+            title="Pesquisar"
+            value={value}
+            onChange={onChange}
+            errorMessage={errors.quickSearch?.message}
           />
-        </div>
-
-        <div className="pets-modal-search__buttons-container">
-          <Button
-            variant="ghost"
-            onClick={() => {
-              handleClearSearch();
-            }}
-          >
-            Limpar Pesquisa
-          </Button>
-
-          <Button type="submit" variant="primary">
-            Pesquisar
-          </Button>
-        </div>
-      </form>
-    </ActionBarModal>
+        )}
+      />
+    </ActionBarModalForm>
   );
 };
 

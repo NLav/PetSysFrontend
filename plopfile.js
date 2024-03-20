@@ -37,7 +37,7 @@ export default function (plop) {
         },
         {
           type: "add",
-          path: `${basePath}/{{pascalCase name}}.scss`,
+          path: `${basePath}/{{pascalCase name}}.styles.ts`,
           templateFile: `${templatesPath}/ComponentStyles.hbs`,
         },
       ];

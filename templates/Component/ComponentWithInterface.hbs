@@ -1,12 +1,12 @@
-import "./{{pascalCase name}}.scss";
+import * as S from "./{{pascalCase name}}.styles";
 
 interface I{{pascalCase name}}Props {}
 
 const {{pascalCase name}} = ({}: I{{pascalCase name}}Props) => {
   return (
-    <div className="{{dashCase name}}">
+    <S.Container>
       <span>{{pascalCase name}}</span>
-    </div>
+    </S.Container>
   );
 };
 

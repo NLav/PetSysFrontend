@@ -1,11 +1,11 @@
 import { CircleNotch } from "@phosphor-icons/react";
-import "./Spinner.scss";
+import * as S from "./Spinner.styles";
 
 const Spinner = () => {
   return (
-    <div className="spinner">
+    <S.Container className="spinner">
       <CircleNotch size={"20%"} />
-    </div>
+    </S.Container>
   );
 };
 

@@ -7,34 +7,29 @@ import {
 } from "@phosphor-icons/react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import "./Menu.scss";
+import * as S from "./Menu.styles";
 import { MenuTooltip } from "./components";
 
 const Menu = () => {
   const [collapseMenu, setCollapseMenu] = useState(false);
 
   return (
-    <div className={`menu ${collapseMenu ? "menu--collapsed" : null}`}>
-      <button
-        className="menu__collapse-button"
-        onClick={() => setCollapseMenu(!collapseMenu)}
-      >
+    <S.Container collapseMenu={collapseMenu}>
+      <S.CollapseButton onClick={() => setCollapseMenu(!collapseMenu)}>
         <CaretDoubleLeft
           size={16}
           weight="bold"
           style={{ rotate: collapseMenu ? "180deg" : "0deg" }}
         />
-      </button>
+      </S.CollapseButton>
 
-      <div className="menu__logo-container">
+      <S.LogoContainer>
         <PawPrint size={collapseMenu ? 64 : 120} />
 
         {!collapseMenu ? "PetSys" : null}
-      </div>
+      </S.LogoContainer>
 
-      <div
-        className={`menu__navigation-list ${collapseMenu && "menu__navigation-list--collapsed"}`}
-      >
+      <S.NavigationList collapseMenu={collapseMenu}>
         {collapseMenu ? (
           <MenuTooltip text="Pets">
             <Link to="/pets">
@@ -76,8 +71,8 @@ const Menu = () => {
             {!collapseMenu ? "Tutores" : null}
           </Link>
         )}
-      </div>
-    </div>
+      </S.NavigationList>
+    </S.Container>
   );
 };
 

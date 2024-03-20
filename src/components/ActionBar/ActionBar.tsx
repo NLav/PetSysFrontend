@@ -1,5 +1,5 @@
 import React from "react";
-import "./ActionBar.scss";
+import * as S from "./ActionBar.styles";
 
 interface IActionBarProps {
   title: string;
@@ -8,13 +8,11 @@ interface IActionBarProps {
 
 const ActionBar = ({ title, children }: IActionBarProps) => {
   return (
-    <div className="action-bar">
-      <span className="action-bar__title">{title}</span>
+    <S.Container>
+      <S.Title>{title}</S.Title>
 
-      {children && (
-        <div className="action-bar__children-container">{children}</div>
-      )}
-    </div>
+      {children && <S.ChildrenContainer>{children}</S.ChildrenContainer>}
+    </S.Container>
   );
 };
 

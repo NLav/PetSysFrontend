@@ -1,5 +1,5 @@
 import { CameraSlash } from "@phosphor-icons/react";
-import "./CardImage.scss";
+import * as S from "./CardImage.styles";
 
 interface ICardImageProps {
   imageUrl?: string;
@@ -8,15 +8,15 @@ interface ICardImageProps {
 
 const CardImage = ({ imageUrl, alt }: ICardImageProps) => {
   return (
-    <div className="card-image">
+    <S.Container>
       {imageUrl ? (
-        <img src={imageUrl} alt={alt} />
+        <S.Image src={imageUrl} alt={alt} />
       ) : (
-        <div className="card-image__no-image-container">
+        <S.NoImageContainer>
           <CameraSlash size={"50%"} /> Sem imagem
-        </div>
+        </S.NoImageContainer>
       )}
-    </div>
+    </S.Container>
   );
 };
 

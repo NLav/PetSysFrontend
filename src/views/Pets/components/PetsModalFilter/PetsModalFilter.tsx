@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ActionBarModal, Button, Input } from "components";
+import { ActionBarModalForm, Input } from "components";
 import { format } from "date-fns";
 import { Controller, useForm } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
@@ -7,7 +7,6 @@ import { getPetsPaginated } from "stores/pets/thunks";
 import { convertInputDateToDate } from "utils";
 import { z } from "zod";
 import { petsModals } from "../../Pets";
-import "./PetsModalFilter.scss";
 
 interface IPetsModalFilterProps {
   setShowModal: React.Dispatch<React.SetStateAction<typeof petsModals>>;
@@ -81,68 +80,66 @@ const PetsModalFilter = ({ setShowModal }: IPetsModalFilterProps) => {
   };
 
   return (
-    <ActionBarModal title="Filtrar Pets" closeModal={() => setShowModal(null)}>
-      <form className="pets-modal-filter" onSubmit={handleSubmit(onSubmit)}>
-        <div className="pets-modal-filter__inputs-container">
-          <Controller
-            name="name"
-            control={control}
-            render={({ field: { value, onChange } }) => (
-              <Input
-                id="input-nome-pet"
-                title="Nome"
-                value={value}
-                onChange={onChange}
-                errorMessage={errors.name?.message}
-              />
-            )}
+    <ActionBarModalForm
+      title="Filtrar Pets"
+      closeModal={() => setShowModal(null)}
+      onSubmit={handleSubmit(onSubmit)}
+      buttons={[
+        {
+          label: "Limpar Filtros",
+          variant: "ghost",
+          onClick: () => handleClearFilter(),
+        },
+        {
+          label: "Filtrar",
+          variant: "primary",
+          type: "submit",
+        },
+      ]}
+    >
+      <Controller
+        name="name"
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <Input
+            id="input-nome-pet"
+            title="Nome"
+            value={value}
+            onChange={onChange}
+            errorMessage={errors.name?.message}
           />
+        )}
+      />
 
-          <Controller
-            name="birth_date"
-            control={control}
-            render={({ field: { value, onChange } }) => (
-              <Input
-                id="input-data-de-nascimento-pet"
-                title="Data de nascimento"
-                type="date"
-                value={value}
-                onChange={onChange}
-                errorMessage={errors.birth_date?.message}
-              />
-            )}
+      <Controller
+        name="birth_date"
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <Input
+            id="input-data-de-nascimento-pet"
+            title="Data de nascimento"
+            type="date"
+            value={value}
+            onChange={onChange}
+            errorMessage={errors.birth_date?.message}
           />
+        )}
+      />
 
-          <Controller
-            name="breed"
-            control={control}
-            render={({ field: { value, onChange } }) => (
-              <Input
-                id="input-raca-pet"
-                title="Raça"
-                value={value}
-                onChange={onChange}
-                errorMessage={errors.breed?.message}
-              />
-            )}
+      <Controller
+        name="breed"
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <Input
+            id="input-raca-pet"
+            title="Raça"
+            value={value}
+            onChange={onChange}
+            errorMessage={errors.breed?.message}
           />
-        </div>
-
-        <div className="pets-modal-filter__buttons-container">
-          <Button
-            type="button"
-            variant="ghost"
-            onClick={() => handleClearFilter()}
-          >
-            Limpar Filtros
-          </Button>
-
-          <Button type="submit" variant="primary">
-            Filtrar
-          </Button>
-        </div>
-      </form>
-    </ActionBarModal>
+        )}
+      />
+    </ActionBarModalForm>
   );
 };
 

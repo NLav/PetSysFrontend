@@ -1,8 +1,8 @@
 import { InputHTMLAttributes, useEffect, useRef, useState } from "react";
 import { useOnClickOutside } from "usehooks-ts";
-import "./Combobox.scss";
+import * as S from "./Combobox.styles";
 
-interface IComboboxProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface IComboboxProps extends InputHTMLAttributes<HTMLInputElement> {
   options: string[];
   searchable: boolean;
   setValue: (value: string) => void;
@@ -51,7 +51,7 @@ const Combobox = ({
   });
 
   return (
-    <div className="combobox" ref={comboboxRef}>
+    <S.Container ref={comboboxRef}>
       <label htmlFor="combobox-input">{title}</label>
 
       <input
@@ -68,16 +68,7 @@ const Combobox = ({
       />
 
       {showOptions && (
-        <div
-          className="combobox__options-container"
-          ref={optionsRef}
-          style={{
-            inset:
-              optionsPosition === "top"
-                ? "auto 0 calc(100% - 1rem)"
-                : "100% 0 auto",
-          }}
-        >
+        <S.OptionsContainer ref={optionsRef} optionsPosition={optionsPosition}>
           {filteredOptions.length ? (
             filteredOptions.map((option, index) => (
               <button
@@ -95,9 +86,9 @@ const Combobox = ({
           ) : (
             <span>Sem resultados</span>
           )}
-        </div>
+        </S.OptionsContainer>
       )}
-    </div>
+    </S.Container>
   );
 };
 

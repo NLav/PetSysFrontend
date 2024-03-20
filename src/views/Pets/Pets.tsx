@@ -8,7 +8,7 @@ import { ActionBar, CardPet, Pagination, Spinner } from "components";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
 import { getPetsPaginated } from "stores/pets/thunks";
-import "./Pets.scss";
+import * as S from "./Pets.styles";
 import {
   PetsModalAdd,
   PetsModalFilter,
@@ -43,9 +43,7 @@ const Pets = () => {
   }, []);
 
   return (
-    <div className="pets">
-      <button></button>
-
+    <S.Container>
       <ActionBar title="Pets">
         <button
           onClick={() =>
@@ -104,23 +102,21 @@ const Pets = () => {
         )}
       </ActionBar>
 
-      <div className="pets__listing-container">
+      <S.ListingContainer>
         {loading.petsPaginated ? (
           <Spinner />
         ) : !petsPaginated.length ? (
-          <span className="pets__listing-container__no-pets-container">
-            Nenhum pet encontrado
-          </span>
+          <S.NoPetsContainer>Nenhum pet encontrado</S.NoPetsContainer>
         ) : (
           petsPaginated.map((pet) => <CardPet key={pet.id} {...pet} />)
         )}
-      </div>
+      </S.ListingContainer>
 
       <Pagination
         limitOptions={["3", "4", "5", "6", "8", "10"]}
         numbersAroundRestPage={3}
       />
-    </div>
+    </S.Container>
   );
 };
 

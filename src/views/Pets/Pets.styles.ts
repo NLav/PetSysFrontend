@@ -1,10 +1,16 @@
-.pets {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  height: 100%;
+import styled, { css } from "styled-components";
 
-  &__listing-container {
+export const Container = styled.div`
+  ${() => css`
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    height: 100%;
+  `}
+`;
+
+export const ListingContainer = styled.div`
+  ${() => css`
     position: relative;
     display: grid;
     grid-template-columns: repeat(3, 32%);
@@ -24,14 +30,16 @@
     @media (min-width: 1600px) {
       grid-template-columns: repeat(5, 19%);
     }
+  `}
+`;
 
-    &__no-pets-container {
-      position: absolute;
-      inset: 50% 50% auto auto;
-      transform: translate(50%, -50%);
-      color: var(--white);
+export const NoPetsContainer = styled.span`
+  ${() => css`
+    position: absolute;
+    inset: 50% 50% auto auto;
+    transform: translate(50%, -50%);
+    color: var(--white);
 
-      font-size: 2rem;
-    }
-  }
-}
+    font-size: 2rem;
+  `}
+`;

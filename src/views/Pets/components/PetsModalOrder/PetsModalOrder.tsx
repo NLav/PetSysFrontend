@@ -3,7 +3,7 @@ import { ActionBarModal } from "components";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
 import { getPetsPaginated } from "stores/pets/thunks";
 import { petsModals } from "../../Pets";
-import "./PetsModalOrder.scss";
+import * as S from "./PetsModalOrder.styles";
 
 interface IPetsModalOrderProps {
   setShowModal: React.Dispatch<React.SetStateAction<typeof petsModals>>;
@@ -16,16 +16,15 @@ const PetsModalOrder = ({ setShowModal }: IPetsModalOrderProps) => {
 
   return (
     <ActionBarModal title="Ordenação" closeModal={() => setShowModal(null)}>
-      <div className="pets-modal-order">
-        <div className="pets-modal-order__option-container">
+      <S.Container>
+        <S.OptionContainer>
           <span>Nome</span>
 
-          <button
-            className={`${
+          <S.OrderButton
+            selected={
               listingParams.orderBy === "name" &&
-              listingParams.orderDirection === "asc" &&
-              "pets-modal-order__option-container__selected"
-            }`}
+              listingParams.orderDirection === "asc"
+            }
             onClick={() => {
               dispatch(
                 getPetsPaginated({
@@ -42,14 +41,13 @@ const PetsModalOrder = ({ setShowModal }: IPetsModalOrderProps) => {
             }}
           >
             <SortAscending size={32} />
-          </button>
+          </S.OrderButton>
 
-          <button
-            className={`${
+          <S.OrderButton
+            selected={
               listingParams.orderBy === "name" &&
-              listingParams.orderDirection === "desc" &&
-              "pets-modal-order__option-container__selected"
-            }`}
+              listingParams.orderDirection === "desc"
+            }
             onClick={() => {
               dispatch(
                 getPetsPaginated({
@@ -66,18 +64,17 @@ const PetsModalOrder = ({ setShowModal }: IPetsModalOrderProps) => {
             }}
           >
             <SortDescending size={32} />
-          </button>
-        </div>
+          </S.OrderButton>
+        </S.OptionContainer>
 
-        <div className="pets-modal-order__option-container">
+        <S.OptionContainer>
           <span>Data de nascimento</span>
 
-          <button
-            className={`${
+          <S.OrderButton
+            selected={
               listingParams.orderBy === "birth_date" &&
-              listingParams.orderDirection === "asc" &&
-              "pets-modal-order__option-container__selected"
-            }`}
+              listingParams.orderDirection === "asc"
+            }
             onClick={() => {
               dispatch(
                 getPetsPaginated({
@@ -94,14 +91,13 @@ const PetsModalOrder = ({ setShowModal }: IPetsModalOrderProps) => {
             }}
           >
             <SortAscending size={32} />
-          </button>
+          </S.OrderButton>
 
-          <button
-            className={`${
+          <S.OrderButton
+            selected={
               listingParams.orderBy === "birth_date" &&
-              listingParams.orderDirection === "desc" &&
-              "pets-modal-order__option-container__selected"
-            }`}
+              listingParams.orderDirection === "desc"
+            }
             onClick={() => {
               dispatch(
                 getPetsPaginated({
@@ -118,18 +114,17 @@ const PetsModalOrder = ({ setShowModal }: IPetsModalOrderProps) => {
             }}
           >
             <SortDescending size={32} />
-          </button>
-        </div>
+          </S.OrderButton>
+        </S.OptionContainer>
 
-        <div className="pets-modal-order__option-container">
+        <S.OptionContainer>
           <span>Raça</span>
 
-          <button
-            className={`${
+          <S.OrderButton
+            selected={
               listingParams.orderBy === "breed" &&
-              listingParams.orderDirection === "asc" &&
-              "pets-modal-order__option-container__selected"
-            }`}
+              listingParams.orderDirection === "asc"
+            }
             onClick={() => {
               dispatch(
                 getPetsPaginated({
@@ -146,14 +141,13 @@ const PetsModalOrder = ({ setShowModal }: IPetsModalOrderProps) => {
             }}
           >
             <SortAscending size={32} />
-          </button>
+          </S.OrderButton>
 
-          <button
-            className={`${
+          <S.OrderButton
+            selected={
               listingParams.orderBy === "breed" &&
-              listingParams.orderDirection === "desc" &&
-              "pets-modal-order__option-container__selected"
-            }`}
+              listingParams.orderDirection === "desc"
+            }
             onClick={() => {
               dispatch(
                 getPetsPaginated({
@@ -170,9 +164,9 @@ const PetsModalOrder = ({ setShowModal }: IPetsModalOrderProps) => {
             }}
           >
             <SortDescending size={32} />
-          </button>
-        </div>
-      </div>
+          </S.OrderButton>
+        </S.OptionContainer>
+      </S.Container>
     </ActionBarModal>
   );
 };

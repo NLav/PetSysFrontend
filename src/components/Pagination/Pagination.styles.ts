@@ -1,30 +1,38 @@
-.pagination {
-  position: relative;
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-columns: min-content min-content 1fr min-content min-content;
-  gap: 32px;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 136px;
+import styled, { css } from "styled-components";
 
-  &__combobox-container {
+export const Container = styled.div`
+  ${() => css`
+    position: relative;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: min-content min-content 1fr min-content min-content;
+    gap: 32px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 136px;
+  `}
+`;
+
+export const ComboboxContainer = styled.div`
+  ${() => css`
     position: absolute;
     inset: auto auto auto 0;
     width: 120px;
-  }
+  `}
+`;
 
-  &__caret-button {
-    user-select: none;
-
+export const CaretButton = styled.button`
+  ${() => css`
     &:hover {
       &:not(:disabled) {
         scale: 1.25;
       }
     }
-  }
+  `}
+`;
 
-  &__path {
+export const PathContainer = styled.div`
+  ${() => css`
     display: flex;
     gap: 8px;
     justify-content: center;
@@ -58,5 +66,5 @@
         font-size: 1rem;
       }
     }
-  }
-}
+  `}
+`;

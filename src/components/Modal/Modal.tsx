@@ -2,7 +2,7 @@ import { X } from "@phosphor-icons/react";
 import { Button } from "components";
 import { useRef } from "react";
 import { useOnClickOutside } from "usehooks-ts";
-import "./Modal.scss";
+import * as S from "./Modal.styles";
 
 interface IButton {
   label: string;
@@ -10,33 +10,43 @@ interface IButton {
   onClick: () => void;
 }
 
-interface IModalProps {
+export interface IModalProps {
   title: string;
   closeModal: () => void;
   children: React.ReactNode;
   buttons?: IButton[];
+  width?: string;
+  height?: string;
 }
 
-const Modal = ({ title, closeModal, children, buttons }: IModalProps) => {
+const Modal = ({
+  title,
+  closeModal,
+  children,
+  buttons,
+  width = "fit-content",
+  height = "fit-content",
+}: IModalProps) => {
   const modalRef = useRef<HTMLDivElement | null>(null);
 
   useOnClickOutside(modalRef, closeModal);
   return (
     <>
-      <div className="modal-background"></div>
+      <S.Background></S.Background>
 
-      <div className="modal" ref={modalRef}>
-        <div className="modal__header">
+      <S.Container ref={modalRef} width={width} height={height}>
+        <S.Header>
           {title}
+
           <button>
             <X size={16} onClick={() => closeModal()} />
           </button>
-        </div>
+        </S.Header>
 
-        <div className="modal__content">{children}</div>
+        <div>{children}</div>
 
         {buttons && (
-          <div className="modal__footer">
+          <S.Footer>
             {buttons.map((button) => (
               <Button
                 key={button.label}
@@ -46,9 +56,9 @@ const Modal = ({ title, closeModal, children, buttons }: IModalProps) => {
                 {button.label}
               </Button>
             ))}
-          </div>
+          </S.Footer>
         )}
-      </div>
+      </S.Container>
     </>
   );
 };

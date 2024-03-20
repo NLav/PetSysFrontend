@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./MenuTooltip.scss";
+import * as S from "./MenuTooltip.styles";
 
 interface IPopoverProps {
   text: string;
@@ -10,21 +10,14 @@ const MenuTooltip = ({ text, children }: IPopoverProps) => {
   const [showText, setShowText] = useState(false);
 
   return (
-    <div
-      className="menu-tooltip"
+    <S.Container
       onMouseEnter={() => setShowText(true)}
       onMouseLeave={() => setShowText(false)}
     >
       {children}
 
-      {showText ? (
-        <>
-          <div className="menu-tooltip__text">{text}</div>
-
-          <span className="menu-tooltip__arrow"></span>
-        </>
-      ) : null}
-    </div>
+      {showText ? <S.Text>{text}</S.Text> : null}
+    </S.Container>
   );
 };
 

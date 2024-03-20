@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ActionBarModal, Button, Input } from "components";
+import { ActionBarModalForm, Input } from "components";
 import { ToastContext } from "contexts";
 import { format } from "date-fns";
 import { useContext } from "react";
@@ -10,7 +10,6 @@ import { getPetsPaginated } from "stores/pets/thunks";
 import { convertInputDateToDate, getInputDateMinMax } from "utils";
 import { z } from "zod";
 import { petsModals } from "../../Pets";
-import "./PetsModalAdd.scss";
 
 interface IPetsModalAddProps {
   setShowModal: React.Dispatch<React.SetStateAction<typeof petsModals>>;
@@ -78,77 +77,80 @@ const PetsModalAdd = ({ setShowModal }: IPetsModalAddProps) => {
   };
 
   return (
-    <ActionBarModal title="Adicionar Pet" closeModal={() => setShowModal(null)}>
-      <form className="pets-modal-add" onSubmit={handleSubmit(onSubmit)}>
-        <div className="pets-modal-add__inputs-container">
-          <Controller
-            name="name"
-            control={control}
-            render={({ field: { value, onChange } }) => (
-              <Input
-                id="input-nome-pet"
-                title="Nome"
-                value={value}
-                onChange={onChange}
-                errorMessage={errors.name?.message}
-                required={true}
-              />
-            )}
+    <ActionBarModalForm
+      title="Adicionar Pet"
+      closeModal={() => setShowModal(null)}
+      onSubmit={handleSubmit(onSubmit)}
+      buttons={[
+        {
+          label: "Adicionar",
+          variant: "primary",
+          type: "submit",
+        },
+      ]}
+    >
+      <Controller
+        name="name"
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <Input
+            id="input-nome-pet"
+            title="Nome"
+            value={value}
+            onChange={onChange}
+            errorMessage={errors.name?.message}
+            required={true}
           />
+        )}
+      />
 
-          <Controller
-            name="image_url"
-            control={control}
-            render={({ field: { value, onChange } }) => (
-              <Input
-                id="input-link-da-imagem-pet"
-                title="Link da imagem"
-                value={value}
-                onChange={onChange}
-                errorMessage={errors.image_url?.message}
-              />
-            )}
+      <Controller
+        name="image_url"
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <Input
+            id="input-link-da-imagem-pet"
+            title="Link da imagem"
+            value={value}
+            onChange={onChange}
+            errorMessage={errors.image_url?.message}
           />
+        )}
+      />
 
-          <Controller
-            name="birth_date"
-            control={control}
-            render={({ field: { value, onChange } }) => (
-              <Input
-                id="input-data-de-nascimento-pet"
-                title="Data de nascimento"
-                type="date"
-                value={value}
-                onChange={onChange}
-                errorMessage={errors.birth_date?.message}
-                required={true}
-                min={getInputDateMinMax.min}
-                max={getInputDateMinMax.max}
-              />
-            )}
+      <Controller
+        name="birth_date"
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <Input
+            id="input-data-de-nascimento-pet"
+            title="Data de nascimento"
+            type="date"
+            value={value}
+            onChange={onChange}
+            errorMessage={errors.birth_date?.message}
+            required={true}
+            min={getInputDateMinMax.min}
+            max={getInputDateMinMax.max}
           />
+        )}
+      />
 
-          <Controller
-            name="breed"
-            control={control}
-            render={({ field: { value, onChange } }) => (
-              <Input
-                id="input-raca-pet"
-                title="Raça"
-                value={value}
-                onChange={onChange}
-                errorMessage={errors.breed?.message}
-                required={true}
-              />
-            )}
+      <Controller
+        name="breed"
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <Input
+            id="input-raca-pet"
+            title="Raça"
+            value={value}
+            onChange={onChange}
+            errorMessage={errors.breed?.message}
+            required={true}
           />
-        </div>
-
-        <Button type="submit" variant="primary">
-          Adicionar
-        </Button>
-      </form>
-    </ActionBarModal>
+        )}
+      />
+    </ActionBarModalForm>
   );
 };
 
