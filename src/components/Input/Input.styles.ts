@@ -20,6 +20,12 @@ export const InputsContainer = styled.div`
       padding: 0 8px;
       border: 2px solid ${theme.primary};
       border-radius: 8px;
+      color: ${theme.black};
+      background-color: ${theme.white};
+
+      &::-webkit-calendar-picker-indicator {
+        color-scheme: ${theme.white === "#fff" ? "light" : "dark"};
+      }
 
       &:disabled {
         background-color: ${theme.gray1};

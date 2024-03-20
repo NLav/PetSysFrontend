@@ -128,13 +128,14 @@ const Pagination = ({
           {Number(meta.restPage) - numbersAroundRestPage === 2 && (
             <DotsThree
               size={16}
+              weight="bold"
               style={{
                 visibility: "hidden",
               }}
             />
           )}
 
-          <span
+          <S.NumberAround
             style={{
               visibility:
                 Number(meta.restPage) - numbersAroundRestPage > 1
@@ -144,11 +145,12 @@ const Pagination = ({
             onClick={() => handleChangeRestPage("1")}
           >
             01
-          </span>
+          </S.NumberAround>
 
           {Number(meta.restPage) - numbersAroundRestPage !== 2 && (
             <DotsThree
               size={16}
+              weight="bold"
               style={{
                 visibility:
                   Number(meta.restPage) - numbersAroundRestPage > 2
@@ -164,19 +166,19 @@ const Pagination = ({
             const currentValue = Number(meta.restPage) - index - 1;
 
             return (
-              <span
+              <S.NumberAround
                 key={currentValue}
                 style={{ visibility: currentValue >= 1 ? "unset" : "hidden" }}
                 onClick={() => handleChangeRestPage(String(currentValue))}
               >
                 {normalizeNumber(String(currentValue))}
-              </span>
+              </S.NumberAround>
             );
           })
           .reverse()}
 
         <form onSubmit={(event) => handleInputSubmit(event)}>
-          <input
+          <S.RestPageInput
             ref={inputRef}
             value={restPageInput}
             onChange={(event) => setRestPageInput(event.target.value)}
@@ -187,7 +189,7 @@ const Pagination = ({
           const currentValue = Number(meta.restPage) + index + 1;
 
           return (
-            <span
+            <S.NumberAround
               key={currentValue}
               style={{
                 visibility: currentValue <= meta.restTotal ? "unset" : "hidden",
@@ -195,7 +197,7 @@ const Pagination = ({
               onClick={() => handleChangeRestPage(String(currentValue))}
             >
               {normalizeNumber(String(currentValue))}
-            </span>
+            </S.NumberAround>
           );
         })}
 
@@ -203,6 +205,7 @@ const Pagination = ({
           {Number(meta.restPage) + numbersAroundRestPage !== meta.restTotal && (
             <DotsThree
               size={16}
+              weight="bold"
               style={{
                 visibility:
                   Number(meta.restPage) + numbersAroundRestPage <
@@ -213,7 +216,7 @@ const Pagination = ({
             />
           )}
 
-          <span
+          <S.NumberAround
             style={{
               visibility:
                 Number(meta.restPage) + numbersAroundRestPage < meta.restTotal
@@ -223,11 +226,12 @@ const Pagination = ({
             onClick={() => handleChangeRestPage(String(meta.restTotal))}
           >
             {meta.restTotal}
-          </span>
+          </S.NumberAround>
 
           {Number(meta.restPage) + numbersAroundRestPage === meta.restTotal && (
             <DotsThree
               size={16}
+              weight="bold"
               style={{
                 visibility: "hidden",
               }}

@@ -38,33 +38,44 @@ export const PathContainer = styled.div`
     justify-content: center;
     align-items: center;
 
-    & > form > input,
-    span {
+    & > span,
+    & > form > input {
       display: flex;
       justify-content: center;
       align-items: center;
       width: 32px;
       height: 32px;
+      border: 4px solid;
       border-radius: 4px;
-      background-color: ${theme.secondary};
-      color: ${theme.white};
-      user-select: none;
-      cursor: pointer;
-
-      &:hover {
-        scale: 1.15;
-      }
+      color: ${theme.black};
     }
 
-    & > form {
-      & > input {
-        background-color: ${theme.primary};
-        border: 2px solid ${theme.secondary};
-        scale: 1.15;
-        text-align: center;
-
-        font-size: 1rem;
-      }
+    & > svg {
+      color: ${theme.black};
     }
+  `}
+`;
+
+export const NumberAround = styled.span`
+  ${({ theme }) => css`
+    border-color: ${theme.secondary} !important;
+    user-select: none;
+    cursor: pointer;
+
+    &:hover {
+      scale: 1.15;
+    }
+  `}
+`;
+
+export const RestPageInput = styled.input`
+  ${({ theme }) => css`
+    border-color: ${theme.primary} !important;
+    background-color: transparent;
+
+    scale: 1.15;
+    text-align: center;
+
+    font-size: 1rem;
   `}
 `;

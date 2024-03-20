@@ -28,7 +28,7 @@ export const ChildrenContainer = styled.div`
     & * {
       color: ${theme.white};
 
-      font-size: 1rem;
+      font-size: 1.1rem;
     }
 
     & > button {

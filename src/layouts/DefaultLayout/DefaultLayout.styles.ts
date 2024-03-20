@@ -1,13 +1,14 @@
 import styled, { css } from "styled-components";
 
 export const Container = styled.div`
-  ${() => css`
+  ${({ theme }) => css`
     position: absolute;
     inset: 0;
     display: grid;
     grid-template-areas: "menu-container content-container";
     grid-template-columns: max-content 1fr;
     grid-template-rows: 100vh;
+    background-color: ${theme.white};
     overflow: hidden;
   `}
 `;

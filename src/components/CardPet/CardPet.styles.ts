@@ -43,6 +43,7 @@ export const InformationContainer = styled.div`
       &:nth-child(2) {
         overflow: hidden;
         text-overflow: ellipsis;
+        color: ${theme.black};
 
         font-size: 1.2rem;
       }

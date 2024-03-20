@@ -28,6 +28,7 @@ export const Container = styled.div`
       border: 2px solid ${theme.primary};
       border-radius: 8px;
       background-color: ${theme.white};
+      color: ${theme.black};
 
       &:disabled {
         background-color: ${theme.gray1};
@@ -74,6 +75,7 @@ export const OptionsContainer = styled.div<{
 
     & > button {
       padding: 4px 8px;
+      color: ${theme.black};
 
       font-size: 1rem;
 
@@ -90,7 +92,7 @@ export const OptionsContainer = styled.div<{
       }
 
       &:hover {
-        background-color: ${theme.gray2};
+        background-color: ${theme.gray1};
       }
     }
   `}

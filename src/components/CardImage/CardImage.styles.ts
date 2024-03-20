@@ -27,6 +27,7 @@ export const NoImageContainer = styled.div`
     height: 100%;
     border: 2px solid ${theme.gray2};
     border-radius: 16px;
+    color: ${theme.black};
 
     font-weight: bold;
   `}
