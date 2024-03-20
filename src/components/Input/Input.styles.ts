@@ -9,7 +9,7 @@ export const Container = styled.div`
 `;
 
 export const InputsContainer = styled.div`
-  ${() => css`
+  ${({ theme }) => css`
     position: relative;
     display: flex;
     width: 100%;
@@ -18,15 +18,15 @@ export const InputsContainer = styled.div`
       width: 100%;
       height: 40px;
       padding: 0 8px;
-      border: 2px solid var(--primary);
+      border: 2px solid ${theme.primary};
       border-radius: 8px;
 
       &:disabled {
-        background-color: var(--gray1);
+        background-color: ${theme.gray1};
         cursor: not-allowed;
 
         & + label {
-          background-color: var(--gray1);
+          background-color: ${theme.gray1};
           cursor: not-allowed;
         }
       }
@@ -42,14 +42,14 @@ export const InputsContainer = styled.div`
 `;
 
 export const Title = styled.label`
-  ${() => css`
+  ${({ theme }) => css`
     position: absolute;
     inset: 50% auto auto 8px;
     display: flex;
     padding: 0 2px;
     transform: translateY(-50%);
-    background-color: var(--white);
-    color: var(--gray4);
+    background-color: ${theme.white};
+    color: ${theme.gray4};
     border-radius: 2px;
     user-select: none;
     cursor: text;
@@ -57,15 +57,18 @@ export const Title = styled.label`
     font-size: 1.25rem;
 
     & > svg {
-      margin-bottom: auto;
+      * {
+        margin-bottom: auto;
+        color: ${theme.error};
+      }
     }
   `}
 `;
 
 export const ErrorMessage = styled.span`
-  ${() => css`
+  ${({ theme }) => css`
     padding-left: 4px;
-    color: var(--error);
+    color: ${theme.error};
 
     font-size: 0.9rem;
   `}

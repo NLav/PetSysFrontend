@@ -11,7 +11,7 @@ from {
 `;
 
 export const Container = styled.div`
-  ${() => css`
+  ${({ theme }) => css`
     position: absolute;
     inset: 0;
     display: flex;
@@ -19,7 +19,7 @@ export const Container = styled.div`
     align-items: center;
 
     & > svg {
-      color: var(--primary);
+      color: ${theme.primary};
       animation: ${spin} infinite linear 2s;
     }
   `}

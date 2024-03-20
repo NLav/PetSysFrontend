@@ -1,3 +1,4 @@
+import { IToastProps } from "contexts";
 import styled, { css, keyframes } from "styled-components";
 
 const showToast = keyframes`
@@ -28,8 +29,8 @@ const toastCountdownBar = keyframes`
   }
 `;
 
-export const Container = styled.div`
-  ${() => css`
+export const Container = styled.div<Pick<IToastProps, "variant">>`
+  ${({ theme, variant }) => css`
     position: absolute;
     inset: 10% 0 auto auto;
     display: flex;
@@ -40,19 +41,20 @@ export const Container = styled.div`
     width: 360px;
     padding: 0 16px;
     border-radius: 16px 0 0 16px;
+    color: ${theme.white};
+    background-color: ${variant === "success" ? theme.success : theme.error};
     transform: translateX(100%);
-    box-shadow: var(--box-shadow);
+    box-shadow: ${theme.boxShadow};
     animation: ${showToast} 4s linear;
     z-index: 100;
-    color: var(--white);
   `}
 `;
 
 export const CloseButton = styled.button`
-  ${() => css`
+  ${({ theme }) => css`
     position: absolute;
     inset: 8px 8px auto auto;
-    color: var(--white);
+    color: ${theme.white};
   `}
 `;
 
@@ -77,7 +79,7 @@ export const Description = styled.span`
 `;
 
 export const CountdownBar = styled.div`
-  ${() => css`
+  ${({ theme }) => css`
     position: absolute;
     inset: auto 2px 0;
     display: flex;
@@ -86,6 +88,6 @@ export const CountdownBar = styled.div`
     border-radius: 0 0 16px 16px;
     animation: ${toastCountdownBar} calc(4s - 0.4s) linear;
 
-    background-color: var(--white);
+    background-color: ${theme.white};
   `}
 `;

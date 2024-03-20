@@ -13,7 +13,7 @@ const showActionBarModal = keyframes`
 `;
 
 export const Container = styled.div`
-  ${() => css`
+  ${({ theme }) => css`
     position: absolute;
     inset: 100% 0 auto auto;
     display: flex;
@@ -22,17 +22,17 @@ export const Container = styled.div`
     padding: 16px;
     overflow: hidden;
     border-radius: 16px;
-    background-color: var(--white);
-    box-shadow: var(--box-shadow);
+    background-color: ${theme.white};
+    box-shadow: ${theme.boxShadow};
     animation: ${showActionBarModal} 0.2s linear;
     z-index: 100;
 
     * {
-      color: var(--black);
+      color: ${theme.black};
     }
 
     & > div {
-      border-bottom: 2px solid var(--gray2);
+      border-bottom: 2px solid ${theme.gray2};
       margin-bottom: 16px;
       padding-bottom: 16px;
 

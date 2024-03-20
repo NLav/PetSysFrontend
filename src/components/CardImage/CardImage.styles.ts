@@ -18,14 +18,14 @@ export const Image = styled.img`
 `;
 
 export const NoImageContainer = styled.div`
-  ${() => css`
+  ${({ theme }) => css`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 100%;
-    border: 2px solid var(--gray2);
+    border: 2px solid ${theme.gray2};
     border-radius: 16px;
 
     font-weight: bold;

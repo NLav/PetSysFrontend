@@ -10,18 +10,16 @@ interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 const Input = ({ errorMessage, id, title, required, ...rest }: IInputProps) => {
   return (
-    <S.Container className="input">
-      <S.InputsContainer className="input__input-container">
+    <S.Container>
+      <S.InputsContainer>
         <input {...rest} id={id} placeholder=" "></input>
 
-        <S.Title htmlFor={id} className="input__input-container__title">
-          {title} {required && <Asterisk size={12} color="var(--error)" />}
+        <S.Title htmlFor={id}>
+          {title} {required && <Asterisk size={12} />}
         </S.Title>
       </S.InputsContainer>
 
-      <S.ErrorMessage className="input__error-message">
-        {errorMessage}
-      </S.ErrorMessage>
+      <S.ErrorMessage>{errorMessage}</S.ErrorMessage>
     </S.Container>
   );
 };

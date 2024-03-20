@@ -1,14 +1,14 @@
 import styled, { css } from "styled-components";
 
 export const Container = styled.div`
-  ${() => css`
+  ${({ theme }) => css`
     display: flex;
     flex-direction: column;
     gap: 16px;
     padding: 16px;
     border-radius: 16px;
-    background-color: var(--white);
-    box-shadow: var(--box-shadow);
+    background-color: ${theme.white};
+    box-shadow: ${theme.boxShadow};
     cursor: pointer;
 
     &:hover {
@@ -29,13 +29,13 @@ export const NoImageContainer = styled.div`
 `;
 
 export const InformationContainer = styled.div`
-  ${() => css`
+  ${({ theme }) => css`
     display: flex;
     flex-direction: column;
 
     & > span {
       &:nth-child(1) {
-        color: var(--gray4);
+        color: ${theme.gray4};
 
         font-size: 0.8rem;
       }

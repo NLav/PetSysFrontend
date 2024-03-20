@@ -17,12 +17,7 @@ const Toast = () => {
   }
 
   return (
-    <S.Container
-      style={{
-        backgroundColor:
-          toast.variant === "success" ? "var(--success)" : "var(--error)",
-      }}
-    >
+    <S.Container variant={toast.variant}>
       <S.CloseButton
         onClick={() =>
           setToast({ variant: "success", title: "", description: "" })
@@ -43,7 +38,7 @@ const Toast = () => {
         <S.Description>{toast.description}</S.Description>
       </S.TextContainer>
 
-      <S.CountdownBar className="toast__count-down-bar"></S.CountdownBar>
+      <S.CountdownBar></S.CountdownBar>
     </S.Container>
   );
 };

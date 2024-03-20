@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { IButtonProps } from "./Button";
 
 export const Button = styled.button<IButtonProps>`
-  ${({ variant }) => css`
+  ${({ theme, variant }) => css`
     width: 100%;
     border-radius: 16px;
     padding: 4px 8px;
@@ -15,53 +15,53 @@ export const Button = styled.button<IButtonProps>`
 
     ${variant === "primary" &&
     css`
-      color: var(--white);
-      background-color: var(--primary);
+      color: ${theme.white};
+      background-color: ${theme.primary};
 
       &:hover {
-        background-color: var(--primaryDark);
+        background-color: ${theme.primaryDark};
       }
     `}
 
     ${variant === "secondary" &&
     css`
-      color: var(--white);
-      background-color: var(--secondary);
+      color: ${theme.white};
+      background-color: ${theme.secondary};
 
       &:hover {
-        background-color: var(--secondaryDark);
+        background-color: ${theme.secondaryDark};
       }
     `}
 
   ${variant === "success" &&
     css`
-      color: var(--white);
-      background-color: var(--success);
+      color: ${theme.white};
+      background-color: ${theme.success};
 
       &:hover {
-        background-color: var(--successDark);
+        background-color: ${theme.successDark};
       }
     `}
 
   ${variant === "danger" &&
     css`
-      color: var(--white);
-      background-color: var(--error);
+      color: ${theme.white};
+      background-color: ${theme.error};
 
       &:hover {
-        background-color: var(--errorDark);
+        background-color: ${theme.errorDark};
       }
     `}
 
     ${variant === "ghost" &&
     css`
-      color: var(--black);
-      color: var(--primaryDark);
-      border: 2px solid var(--primaryDark);
+      color: ${theme.black};
+      color: ${theme.primaryDark};
+      border: 2px solid ${theme.primaryDark};
 
       &:hover {
-        color: var(--primaryDark);
-        border-color: var(--primaryDark);
+        color: ${theme.primaryDark};
+        border-color: ${theme.primaryDark};
       }
     `}
   `}

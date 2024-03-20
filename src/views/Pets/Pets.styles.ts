@@ -10,7 +10,7 @@ export const Container = styled.div`
 `;
 
 export const ListingContainer = styled.div`
-  ${() => css`
+  ${({ theme }) => css`
     position: relative;
     display: grid;
     grid-template-columns: repeat(3, 32%);
@@ -20,7 +20,7 @@ export const ListingContainer = styled.div`
     height: 100%;
     padding: 16px;
     border-radius: 16px;
-    background-color: var(--secondary);
+    background-color: ${theme.secondary};
     overflow: auto;
 
     @media (min-width: 1280px) {
@@ -34,11 +34,11 @@ export const ListingContainer = styled.div`
 `;
 
 export const NoPetsContainer = styled.span`
-  ${() => css`
+  ${({ theme }) => css`
     position: absolute;
     inset: 50% 50% auto auto;
     transform: translate(50%, -50%);
-    color: var(--white);
+    color: ${theme.white};
 
     font-size: 2rem;
   `}

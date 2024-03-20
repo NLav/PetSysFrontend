@@ -8,13 +8,13 @@ export const Container = styled.form`
 `;
 
 export const InputsContainer = styled.div`
-  ${() => css`
+  ${({ theme }) => css`
     display: flex;
     flex-direction: column;
     gap: 16px;
     margin-bottom: 16px;
     padding-bottom: 16px;
-    border-bottom: 2px solid var(--gray2);
+    border-bottom: 2px solid ${theme.gray2};
   `}
 `;
 

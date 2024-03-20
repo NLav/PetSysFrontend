@@ -13,28 +13,28 @@ const showComboboxOptions = keyframes`
 `;
 
 export const Container = styled.div`
-  ${() => css`
+  ${({ theme }) => css`
     position: relative;
     display: flex;
     flex-direction: column;
     width: 100%;
     height: 100%;
-    color: var(--gray4);
+    color: ${theme.gray4};
     z-index: 1;
 
     & > input {
       width: 100%;
       padding: 4px 8px;
-      border: 2px solid var(--primary);
+      border: 2px solid ${theme.primary};
       border-radius: 8px;
-      background-color: var(--white);
+      background-color: ${theme.white};
 
       &:disabled {
-        background-color: var(--gray1);
+        background-color: ${theme.gray1};
         cursor: not-allowed;
 
         & ~ label {
-          background-color: var(--gray1);
+          background-color: ${theme.gray1};
           cursor: not-allowed;
         }
       }
@@ -51,15 +51,15 @@ export const Container = styled.div`
 export const OptionsContainer = styled.div<{
   optionsPosition: "top" | "bottom";
 }>`
-  ${({ optionsPosition }) => css`
+  ${({ theme, optionsPosition }) => css`
     position: absolute;
     display: flex;
     flex-direction: column;
     padding: 8px;
-    border: 2px solid var(--primary);
+    border: 2px solid ${theme.primary};
     border-radius: 8px;
-    background-color: var(--white);
-    box-shadow: var(--box-shadow);
+    background-color: ${theme.white};
+    box-shadow: ${theme.boxShadow};
     overflow: auto;
     animation: ${showComboboxOptions} 0.2s linear;
     z-index: -1;
@@ -78,7 +78,7 @@ export const OptionsContainer = styled.div<{
       font-size: 1rem;
 
       &:not(:last-child) {
-        border-bottom: 2px solid var(--gray2);
+        border-bottom: 2px solid ${theme.gray2};
       }
 
       &:first-child {
@@ -90,7 +90,7 @@ export const OptionsContainer = styled.div<{
       }
 
       &:hover {
-        background-color: var(--gray2);
+        background-color: ${theme.gray2};
       }
     }
   `}

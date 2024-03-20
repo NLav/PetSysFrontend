@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 
-interface IToastProps {
+export interface IToastProps {
   variant: "success" | "danger";
   title: string;
   description: string;

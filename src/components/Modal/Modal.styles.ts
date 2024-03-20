@@ -23,7 +23,7 @@ export const Background = styled.div`
 `;
 
 export const Container = styled.div<Pick<IModalProps, "width" | "height">>`
-  ${({ width, height }) => css`
+  ${({ theme, width, height }) => css`
     position: fixed;
     inset: 50% 50% auto auto;
     width: ${width};
@@ -31,15 +31,15 @@ export const Container = styled.div<Pick<IModalProps, "width" | "height">>`
     padding: 16px;
     border-radius: 16px;
     transform: scale(1) translate(50%, -50%);
-    background-color: var(--white);
-    box-shadow: var(--box-shadow);
+    background-color: ${theme.white};
+    box-shadow: ${theme.boxShadow};
     animation: ${showModal} 0.2s linear;
     z-index: 101;
     transform-origin: top right;
     transition: 0;
 
     & > div {
-      border-bottom: 2px solid var(--gray2);
+      border-bottom: 2px solid ${theme.gray2};
       margin-bottom: 16px;
       padding-bottom: 16px;
 

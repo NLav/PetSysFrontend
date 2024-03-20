@@ -1,32 +1,32 @@
 import styled, { css } from "styled-components";
 
 export const Container = styled.div`
-  ${() => css`
+  ${({ theme }) => css`
     position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 8px 16px;
     border-radius: 16px;
-    background-color: var(--secondary);
+    background-color: ${theme.secondary};
   `}
 `;
 
 export const Title = styled.span`
-  ${() => css`
+  ${({ theme }) => css`
     font-size: 2rem;
     font-weight: bold;
-    color: var(--white);
+    color: ${theme.white};
   `}
 `;
 
 export const ChildrenContainer = styled.div`
-  ${() => css`
+  ${({ theme }) => css`
     display: flex;
     gap: 16px;
 
     & * {
-      color: var(--white);
+      color: ${theme.white};
 
       font-size: 1rem;
     }
@@ -35,13 +35,13 @@ export const ChildrenContainer = styled.div`
       display: flex;
       gap: 4px;
       align-items: center;
-      border: 2px solid var(--white);
+      border: 2px solid ${theme.white};
       border-radius: 8px;
       padding: 4px 8px;
 
       &:hover {
         scale: 1.05;
-        background-color: var(--secondaryDark);
+        background-color: ${theme.secondaryDark};
       }
     }
   `}

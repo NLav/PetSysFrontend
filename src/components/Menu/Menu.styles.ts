@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 export const Container = styled.div<{
   collapseMenu: boolean;
 }>`
-  ${({ collapseMenu }) => css`
+  ${({ theme, collapseMenu }) => css`
     position: relative;
     display: flex;
     flex-direction: column;
@@ -11,9 +11,9 @@ export const Container = styled.div<{
     height: 100%;
     padding: 32px;
     border-radius: 0 32px 32px 0;
-    background-color: var(--primary);
+    background-color: ${theme.primary};
     box-shadow: 8px 0 16px rgba(0, 0, 0, 0.5);
-    color: var(--white);
+    color: ${theme.white};
 
     ${collapseMenu &&
     css`
@@ -23,7 +23,7 @@ export const Container = styled.div<{
 `;
 
 export const CollapseButton = styled.button`
-  ${() => css`
+  ${({ theme }) => css`
     position: absolute;
     inset: 0 0 0 auto;
     display: flex;
@@ -32,7 +32,7 @@ export const CollapseButton = styled.button`
     width: 28px;
     border-radius: 0 32px 32px 0;
     transform: translateX(2px);
-    color: var(--white);
+    color: ${theme.white};
 
     & > svg {
       transition: 0s;
@@ -42,7 +42,7 @@ export const CollapseButton = styled.button`
       box-shadow: 0 0 16px white;
       background-color: #ffffff88;
       backdrop-filter: blur(2px);
-      color: var(--black);
+      color: ${theme.black};
 
       & > svg {
         transition: 0s;
@@ -65,7 +65,7 @@ export const LogoContainer = styled.div`
 export const NavigationList = styled.div<{
   collapseMenu: boolean;
 }>`
-  ${({ collapseMenu }) => css`
+  ${({ theme, collapseMenu }) => css`
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -78,13 +78,13 @@ export const NavigationList = styled.div<{
       width: 100%;
       padding: 4px 8px;
       border-radius: 8px;
-      color: var(--white);
+      color: ${theme.white};
 
       font-size: 1rem;
       text-decoration: none;
 
       &:hover {
-        background-color: var(--primaryDark);
+        background-color: ${theme.primaryDark};
         transform: translateX(10px);
       }
     }

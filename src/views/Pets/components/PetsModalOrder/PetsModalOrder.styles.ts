@@ -9,14 +9,14 @@ export const Container = styled.div`
 `;
 
 export const OptionContainer = styled.div`
-  ${() => css`
+  ${({ theme }) => css`
     display: flex;
     gap: 16px;
     align-items: center;
 
     &:not(:last-child) {
       padding-bottom: 8px;
-      border-bottom: 2px solid var(--gray1);
+      border-bottom: 2px solid ${theme.gray1};
     }
 
     & > span {
@@ -26,16 +26,16 @@ export const OptionContainer = styled.div`
 `;
 
 export const OrderButton = styled.button<{ selected: boolean }>`
-  ${({ selected }) => css`
+  ${({ theme, selected }) => css`
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid var(--white);
+    border: 2px solid ${theme.white};
     border-radius: 4px;
 
     ${selected &&
     css`
-      border-color: var(--primary);
+      border-color: ${theme.primary};
     `}
   `}
 `;

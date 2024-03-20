@@ -32,7 +32,7 @@ export const CaretButton = styled.button`
 `;
 
 export const PathContainer = styled.div`
-  ${() => css`
+  ${({ theme }) => css`
     display: flex;
     gap: 8px;
     justify-content: center;
@@ -46,8 +46,8 @@ export const PathContainer = styled.div`
       width: 32px;
       height: 32px;
       border-radius: 4px;
-      background-color: var(--secondary);
-      color: var(--white);
+      background-color: ${theme.secondary};
+      color: ${theme.white};
       user-select: none;
       cursor: pointer;
 
@@ -58,8 +58,8 @@ export const PathContainer = styled.div`
 
     & > form {
       & > input {
-        background-color: var(--primary);
-        border: 2px solid var(--secondary);
+        background-color: ${theme.primary};
+        border: 2px solid ${theme.secondary};
         scale: 1.15;
         text-align: center;
 
