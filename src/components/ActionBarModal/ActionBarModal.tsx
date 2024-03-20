@@ -1,14 +1,15 @@
 import { X } from "@phosphor-icons/react";
 import { Button } from "components";
+import { IButtonProps } from "components/Button/Button";
 import { FormHTMLAttributes, useRef } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 import * as S from "./ActionBarModal.styles";
 
 interface IButton {
   label: string;
-  variant: "primary" | "secondary" | "success" | "danger" | "ghost";
+  variant: IButtonProps["variant"];
+  type: "button" | "submit";
   onClick?: () => void;
-  type?: "button" | "submit";
 }
 
 export interface IActionBarModalProps

@@ -24,8 +24,8 @@ const Toggle = ({
       <S.Input {...rest} id={id} type="checkbox" />
       <S.Toggle
         htmlFor={id}
-        width={width}
-        height={height}
+        $width={width}
+        $height={height}
         defaultChecked={defaultChecked}
       >
         <div></div>

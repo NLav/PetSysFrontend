@@ -1,12 +1,13 @@
 import { X } from "@phosphor-icons/react";
 import { Button } from "components";
+import { IButtonProps } from "components/Button/Button";
 import { useRef } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 import * as S from "./Modal.styles";
 
 interface IButton {
   label: string;
-  variant: "primary" | "secondary" | "success" | "danger" | "ghost";
+  variant: IButtonProps["variant"];
   onClick: () => void;
 }
 
@@ -34,7 +35,7 @@ const Modal = ({
     <>
       <S.Background></S.Background>
 
-      <S.Container ref={modalRef} width={width} height={height}>
+      <S.Container ref={modalRef} $width={width} $height={height}>
         <S.Header>
           {title}
 

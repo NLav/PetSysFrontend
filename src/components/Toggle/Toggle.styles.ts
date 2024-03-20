@@ -16,13 +16,14 @@ export const Input = styled.input`
   `}
 `;
 
-export const Toggle = styled.label<
-  Pick<IToggleProps, "width" | "height" | "defaultChecked">
->`
-  ${({ theme, width, height, defaultChecked }) => css`
+export const Toggle = styled.label<{
+  $width: IToggleProps["width"];
+  $height: IToggleProps["height"];
+}>`
+  ${({ theme, defaultChecked, $width, $height }) => css`
     position: relative;
-    width: ${width}px;
-    height: ${height}px;
+    width: ${$width}px;
+    height: ${$height}px;
     border-radius: 16px;
     background-color: ${theme.white};
     cursor: pointer;

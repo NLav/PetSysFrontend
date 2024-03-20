@@ -20,7 +20,7 @@ const Menu = () => {
   const { isDarkMode, set } = useDarkMode();
 
   return (
-    <S.Container collapseMenu={collapseMenu}>
+    <S.Container $collapseMenu={collapseMenu}>
       <S.CollapseButton onClick={() => setCollapseMenu(!collapseMenu)}>
         <CaretDoubleLeft
           size={16}
@@ -35,7 +35,7 @@ const Menu = () => {
         {!collapseMenu ? "PetSys" : null}
       </S.LogoContainer>
 
-      <S.NavigationList collapseMenu={collapseMenu}>
+      <S.NavigationList $collapseMenu={collapseMenu}>
         {collapseMenu ? (
           <MenuTooltip text="Pets">
             <Link to="/pets">

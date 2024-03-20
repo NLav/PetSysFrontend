@@ -25,15 +25,15 @@ export const OptionContainer = styled.div`
   `}
 `;
 
-export const OrderButton = styled.button<{ selected: boolean }>`
-  ${({ theme, selected }) => css`
+export const OrderButton = styled.button<{ $selected: boolean }>`
+  ${({ theme, $selected }) => css`
     display: flex;
     justify-content: center;
     align-items: center;
     border: 2px solid ${theme.white};
     border-radius: 4px;
 
-    ${selected &&
+    ${$selected &&
     css`
       border-color: ${theme.primary};
     `}

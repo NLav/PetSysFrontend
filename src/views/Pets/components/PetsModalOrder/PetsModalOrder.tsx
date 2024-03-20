@@ -21,7 +21,7 @@ const PetsModalOrder = ({ setShowModal }: IPetsModalOrderProps) => {
           <span>Nome</span>
 
           <S.OrderButton
-            selected={
+            $selected={
               listingParams.orderBy === "name" &&
               listingParams.orderDirection === "asc"
             }
@@ -44,7 +44,7 @@ const PetsModalOrder = ({ setShowModal }: IPetsModalOrderProps) => {
           </S.OrderButton>
 
           <S.OrderButton
-            selected={
+            $selected={
               listingParams.orderBy === "name" &&
               listingParams.orderDirection === "desc"
             }
@@ -71,7 +71,7 @@ const PetsModalOrder = ({ setShowModal }: IPetsModalOrderProps) => {
           <span>Data de nascimento</span>
 
           <S.OrderButton
-            selected={
+            $selected={
               listingParams.orderBy === "birth_date" &&
               listingParams.orderDirection === "asc"
             }
@@ -94,7 +94,7 @@ const PetsModalOrder = ({ setShowModal }: IPetsModalOrderProps) => {
           </S.OrderButton>
 
           <S.OrderButton
-            selected={
+            $selected={
               listingParams.orderBy === "birth_date" &&
               listingParams.orderDirection === "desc"
             }
@@ -121,7 +121,7 @@ const PetsModalOrder = ({ setShowModal }: IPetsModalOrderProps) => {
           <span>Raça</span>
 
           <S.OrderButton
-            selected={
+            $selected={
               listingParams.orderBy === "breed" &&
               listingParams.orderDirection === "asc"
             }
@@ -144,7 +144,7 @@ const PetsModalOrder = ({ setShowModal }: IPetsModalOrderProps) => {
           </S.OrderButton>
 
           <S.OrderButton
-            selected={
+            $selected={
               listingParams.orderBy === "breed" &&
               listingParams.orderDirection === "desc"
             }

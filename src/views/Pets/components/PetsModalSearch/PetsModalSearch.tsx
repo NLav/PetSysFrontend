@@ -63,6 +63,7 @@ const PetsModalSearch = ({ setShowModal }: IPetsModalSearchProps) => {
         {
           label: "Limpar Pesquisa",
           variant: "ghost",
+          type: "button",
           onClick: () => handleClearSearch(),
         },
         {

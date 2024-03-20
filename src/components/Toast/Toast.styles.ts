@@ -29,8 +29,8 @@ const toastCountdownBar = keyframes`
   }
 `;
 
-export const Container = styled.div<Pick<IToastProps, "variant">>`
-  ${({ theme, variant }) => css`
+export const Container = styled.div<{ $variant: IToastProps["variant"] }>`
+  ${({ theme, $variant }) => css`
     position: absolute;
     inset: 10% 0 auto auto;
     display: flex;
@@ -42,7 +42,7 @@ export const Container = styled.div<Pick<IToastProps, "variant">>`
     padding: 0 16px;
     border-radius: 16px 0 0 16px;
     color: ${theme.white};
-    background-color: ${variant === "success" ? theme.success : theme.error};
+    background-color: ${$variant === "success" ? theme.success : theme.error};
     transform: translateX(100%);
     box-shadow: ${theme.boxShadow};
     animation: ${showToast} 4s linear;

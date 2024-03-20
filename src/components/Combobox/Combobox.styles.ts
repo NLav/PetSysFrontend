@@ -50,9 +50,9 @@ export const Container = styled.div`
 `;
 
 export const OptionsContainer = styled.div<{
-  optionsPosition: "top" | "bottom";
+  $optionsPosition: "top" | "bottom";
 }>`
-  ${({ theme, optionsPosition }) => css`
+  ${({ theme, $optionsPosition }) => css`
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -65,7 +65,7 @@ export const OptionsContainer = styled.div<{
     animation: ${showComboboxOptions} 0.2s linear;
     z-index: -1;
 
-    ${optionsPosition === "top"
+    ${$optionsPosition === "top"
       ? css`
           inset: auto 0 calc(100% - 1rem);
         `

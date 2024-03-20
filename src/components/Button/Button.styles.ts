@@ -1,8 +1,8 @@
 import styled, { css } from "styled-components";
 import { IButtonProps } from "./Button";
 
-export const Button = styled.button<IButtonProps>`
-  ${({ theme, variant }) => css`
+export const Button = styled.button<{ $variant: IButtonProps["variant"] }>`
+  ${({ theme, $variant }) => css`
     width: 100%;
     border-radius: 16px;
     padding: 4px 8px;
@@ -13,7 +13,7 @@ export const Button = styled.button<IButtonProps>`
       scale: 1.05;
     }
 
-    ${variant === "primary" &&
+    ${$variant === "primary" &&
     css`
       color: ${theme.white};
       background-color: ${theme.primary};
@@ -23,7 +23,7 @@ export const Button = styled.button<IButtonProps>`
       }
     `}
 
-    ${variant === "secondary" &&
+    ${$variant === "secondary" &&
     css`
       color: ${theme.white};
       background-color: ${theme.secondary};
@@ -33,7 +33,7 @@ export const Button = styled.button<IButtonProps>`
       }
     `}
 
-  ${variant === "success" &&
+  ${$variant === "success" &&
     css`
       color: ${theme.white};
       background-color: ${theme.success};
@@ -43,7 +43,7 @@ export const Button = styled.button<IButtonProps>`
       }
     `}
 
-  ${variant === "danger" &&
+  ${$variant === "danger" &&
     css`
       color: ${theme.white};
       background-color: ${theme.error};
@@ -53,7 +53,7 @@ export const Button = styled.button<IButtonProps>`
       }
     `}
 
-    ${variant === "ghost" &&
+    ${$variant === "ghost" &&
     css`
       color: ${theme.black};
       color: ${theme.primaryDark};

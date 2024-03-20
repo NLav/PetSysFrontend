@@ -22,12 +22,15 @@ export const Background = styled.div`
   `}
 `;
 
-export const Container = styled.div<Pick<IModalProps, "width" | "height">>`
-  ${({ theme, width, height }) => css`
+export const Container = styled.div<{
+  $width: IModalProps["width"];
+  $height: IModalProps["height"];
+}>`
+  ${({ theme, $width, $height }) => css`
     position: fixed;
     inset: 50% 50% auto auto;
-    width: ${width};
-    height: ${height};
+    width: ${$width};
+    height: ${$height};
     padding: 16px;
     border-radius: 16px;
     transform: scale(1) translate(50%, -50%);

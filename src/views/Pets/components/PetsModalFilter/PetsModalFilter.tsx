@@ -88,6 +88,7 @@ const PetsModalFilter = ({ setShowModal }: IPetsModalFilterProps) => {
         {
           label: "Limpar Filtros",
           variant: "ghost",
+          type: "button",
           onClick: () => handleClearFilter(),
         },
         {

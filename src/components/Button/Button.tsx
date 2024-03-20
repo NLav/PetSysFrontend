@@ -7,7 +7,7 @@ export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button = ({ variant, children, ...rest }: IButtonProps) => {
   return (
-    <S.Button {...rest} variant={variant}>
+    <S.Button {...rest} $variant={variant}>
       {children}
     </S.Button>
   );

@@ -68,7 +68,7 @@ const Combobox = ({
       />
 
       {showOptions && (
-        <S.OptionsContainer ref={optionsRef} optionsPosition={optionsPosition}>
+        <S.OptionsContainer ref={optionsRef} $optionsPosition={optionsPosition}>
           {filteredOptions.length ? (
             filteredOptions.map((option, index) => (
               <button

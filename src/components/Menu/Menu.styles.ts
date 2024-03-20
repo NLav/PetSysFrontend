@@ -1,9 +1,9 @@
 import styled, { css } from "styled-components";
 
 export const Container = styled.div<{
-  collapseMenu: boolean;
+  $collapseMenu: boolean;
 }>`
-  ${({ theme, collapseMenu }) => css`
+  ${({ theme, $collapseMenu }) => css`
     position: relative;
     display: flex;
     flex-direction: column;
@@ -15,7 +15,7 @@ export const Container = styled.div<{
     box-shadow: 8px 0 16px rgba(0, 0, 0, 0.5);
     color: ${theme.white};
 
-    ${collapseMenu &&
+    ${$collapseMenu &&
     css`
       padding: 32px 8px;
     `}
@@ -60,9 +60,9 @@ export const LogoContainer = styled.div`
 `;
 
 export const NavigationList = styled.div<{
-  collapseMenu: boolean;
+  $collapseMenu: boolean;
 }>`
-  ${({ theme, collapseMenu }) => css`
+  ${({ theme, $collapseMenu }) => css`
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -86,7 +86,7 @@ export const NavigationList = styled.div<{
       }
     }
 
-    ${collapseMenu &&
+    ${$collapseMenu &&
     css`
       align-items: center;
     `}

@@ -17,7 +17,7 @@ const Toast = () => {
   }
 
   return (
-    <S.Container variant={toast.variant}>
+    <S.Container $variant={toast.variant}>
       <S.CloseButton
         onClick={() =>
           setToast({ variant: "success", title: "", description: "" })
