@@ -62,11 +62,16 @@ export const PathContainer = styled.div`
   `}
 `;
 
-export const NumberAround = styled.span`
-  ${({ theme }) => css`
+export const NumberAround = styled.span<{ $visible: boolean }>`
+  ${({ theme, $visible }) => css`
     border-color: ${theme.secondary} !important;
     user-select: none;
     cursor: pointer;
+
+    ${!$visible &&
+    css`
+      visibility: hidden;
+    `}
 
     &:hover {
       scale: 1.15;

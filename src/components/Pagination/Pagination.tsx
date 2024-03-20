@@ -134,12 +134,7 @@ const Pagination = ({
           )}
 
           <S.NumberAround
-            style={{
-              visibility:
-                Number(meta.restPage) - numbersAroundRestPage > 1
-                  ? "unset"
-                  : "hidden",
-            }}
+            $visible={Number(meta.restPage) - numbersAroundRestPage > 1}
             onClick={() => handleChangeRestPage("1")}
           >
             01
@@ -166,7 +161,7 @@ const Pagination = ({
             return (
               <S.NumberAround
                 key={currentValue}
-                style={{ visibility: currentValue >= 1 ? "unset" : "hidden" }}
+                $visible={currentValue >= 1}
                 onClick={() => handleChangeRestPage(String(currentValue))}
               >
                 {normalizeNumber(String(currentValue))}
@@ -189,9 +184,7 @@ const Pagination = ({
           return (
             <S.NumberAround
               key={currentValue}
-              style={{
-                visibility: currentValue <= meta.restTotal ? "unset" : "hidden",
-              }}
+              $visible={currentValue <= meta.restTotal}
               onClick={() => handleChangeRestPage(String(currentValue))}
             >
               {normalizeNumber(String(currentValue))}
@@ -216,12 +209,9 @@ const Pagination = ({
           )}
 
           <S.NumberAround
-            style={{
-              visibility:
-                Number(meta.restPage) + numbersAroundRestPage < meta.restTotal
-                  ? "unset"
-                  : "hidden",
-            }}
+            $visible={
+              Number(meta.restPage) + numbersAroundRestPage < meta.restTotal
+            }
             onClick={() => handleChangeRestPage(String(meta.restTotal))}
           >
             {normalizeNumber(String(meta.restTotal))}
