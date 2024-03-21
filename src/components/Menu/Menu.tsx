@@ -8,16 +8,15 @@ import {
   UsersFour,
 } from "@phosphor-icons/react";
 import { Toggle } from "components";
-import { useState } from "react";
+import { CollapseMenuContext, DarkModeContext } from "contexts";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { useDarkMode } from "usehooks-ts";
 import * as S from "./Menu.styles";
 import { MenuTooltip } from "./components";
 
 const Menu = () => {
-  const [collapseMenu, setCollapseMenu] = useState(false);
-
-  const { isDarkMode, set } = useDarkMode();
+  const { isDarkMode, setIsDarkMode } = useContext(DarkModeContext);
+  const { collapseMenu, setCollapseMenu } = useContext(CollapseMenuContext);
 
   return (
     <S.Container $collapseMenu={collapseMenu}>
@@ -85,7 +84,9 @@ const Menu = () => {
           leftSideSibling={!collapseMenu && <Sun size={32} />}
           rightSideSibling={!collapseMenu && <Moon size={32} />}
           defaultChecked={isDarkMode}
-          onChange={(event) => set(event.target.checked)}
+          onChange={(event) => {
+            setIsDarkMode(event.target.checked);
+          }}
         />
       </S.ToggleContainer>
     </S.Container>

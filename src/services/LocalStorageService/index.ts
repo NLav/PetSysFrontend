@@ -1,2 +1,1 @@
 export { LocalStorageService } from "./LocalStorageService";
-export { PetService } from "./PetService";
