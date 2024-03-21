@@ -17,7 +17,8 @@ export const DarkModeProvider = ({
   children: React.ReactNode;
 }) => {
   const [isDarkMode, setIsDarkMode] = useState(
-    LocalStorageService.getDarkMode() || false
+    LocalStorageService.getDarkMode() ||
+      window.matchMedia("(prefers-color-scheme: dark)").matches
   );
 
   useEffect(() => {
