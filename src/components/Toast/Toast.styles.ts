@@ -1,5 +1,5 @@
-import { IToastProps } from "contexts";
 import styled, { css, keyframes } from "styled-components";
+import { IToastProps } from "./Toast";
 
 const showToast = keyframes`
   0% {
@@ -29,10 +29,14 @@ const toastCountdownBar = keyframes`
   }
 `;
 
-export const Container = styled.div<{ $variant: IToastProps["variant"] }>`
-  ${({ theme, $variant }) => css`
-    position: absolute;
-    inset: 10% 0 auto auto;
+export const Container = styled.div<{
+  $variant: IToastProps["variant"];
+  $index: IToastProps["index"];
+}>`
+  ${({ theme, $variant, $index }) => css`
+    position: fixed;
+    top: calc(5% + ${$index} * 88px);
+    right: 0;
     display: flex;
     gap: 16px;
     justify-content: start;
@@ -46,7 +50,7 @@ export const Container = styled.div<{ $variant: IToastProps["variant"] }>`
     transform: translateX(100%);
     box-shadow: ${theme.boxShadow};
     animation: ${showToast} 4s linear;
-    z-index: 100;
+    z-index: 101;
   `}
 `;
 

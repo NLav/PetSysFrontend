@@ -1,30 +1,34 @@
+import { IToastProps } from "components/Toast/Toast";
 import { createContext, useState } from "react";
 
-export interface IToastProps {
-  variant: "success" | "danger";
-  title: string;
-  description: string;
-}
-
 interface IToastContext {
-  toast: IToastProps;
-  setToast: React.Dispatch<React.SetStateAction<IToastProps>>;
+  toasts: IToastProps[];
+  addToast: (toast: IToastProps) => void;
 }
 
 export const ToastContext = createContext<IToastContext>({
-  toast: { variant: "success", title: "", description: "" },
-  setToast: () => {},
+  toasts: [],
+  addToast: () => {},
 });
 
 export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
-  const [toast, setToast] = useState<IToastProps>({
-    variant: "success",
-    title: "",
-    description: "",
-  });
+  const [toasts, setToasts] = useState<IToastProps[]>([]);
+
+  const addToast = (toast: IToastProps) => {
+    setToasts((current) => [
+      ...current,
+      { ...toast, onClick: () => removeToast(toast.id) },
+    ]);
+
+    setTimeout(() => removeToast(toast.id), 4000);
+  };
+
+  const removeToast = (id: IToastProps["id"]) => {
+    setToasts((current) => current.filter((toast) => toast.id !== id));
+  };
 
   return (
-    <ToastContext.Provider value={{ toast, setToast }}>
+    <ToastContext.Provider value={{ toasts, addToast }}>
       {children}
     </ToastContext.Provider>
   );

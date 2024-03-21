@@ -1,41 +1,35 @@
 import { Check, Warning, X } from "@phosphor-icons/react";
-import { ToastContext } from "contexts";
-import { useContext, useEffect } from "react";
 import * as S from "./Toast.styles";
 
-const Toast = () => {
-  const { toast, setToast } = useContext(ToastContext);
+export interface IToastProps {
+  id: string;
+  variant: "success" | "danger";
+  title: string;
+  description: string;
+  index?: number;
+  onClick?: () => void;
+}
 
-  useEffect(() => {
-    setTimeout(() => {
-      setToast({ variant: "success", title: "", description: "" });
-    }, 4000);
-  }, [toast, setToast]);
-
-  if (toast.title === "") {
-    return;
-  }
-
+const Toast = ({
+  id,
+  variant,
+  title,
+  description,
+  index = 0,
+  onClick,
+}: IToastProps) => {
   return (
-    <S.Container $variant={toast.variant}>
-      <S.CloseButton
-        onClick={() =>
-          setToast({ variant: "success", title: "", description: "" })
-        }
-      >
+    <S.Container id={id} $index={index} $variant={variant}>
+      <S.CloseButton onClick={onClick}>
         <X size={24} />
       </S.CloseButton>
 
-      {toast.variant === "success" ? (
-        <Check size={32} />
-      ) : (
-        <Warning size={32} />
-      )}
+      {variant === "success" ? <Check size={32} /> : <Warning size={32} />}
 
       <S.TextContainer>
-        <S.Title>{toast.title}</S.Title>
+        <S.Title>{title}</S.Title>
 
-        <S.Description>{toast.description}</S.Description>
+        <S.Description>{description}</S.Description>
       </S.TextContainer>
 
       <S.CountdownBar></S.CountdownBar>

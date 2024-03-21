@@ -26,7 +26,7 @@ export let petsModals:
 const Pets = () => {
   const [showModal, setShowModal] = useState<typeof petsModals>(null);
 
-  const { petsPaginated, listingParams, meta, loading } = useAppSelector(
+  const { petsPaginated, listingParams, meta, loading, error } = useAppSelector(
     (state) => state.pets
   );
 
@@ -105,6 +105,8 @@ const Pets = () => {
       <S.ListingContainer>
         {loading.petsPaginated ? (
           <Spinner />
+        ) : error.petsPaginated ? (
+          <S.NoPetsContainer>Erro ao realizar listagem</S.NoPetsContainer>
         ) : !petsPaginated.length ? (
           <S.NoPetsContainer>Nenhum pet encontrado</S.NoPetsContainer>
         ) : (

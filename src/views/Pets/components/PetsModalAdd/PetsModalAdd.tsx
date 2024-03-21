@@ -8,6 +8,7 @@ import { PetService } from "services";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
 import { getPetsPaginated } from "stores/pets/thunks";
 import { convertInputDateToDate, getInputDateMinMax } from "utils";
+import { generateId } from "utils/generate";
 import { z } from "zod";
 import { petsModals } from "../../Pets";
 
@@ -31,11 +32,11 @@ const addPetSchema = z.object({
 type addPetFormData = z.infer<typeof addPetSchema>;
 
 const PetsModalAdd = ({ setShowModal }: IPetsModalAddProps) => {
-  const { setToast } = useContext(ToastContext);
-
   const { listingParams, meta } = useAppSelector((state) => state.pets);
 
   const dispatch = useAppDispatch();
+
+  const { addToast } = useContext(ToastContext);
 
   const {
     control,
@@ -57,20 +58,22 @@ const PetsModalAdd = ({ setShowModal }: IPetsModalAddProps) => {
       birth_date: convertInputDateToDate(data.birth_date),
     })
       .then(() => {
-        setToast({
+        addToast({
+          id: generateId(),
           variant: "success",
           title: "Sucesso",
-          description: "Pet criado com sucesso",
+          description: "Pet adicionado com sucesso",
         });
 
         setShowModal(null);
 
         dispatch(getPetsPaginated({ listingParams, meta }));
       })
-      .catch((error: any) => {
-        setToast({
+      .catch((error) => {
+        addToast({
+          id: generateId(),
           variant: "danger",
-          title: "Erro ao adicionar Pet",
+          title: "Erro ao adicionar pet",
           description: error.message,
         });
       });

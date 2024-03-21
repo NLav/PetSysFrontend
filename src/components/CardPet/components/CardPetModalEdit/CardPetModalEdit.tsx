@@ -9,6 +9,7 @@ import { IPetDTO } from "services/dtos";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
 import { getPetsPaginated } from "stores/pets/thunks";
 import { convertInputDateToDate, getInputDateMinMax } from "utils";
+import { generateId } from "utils/generate";
 import { z } from "zod";
 import * as S from "./CardPetModalEdit.styles";
 
@@ -41,11 +42,11 @@ const CardPetModalEdit = ({
 }: ICardPetModalEditProps) => {
   const [showModalConfirmDelete, setShowModalConfirmDelete] = useState(false);
 
-  const { setToast } = useContext(ToastContext);
-
   const dispatch = useAppDispatch();
 
   const { listingParams, meta } = useAppSelector((state) => state.pets);
+
+  const { addToast } = useContext(ToastContext);
 
   const {
     control,
@@ -64,7 +65,8 @@ const CardPetModalEdit = ({
   const handleDelete = () => {
     PetService.delete(id)
       .then(() => {
-        setToast({
+        addToast({
+          id: generateId(),
           variant: "success",
           title: "Sucesso",
           description: "Pet deletado com sucesso",
@@ -74,8 +76,9 @@ const CardPetModalEdit = ({
 
         dispatch(getPetsPaginated({ listingParams, meta }));
       })
-      .catch((error: any) => {
-        setToast({
+      .catch((error) => {
+        addToast({
+          id: generateId(),
           variant: "danger",
           title: "Erro ao deletar Pet",
           description: error.message,
@@ -89,7 +92,8 @@ const CardPetModalEdit = ({
       birth_date: convertInputDateToDate(data.birth_date),
     })
       .then(() => {
-        setToast({
+        addToast({
+          id: generateId(),
           variant: "success",
           title: "Sucesso",
           description: "Pet atualizado com sucesso",
@@ -99,10 +103,11 @@ const CardPetModalEdit = ({
 
         dispatch(getPetsPaginated({ listingParams, meta }));
       })
-      .catch((error: any) => {
-        setToast({
+      .catch((error) => {
+        addToast({
+          id: generateId(),
           variant: "danger",
-          title: "Erro ao atualizar Pet",
+          title: "Erro ao atualizar pet",
           description: error.message,
         });
       });
