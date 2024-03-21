@@ -10,10 +10,15 @@ export const Container = styled.div`
 `;
 
 export const Image = styled.img`
-  ${() => css`
+  ${({ theme }) => css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     object-fit: cover;
     width: 100%;
     height: 100%;
+    color: ${theme.black};
+    text-align: center;
   `}
 `;
 
