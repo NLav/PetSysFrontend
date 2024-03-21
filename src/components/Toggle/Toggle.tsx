@@ -21,7 +21,12 @@ const Toggle = ({
     <S.Container>
       {leftSideSibling && leftSideSibling}
 
-      <S.Input {...rest} id={id} type="checkbox" />
+      <S.Input
+        {...rest}
+        id={id}
+        type="checkbox"
+        defaultChecked={defaultChecked}
+      />
       <S.Toggle
         htmlFor={id}
         $width={width}

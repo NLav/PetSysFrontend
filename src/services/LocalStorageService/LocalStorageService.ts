@@ -1,8 +1,14 @@
 import { keys } from "./keys";
 
 class LocalStorageService {
-  public static getDarkMode(): boolean {
-    return localStorage.getItem(keys.darkMode) === "true";
+  public static getDarkMode(): boolean | undefined {
+    const localIsDarkMode = localStorage.getItem(keys.darkMode);
+
+    return localIsDarkMode === "true"
+      ? true
+      : localIsDarkMode === "false"
+        ? false
+        : undefined;
   }
 
   public static setDarkMode(value: boolean): void {
