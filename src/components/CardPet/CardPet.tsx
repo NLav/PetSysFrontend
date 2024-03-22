@@ -19,9 +19,9 @@ const CardPet = ({ id, name, image_url, birth_date, breed }: ICardPetProps) => {
           setShowModalEdit(true);
         }}
       >
-        <S.NoImageContainer>
+        <S.ImageContainer>
           <CardImage imageUrl={image_url} alt={`${name}-picture`} />
-        </S.NoImageContainer>
+        </S.ImageContainer>
 
         <S.InformationContainer>
           <span>Nome:</span>

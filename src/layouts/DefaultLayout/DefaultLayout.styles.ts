@@ -12,6 +12,7 @@ export const Container = styled.div`
 
 export const ContentContainer = styled.div`
   ${() => css`
+    width: 100%;
     height: 100%;
     padding: 40px;
 

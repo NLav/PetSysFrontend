@@ -17,7 +17,7 @@ export const Container = styled.div`
   `}
 `;
 
-export const NoImageContainer = styled.div`
+export const ImageContainer = styled.div`
   ${() => css`
     display: flex;
     justify-content: center;

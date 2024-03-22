@@ -13,23 +13,14 @@ export const ListingContainer = styled.div`
   ${({ theme }) => css`
     position: relative;
     display: grid;
-    grid-template-columns: repeat(3, 32%);
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     grid-template-rows: max-content;
-    gap: 24px 0;
-    justify-content: space-between;
+    gap: 24px;
     height: 100%;
     padding: 16px;
     border-radius: 16px;
     background-color: ${theme.secondary};
     overflow: auto;
-
-    @media (min-width: 1280px) {
-      grid-template-columns: repeat(4, 24%);
-    }
-
-    @media (min-width: 1600px) {
-      grid-template-columns: repeat(5, 19%);
-    }
   `}
 `;
 
