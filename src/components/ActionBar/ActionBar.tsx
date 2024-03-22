@@ -1,4 +1,5 @@
-import React from "react";
+import { CaretDown } from "@phosphor-icons/react";
+import React, { useState } from "react";
 import * as S from "./ActionBar.styles";
 
 interface IActionBarProps {
@@ -7,11 +8,19 @@ interface IActionBarProps {
 }
 
 const ActionBar = ({ title, children }: IActionBarProps) => {
+  const [collapseBar, setCollapseBar] = useState(true);
   return (
     <S.Container>
-      <S.Title>{title}</S.Title>
+      <S.CollapseButton
+        $collapseBar={collapseBar}
+        onClick={() => setCollapseBar((current) => !current)}
+      >
+        <CaretDown size={24} />
+      </S.CollapseButton>
 
-      {children && <S.ChildrenContainer>{children}</S.ChildrenContainer>}
+      <S.Title $collapseBar={collapseBar}>{title}</S.Title>
+
+      {!collapseBar && <S.ChildrenContainer>{children}</S.ChildrenContainer>}
     </S.Container>
   );
 };
