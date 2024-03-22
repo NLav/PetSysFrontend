@@ -42,6 +42,12 @@ export const Container = styled.div`
         border: none;
       }
     }
+
+    @media (max-width: 500px) {
+      position: fixed;
+      inset: 10% 0 auto auto;
+      width: 90vw;
+    }
   `}
 `;
 

@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Input, Modal } from "components";
 import { ToastContext } from "contexts";
 import { format } from "date-fns";
+import { useWindowSize } from "hooks";
 import { useContext, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { PetService } from "services";
@@ -43,6 +44,7 @@ const CardPetModalEdit = ({
   const [showModalConfirmDelete, setShowModalConfirmDelete] = useState(false);
 
   const dispatch = useAppDispatch();
+  const { windowSize } = useWindowSize();
 
   const { listingParams, meta } = useAppSelector((state) => state.pets);
 
@@ -119,7 +121,7 @@ const CardPetModalEdit = ({
         <Modal
           title="Editar Pet"
           closeModal={() => setShowModalEdit(false)}
-          width="30vw"
+          width={windowSize.width > 500 ? "30vw" : "90vw"}
         >
           <S.Container onSubmit={handleSubmit(onSubmit)}>
             <S.InputsContainer>

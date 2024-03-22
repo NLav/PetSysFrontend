@@ -10,6 +10,7 @@ export const MobileContainer = styled.div<{ $openMenu: boolean }>`
     padding: 32px 0;
     background-color: ${theme.primary};
     color: ${theme.white};
+    border-radius: 0 32px 32px 0;
     box-shadow: ${theme.boxShadow} inset;
 
     ${!$openMenu &&
@@ -17,9 +18,10 @@ export const MobileContainer = styled.div<{ $openMenu: boolean }>`
       width: 0;
       translate: -100% 0;
 
-      ${MobileNavigationList} {
+      & > ${MobileNavigationList} {
         & > a {
-          translate: -2000% 0;
+          /* translate: -2000% 0; */
+          display: none;
         }
       }
     `}
@@ -30,7 +32,7 @@ export const MobileCollapseButton = styled.button`
   ${({ theme }) => css`
     position: absolute;
     inset: 0 auto auto 100%;
-    color: ${theme.secondary};
+    color: ${theme.primary};
   `}
 `;
 
@@ -51,7 +53,7 @@ export const MobileNavigationList = styled.div`
       padding: 4px 8px;
       color: ${theme.white};
 
-      font-size: 1.75rem;
+      font-size: 1.5rem;
       text-decoration: none;
 
       &:not(:last-child) {
