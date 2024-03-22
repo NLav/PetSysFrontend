@@ -9,7 +9,14 @@ export const Container = styled.div`
     gap: 32px;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
     padding: 0 136px;
+
+    @media (max-width: 500px) {
+      grid-template-columns: repeat(3, min-content);
+      gap: 8px;
+      padding: 0;
+    }
   `}
 `;
 
@@ -58,6 +65,10 @@ export const PathContainer = styled.div`
 
     & > svg {
       color: ${theme.black};
+    }
+
+    @media (max-width: 500px) {
+      gap: 4px;
     }
   `}
 `;

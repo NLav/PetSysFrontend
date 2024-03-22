@@ -6,6 +6,7 @@ import {
   DotsThree,
 } from "@phosphor-icons/react";
 import { Combobox } from "components";
+import { useWindowSize } from "hooks";
 import { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
 import { getPetsPaginated } from "stores/pets/thunks";
@@ -26,6 +27,7 @@ const Pagination = ({
   const { listingParams, meta } = useAppSelector((state) => state.pets);
 
   const dispatch = useAppDispatch();
+  const { windowSize } = useWindowSize();
 
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -76,36 +78,40 @@ const Pagination = ({
 
   return (
     <S.Container>
-      <S.ComboboxContainer>
-        <Combobox
-          title="Itens por página"
-          options={limitOptions}
-          value={meta.restLimit}
-          setValue={(value) => {
+      {windowSize.width > 500 && (
+        <S.ComboboxContainer>
+          <Combobox
+            title="Itens por página"
+            options={limitOptions}
+            value={meta.restLimit}
+            setValue={(value) => {
+              dispatch(
+                getPetsPaginated({
+                  listingParams,
+                  meta: { ...meta, restPage: "1", restLimit: value },
+                })
+              );
+            }}
+            searchable={false}
+          />
+        </S.ComboboxContainer>
+      )}
+
+      {windowSize.width > 500 && (
+        <S.CaretButton
+          onClick={() => {
             dispatch(
               getPetsPaginated({
                 listingParams,
-                meta: { ...meta, restPage: "1", restLimit: value },
+                meta: { ...meta, restPage: "1" },
               })
             );
           }}
-          searchable={false}
-        />
-      </S.ComboboxContainer>
-
-      <S.CaretButton
-        onClick={() => {
-          dispatch(
-            getPetsPaginated({
-              listingParams,
-              meta: { ...meta, restPage: "1" },
-            })
-          );
-        }}
-        disabled={meta.restPage === "1"}
-      >
-        <CaretDoubleLeft size={16} weight="bold" />
-      </S.CaretButton>
+          disabled={meta.restPage === "1"}
+        >
+          <CaretDoubleLeft size={16} weight="bold" />
+        </S.CaretButton>
+      )}
 
       <S.CaretButton
         onClick={() => {
@@ -244,19 +250,21 @@ const Pagination = ({
         <CaretRight size={16} weight="bold" />
       </S.CaretButton>
 
-      <S.CaretButton
-        onClick={() => {
-          dispatch(
-            getPetsPaginated({
-              listingParams,
-              meta: { ...meta, restPage: String(meta.restTotal) },
-            })
-          );
-        }}
-        disabled={meta.restPage === String(meta.restTotal)}
-      >
-        <CaretDoubleRight size={16} weight="bold" />
-      </S.CaretButton>
+      {windowSize.width > 500 && (
+        <S.CaretButton
+          onClick={() => {
+            dispatch(
+              getPetsPaginated({
+                listingParams,
+                meta: { ...meta, restPage: String(meta.restTotal) },
+              })
+            );
+          }}
+          disabled={meta.restPage === String(meta.restTotal)}
+        >
+          <CaretDoubleRight size={16} weight="bold" />
+        </S.CaretButton>
+      )}
     </S.Container>
   );
 };
