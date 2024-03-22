@@ -4,25 +4,19 @@ export const Container = styled.div`
   ${({ theme }) => css`
     position: absolute;
     inset: 0;
-    display: grid;
-    grid-template-areas: "menu-container content-container";
-    grid-template-columns: max-content 1fr;
-    grid-template-rows: 100vh;
+    display: flex;
     background-color: ${theme.white};
     overflow: hidden;
   `}
 `;
 
-export const MenuContainer = styled.div`
-  ${() => css`
-    grid-area: menu-container;
-  `}
-`;
-
 export const ContentContainer = styled.div`
   ${() => css`
-    grid-area: content-container;
     height: 100%;
     padding: 40px;
+
+    @media (max-width: 500px) {
+      padding: 80px 40px 40px;
+    }
   `}
 `;

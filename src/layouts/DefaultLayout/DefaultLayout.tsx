@@ -5,9 +5,7 @@ import * as S from "./DefaultLayout.styles";
 const DefaultLayout = () => {
   return (
     <S.Container>
-      <S.MenuContainer>
-        <Menu />
-      </S.MenuContainer>
+      <Menu />
 
       <S.ContentContainer>
         <Outlet />

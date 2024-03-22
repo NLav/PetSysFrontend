@@ -1,6 +1,67 @@
 import styled, { css } from "styled-components";
 
-export const Container = styled.div<{
+export const MobileContainer = styled.div<{ $openMenu: boolean }>`
+  ${({ theme, $openMenu }) => css`
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+    width: 400px;
+    padding: 32px 0;
+    background-color: ${theme.primary};
+    color: ${theme.white};
+    box-shadow: ${theme.boxShadow} inset;
+
+    ${!$openMenu &&
+    css`
+      width: 0;
+      translate: -100% 0;
+
+      ${MobileNavigationList} {
+        & > a {
+          translate: -2000% 0;
+        }
+      }
+    `}
+  `}
+`;
+
+export const MobileCollapseButton = styled.button`
+  ${({ theme }) => css`
+    position: absolute;
+    inset: 0 auto auto 100%;
+    color: ${theme.secondary};
+  `}
+`;
+
+export const MobileNavigationList = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    border: solid ${theme.white};
+    border-width: 4px 0;
+
+    & > a {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      width: 100%;
+      padding: 4px 8px;
+      color: ${theme.white};
+
+      font-size: 1.75rem;
+      text-decoration: none;
+
+      &:not(:last-child) {
+        border-bottom: 4px solid ${theme.white};
+      }
+    }
+  `}
+`;
+
+export const DesktopContainer = styled.div<{
   $collapseMenu: boolean;
 }>`
   ${({ theme, $collapseMenu }) => css`
@@ -22,7 +83,7 @@ export const Container = styled.div<{
   `}
 `;
 
-export const CollapseButton = styled.button`
+export const DesktopCollapseButton = styled.button`
   ${({ theme }) => css`
     position: absolute;
     inset: 0 0 0 auto;
