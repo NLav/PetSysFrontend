@@ -30,6 +30,18 @@ class LocalStorageService {
   public static deleteCollapseMenu(): void {
     localStorage.removeItem(keys.collapseMenu);
   }
+
+  public static getAccessToken(): string | null {
+    return localStorage.getItem(keys.accessToken);
+  }
+
+  public static setAccessToken(value: string): void {
+    localStorage.setItem(keys.accessToken, value);
+  }
+
+  public static deleteAccessToken(): void {
+    localStorage.removeItem(keys.accessToken);
+  }
 }
 
 export { LocalStorageService };

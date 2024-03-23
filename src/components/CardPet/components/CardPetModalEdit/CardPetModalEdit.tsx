@@ -9,8 +9,7 @@ import { PetService } from "services";
 import { IPetDTO } from "services/dtos";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
 import { getPetsPaginated } from "stores/pets/thunks";
-import { convertInputDateToDate, getInputDateMinMax } from "utils";
-import { generateId } from "utils/generate";
+import { convertInputDateToDate, generateId, getInputDateMinMax } from "utils";
 import { z } from "zod";
 import * as S from "./CardPetModalEdit.styles";
 

@@ -1,25 +1,54 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { PawPrint } from "@phosphor-icons/react";
 import { Button, Input } from "components";
+import { ToastContext } from "contexts";
+import { useContext } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { AuthService, LocalStorageService } from "services";
+import { generateId } from "utils";
 import { z } from "zod";
 import * as S from "./Login.styles";
 
 const loginSchema = z.object({
-  email: z.string().min(1, "Campo Obrigatório!").email(),
+  email: z.string().min(1, "Campo Obrigatório!").email("E-mail inválido!"),
   password: z.string().min(1, "Campo Obrigatório!"),
 });
 
 type loginFormData = z.infer<typeof loginSchema>;
 
 const Login = () => {
+  const { addToast } = useContext(ToastContext);
+
+  const navigate = useNavigate();
+
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<loginFormData>({ defaultValues: { email: "", password: "" } });
+  } = useForm<loginFormData>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
   const onSubmit = (data: loginFormData) => {
-    console.log(data);
+    AuthService.signIn(data)
+      .then((response) => {
+        LocalStorageService.setAccessToken(response.data.access_token);
+
+        navigate(`/pets`);
+      })
+      .catch((error) => {
+        addToast({
+          id: generateId(),
+          variant: "danger",
+          title: "Erro ao fazer login",
+          description: error.message,
+        });
+      });
   };
 
   return (

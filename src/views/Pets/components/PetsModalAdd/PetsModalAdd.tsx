@@ -7,8 +7,7 @@ import { Controller, useForm } from "react-hook-form";
 import { PetService } from "services";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
 import { getPetsPaginated } from "stores/pets/thunks";
-import { convertInputDateToDate, getInputDateMinMax } from "utils";
-import { generateId } from "utils/generate";
+import { convertInputDateToDate, generateId, getInputDateMinMax } from "utils";
 import { z } from "zod";
 import { petsModals } from "../../Pets";
 
