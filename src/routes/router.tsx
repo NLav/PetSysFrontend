@@ -1,6 +1,6 @@
-import { DefaultLayout } from "layouts";
+import { DefaultLayout, LoginLayout } from "layouts";
 import { createBrowserRouter } from "react-router-dom";
-import { Pets } from "views";
+import { Login, Pets } from "views";
 
 export const router = createBrowserRouter([
   {
@@ -10,6 +10,16 @@ export const router = createBrowserRouter([
       {
         path: "/pets",
         element: <Pets />,
+      },
+    ],
+  },
+  {
+    path: "/login",
+    element: <LoginLayout />,
+    children: [
+      {
+        index: true,
+        element: <Login />,
       },
     ],
   },

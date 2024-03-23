@@ -1,2 +1,1 @@
 export { Login } from "./Login";
-export { Pets } from "./Pets";
