@@ -2,14 +2,12 @@ import {
   CaretDoubleLeft,
   Dog,
   List,
-  Moon,
   PawPrint,
-  Sun,
   Users,
   UsersFour,
 } from "@phosphor-icons/react";
-import { Toggle } from "components";
-import { CollapseMenuContext, DarkModeContext } from "contexts";
+import { ToggleDarkMode } from "components";
+import { CollapseMenuContext } from "contexts";
 import { useWindowSize } from "hooks";
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
@@ -17,7 +15,6 @@ import * as S from "./Menu.styles";
 import { MenuTooltip } from "./components";
 
 const Menu = () => {
-  const { isDarkMode, setIsDarkMode } = useContext(DarkModeContext);
   const { collapseMenu, setCollapseMenu } = useContext(CollapseMenuContext);
   const [openMenu, setOpenMenu] = useState(false);
 
@@ -55,15 +52,7 @@ const Menu = () => {
         </S.MobileNavigationList>
 
         <S.ToggleContainer>
-          <Toggle
-            id="dark-mode-toggle"
-            leftSideSibling={!collapseMenu && <Sun size={32} />}
-            rightSideSibling={!collapseMenu && <Moon size={32} />}
-            defaultChecked={isDarkMode}
-            onChange={(event) => {
-              setIsDarkMode(event.target.checked);
-            }}
-          />
+          <ToggleDarkMode />
         </S.ToggleContainer>
       </S.MobileContainer>
     );
@@ -130,15 +119,7 @@ const Menu = () => {
       </S.NavigationList>
 
       <S.ToggleContainer>
-        <Toggle
-          id="dark-mode-toggle"
-          leftSideSibling={!collapseMenu && <Sun size={32} />}
-          rightSideSibling={!collapseMenu && <Moon size={32} />}
-          defaultChecked={isDarkMode}
-          onChange={(event) => {
-            setIsDarkMode(event.target.checked);
-          }}
-        />
+        <ToggleDarkMode showIcons={!collapseMenu} />
       </S.ToggleContainer>
     </S.DesktopContainer>
   );

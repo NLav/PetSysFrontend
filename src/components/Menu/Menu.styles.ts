@@ -20,7 +20,6 @@ export const MobileContainer = styled.div<{ $openMenu: boolean }>`
 
       & > ${MobileNavigationList} {
         & > a {
-          /* translate: -2000% 0; */
           display: none;
         }
       }
