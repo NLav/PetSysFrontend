@@ -1,3 +1,4 @@
+import { ISignInResponse } from "services/dtos";
 import { keys } from "./keys";
 
 class LocalStorageService {
@@ -31,16 +32,20 @@ class LocalStorageService {
     localStorage.removeItem(keys.collapseMenu);
   }
 
-  public static getAccessToken(): string | null {
-    return localStorage.getItem(keys.accessToken);
+  public static getLoginInformation(): ISignInResponse | null {
+    const localLoginInformation = localStorage.getItem(keys.loginInformation);
+
+    return localLoginInformation !== null
+      ? JSON.parse(localLoginInformation)
+      : null;
   }
 
-  public static setAccessToken(value: string): void {
-    localStorage.setItem(keys.accessToken, value);
+  public static setLoginInformation(value: ISignInResponse): void {
+    localStorage.setItem(keys.loginInformation, JSON.stringify(value));
   }
 
-  public static deleteAccessToken(): void {
-    localStorage.removeItem(keys.accessToken);
+  public static deleteLoginInformation(): void {
+    localStorage.removeItem(keys.loginInformation);
   }
 }
 

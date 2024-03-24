@@ -5,37 +5,28 @@ const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
 });
 
-api.interceptors.request.use(
-  (config) => {
-    if (import.meta.env.VITE_FORCE_ORIGIN) {
-      config.headers["force-origin"] = import.meta.env.VITE_FORCE_ORIGIN;
-    }
-
-    config.headers["Authorization"] =
-      `Bearer ${LocalStorageService.getAccessToken()}`;
-
-    return config;
-  },
-
-  (error) => {
-    console.error(error);
+api.interceptors.request.use((request) => {
+  if (LocalStorageService.getLoginInformation()) {
+    request.headers.Authorization = `Bearer ${LocalStorageService.getLoginInformation()?.access_token}`;
   }
-);
+
+  return request;
+});
 
 api.interceptors.response.use(
-  (config) => {
-    return config;
+  (response) => {
+    return Promise.resolve(response);
   },
   (error: AxiosError) => {
-    console.error(error);
-
     if (
       error.response?.status === 401 &&
-      LocalStorageService.getAccessToken()
+      LocalStorageService.getLoginInformation()
     ) {
-      LocalStorageService.deleteAccessToken();
+      LocalStorageService.deleteLoginInformation();
       window.location.href = "/login";
     }
+
+    return Promise.reject(error);
   }
 );
 

@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PawPrint } from "@phosphor-icons/react";
+import { AxiosError } from "axios";
 import { Button, Input } from "components";
 import { ToastContext } from "contexts";
 import { useContext } from "react";
@@ -37,11 +38,11 @@ const Login = () => {
   const onSubmit = (data: loginFormData) => {
     AuthService.signIn(data)
       .then((response) => {
-        LocalStorageService.setAccessToken(response.data.access_token);
+        LocalStorageService.setLoginInformation(response);
 
-        navigate(`/pets`);
+        navigate("/pets");
       })
-      .catch((error) => {
+      .catch((error: AxiosError) => {
         addToast({
           id: generateId(),
           variant: "danger",

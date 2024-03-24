@@ -8,7 +8,7 @@ const DefaultLayout = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!LocalStorageService.getAccessToken()) {
+    if (!LocalStorageService.getLoginInformation()) {
       navigate("/login");
     } else if (window.location.pathname === "/") {
       navigate("/pets");
