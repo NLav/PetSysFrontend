@@ -1,11 +1,4 @@
-import {
-  CaretDoubleLeft,
-  Dog,
-  List,
-  PawPrint,
-  Users,
-  UsersFour,
-} from "@phosphor-icons/react";
+import { CaretDoubleLeft, List, PawPrint } from "@phosphor-icons/react";
 import { ToggleDarkMode } from "components";
 import { CollapseMenuContext } from "contexts";
 import { useWindowSize } from "hooks";
@@ -14,7 +7,17 @@ import { Link } from "react-router-dom";
 import * as S from "./Menu.styles";
 import { MenuTooltip } from "./components";
 
-const Menu = () => {
+export interface IMenuOption {
+  label: string;
+  href: string;
+  icon: React.ReactElement;
+}
+
+interface IMenuProps {
+  menuOptions: IMenuOption[];
+}
+
+const Menu = ({ menuOptions }: IMenuProps) => {
   const { collapseMenu, setCollapseMenu } = useContext(CollapseMenuContext);
   const [openMenu, setOpenMenu] = useState(false);
 
@@ -35,20 +38,12 @@ const Menu = () => {
         </S.LogoContainer>
 
         <S.MobileNavigationList>
-          <Link to="/pets">
-            <Dog size={64} />
-            Pets
-          </Link>
-
-          <Link to="/owners">
-            <Users size={64} />
-            Tutores
-          </Link>
-
-          <Link to="/employees">
-            <UsersFour size={64} />
-            Funcionários
-          </Link>
+          {menuOptions.map((option) => (
+            <Link key={option.label} to={option.href}>
+              {option.icon}
+              {option.label}
+            </Link>
+          ))}
         </S.MobileNavigationList>
 
         <S.ToggleContainer>
@@ -74,49 +69,30 @@ const Menu = () => {
         {!collapseMenu ? "PetSys" : null}
       </S.LogoContainer>
 
-      <S.NavigationList $collapseMenu={collapseMenu}>
-        {collapseMenu ? (
-          <MenuTooltip text="Pets">
-            <Link to="/pets">
-              <Dog size={32} />
-              {!collapseMenu ? "Pets" : null}
-            </Link>
-          </MenuTooltip>
-        ) : (
-          <Link to="/pets">
-            <Dog size={32} />
-            {!collapseMenu ? "Pets" : null}
-          </Link>
+      <S.DesktopNavigationList $collapseMenu={collapseMenu}>
+        {menuOptions.map((option) =>
+          collapseMenu ? (
+            <MenuTooltip key={option.label} text={option.label}>
+              <S.DesktopStyledLink
+                to={option.href}
+                $selected={window.location.pathname === option.href}
+              >
+                {option.icon}
+                {!collapseMenu ? option.label : null}
+              </S.DesktopStyledLink>
+            </MenuTooltip>
+          ) : (
+            <S.DesktopStyledLink
+              key={option.label}
+              to={option.href}
+              $selected={window.location.pathname === option.href}
+            >
+              {option.icon}
+              {!collapseMenu ? option.label : null}
+            </S.DesktopStyledLink>
+          )
         )}
-
-        {collapseMenu ? (
-          <MenuTooltip text="Tutores">
-            <Link to="/owners">
-              <Users size={32} />
-              {!collapseMenu ? "Tutores" : null}
-            </Link>
-          </MenuTooltip>
-        ) : (
-          <Link to="/owners">
-            <Users size={32} />
-            {!collapseMenu ? "Tutores" : null}
-          </Link>
-        )}
-
-        {collapseMenu ? (
-          <MenuTooltip text="Funcionários">
-            <Link to="/employees">
-              <UsersFour size={32} />
-              {!collapseMenu ? "Funcionários" : null}
-            </Link>
-          </MenuTooltip>
-        ) : (
-          <Link to="/owners">
-            <UsersFour size={32} />
-            {!collapseMenu ? "Tutores" : null}
-          </Link>
-        )}
-      </S.NavigationList>
+      </S.DesktopNavigationList>
 
       <S.ToggleContainer>
         <ToggleDarkMode showIcons={!collapseMenu} />

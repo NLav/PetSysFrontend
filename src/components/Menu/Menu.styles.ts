@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 export const MobileContainer = styled.div<{ $openMenu: boolean }>`
@@ -57,6 +58,11 @@ export const MobileNavigationList = styled.div`
 
       &:not(:last-child) {
         border-bottom: 4px solid ${theme.white};
+      }
+
+      & > svg {
+        width: 64px;
+        height: 64px;
       }
     }
   `}
@@ -121,37 +127,51 @@ export const LogoContainer = styled.div`
   `}
 `;
 
-export const NavigationList = styled.div<{
+export const DesktopNavigationList = styled.div<{
   $collapseMenu: boolean;
 }>`
-  ${({ theme, $collapseMenu }) => css`
+  ${({ $collapseMenu }) => css`
     display: flex;
     flex-direction: column;
     gap: 8px;
     align-items: start;
 
-    & a {
-      display: flex;
-      gap: 4px;
-      align-items: center;
-      width: 100%;
-      padding: 4px 8px;
-      border-radius: 8px;
-      color: ${theme.white};
-
-      font-size: 1rem;
-      text-decoration: none;
-
-      &:hover {
-        background-color: ${theme.primaryDark};
-        transform: translateX(10px);
-      }
-    }
-
     ${$collapseMenu &&
     css`
       align-items: center;
     `}
+  `}
+`;
+
+export const DesktopStyledLink = styled(Link)<{ $selected: boolean }>`
+  ${({ theme, $selected }) => css`
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    width: 100%;
+    padding: 4px 8px;
+    border-radius: 8px;
+    color: ${theme.white};
+
+    font-size: 1rem;
+    text-decoration: none;
+
+    ${$selected
+      ? css`
+          background-color: ${theme.primaryDark};
+          transform: translateX(10px);
+        `
+      : css`
+          &:hover {
+            background-color: ${theme.primaryDark};
+            transform: translateX(10px);
+          }
+        `}
+
+    & > svg {
+      width: 32px;
+      height: 32px;
+    }
   `}
 `;
 
