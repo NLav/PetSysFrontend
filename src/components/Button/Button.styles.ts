@@ -1,13 +1,16 @@
 import styled, { css } from "styled-components";
 import { IButtonProps } from "./Button";
 
-export const Button = styled.button<{ $variant: IButtonProps["variant"] }>`
-  ${({ theme, $variant }) => css`
+export const Button = styled.button<{
+  $variant: IButtonProps["variant"];
+  $fontSize: string;
+}>`
+  ${({ theme, $variant, $fontSize }) => css`
     width: 100%;
     border-radius: 16px;
     padding: 4px 8px;
 
-    font-size: 1.25rem;
+    font-size: ${$fontSize};
 
     &:hover {
       scale: 1.05;

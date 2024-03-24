@@ -3,11 +3,17 @@ import * as S from "./Button.styles";
 
 export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant: "primary" | "secondary" | "success" | "danger" | "ghost";
+  fontSize?: string;
 }
 
-const Button = ({ variant, children, ...rest }: IButtonProps) => {
+const Button = ({
+  variant,
+  fontSize = "1.25rem",
+  children,
+  ...rest
+}: IButtonProps) => {
   return (
-    <S.Button {...rest} $variant={variant}>
+    <S.Button {...rest} $variant={variant} $fontSize={fontSize}>
       {children}
     </S.Button>
   );
