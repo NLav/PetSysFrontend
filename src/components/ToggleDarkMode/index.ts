@@ -1,1 +1,1 @@
-export { ToggleDarkMode } from "./ToggleDarkMode";
+export * from "./ToggleDarkMode";

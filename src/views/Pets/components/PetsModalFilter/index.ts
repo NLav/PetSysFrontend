@@ -1,1 +1,1 @@
-export { PetsModalFilter } from "./PetsModalFilter";
+export * from "./PetsModalFilter";

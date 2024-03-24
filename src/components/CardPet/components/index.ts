@@ -1,1 +1,1 @@
-export { CardPetModalEdit } from "./CardPetModalEdit";
+export * from "./CardPetModalEdit";

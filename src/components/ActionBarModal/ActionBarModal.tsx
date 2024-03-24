@@ -1,6 +1,6 @@
 import { X } from "@phosphor-icons/react";
 import { Button } from "components";
-import { IButtonProps } from "components/Button/Button";
+import { IButtonProps } from "components/Button";
 import { FormHTMLAttributes, useRef } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 import * as S from "./ActionBarModal.styles";

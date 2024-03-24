@@ -1,4 +1,4 @@
-export { PetsModalAdd } from "./PetsModalAdd";
-export { PetsModalFilter } from "./PetsModalFilter";
-export { PetsModalOrder } from "./PetsModalOrder";
-export { PetsModalSearch } from "./PetsModalSearch";
+export * from "./PetsModalAdd";
+export * from "./PetsModalFilter";
+export * from "./PetsModalOrder";
+export * from "./PetsModalSearch";

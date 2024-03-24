@@ -1,1 +1,1 @@
-export { ActionBarModalForm } from "./ActionBarModalForm";
+export * from "./ActionBarModalForm";

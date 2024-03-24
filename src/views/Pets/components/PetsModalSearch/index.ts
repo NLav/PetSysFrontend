@@ -1,1 +1,1 @@
-export { PetsModalSearch } from "./PetsModalSearch";
+export * from "./PetsModalSearch";

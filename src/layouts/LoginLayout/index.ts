@@ -1,1 +1,1 @@
-export { LoginLayout } from "./LoginLayout";
+export * from "./LoginLayout";

@@ -1,5 +1,5 @@
 import { ActionBarModal, Button } from "components";
-import { IActionBarModalProps } from "components/ActionBarModal/ActionBarModal";
+import { IActionBarModalProps } from "components/ActionBarModal";
 import * as S from "./ActionBarModalForm.styles";
 
 interface IActionBarModalFormProps extends IActionBarModalProps {}

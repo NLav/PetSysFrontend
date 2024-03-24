@@ -1,4 +1,4 @@
-import { IToastProps } from "components/Toast/Toast";
+import { IToastProps } from "components/Toast";
 import { createContext, useState } from "react";
 
 interface IToastContext {

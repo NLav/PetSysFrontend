@@ -1,6 +1,6 @@
 import { App } from "App";
 import { DarkModeProvider, ToastProvider } from "contexts";
-import { CollapseMenuProvider } from "contexts/MenuCollapsedContext";
+import { CollapseMenuProvider } from "contexts/CollapseMenuContext";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";

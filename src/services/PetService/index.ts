@@ -1,1 +1,1 @@
-export { PetService } from "./PetService";
+export * from "./PetService";

@@ -1,1 +1,1 @@
-export { PetsModalOrder } from "./PetsModalOrder";
+export * from "./PetsModalOrder";

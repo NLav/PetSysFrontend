@@ -1,4 +1,4 @@
-import { CardImage } from "components/CardImage";
+import { CardImage } from "components";
 import { format } from "date-fns";
 import { useState } from "react";
 import { IPetDTO } from "services/dtos";

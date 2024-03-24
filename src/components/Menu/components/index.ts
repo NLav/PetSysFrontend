@@ -1,1 +1,1 @@
-export { MenuTooltip } from "./MenuTooltip";
+export * from "./MenuTooltip";

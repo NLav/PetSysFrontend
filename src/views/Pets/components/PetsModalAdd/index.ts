@@ -1,1 +1,1 @@
-export { PetsModalAdd } from "./PetsModalAdd";
+export * from "./PetsModalAdd";

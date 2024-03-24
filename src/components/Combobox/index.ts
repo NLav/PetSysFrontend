@@ -1,1 +1,1 @@
-export { Combobox } from "./Combobox";
+export * from "./Combobox";
