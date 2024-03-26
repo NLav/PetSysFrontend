@@ -51,7 +51,7 @@ const Combobox = ({
   });
 
   return (
-    <S.Container ref={comboboxRef}>
+    <S.Container ref={comboboxRef} onFocus={() => setShowOptions(true)}>
       <label htmlFor="combobox-input">{title}</label>
 
       <input
