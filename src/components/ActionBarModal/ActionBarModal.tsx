@@ -1,7 +1,7 @@
 import { X } from "@phosphor-icons/react";
 import { Button } from "components";
 import { IButtonProps } from "components/Button";
-import { FormHTMLAttributes, useRef } from "react";
+import { FormHTMLAttributes, useEffect, useRef } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 import * as S from "./ActionBarModal.styles";
 
@@ -26,6 +26,18 @@ const ActionBarModal = ({
 }: IActionBarModalProps) => {
   const modalRef = useRef<HTMLDivElement | null>(null);
 
+  useEffect(() => {
+    const handleKeyPress = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        closeModal();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyPress);
+
+    return () => document.removeEventListener("keydown", handleKeyPress);
+  }, [closeModal]);
+
   useOnClickOutside(modalRef, closeModal);
 
   return (
@@ -33,8 +45,8 @@ const ActionBarModal = ({
       <S.Header>
         {title}
 
-        <button>
-          <X size={16} onClick={() => closeModal()} />
+        <button onClick={() => closeModal()}>
+          <X size={16} />
         </button>
       </S.Header>
 

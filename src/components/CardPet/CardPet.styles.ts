@@ -1,17 +1,19 @@
 import styled, { css } from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled.button`
   ${({ theme }) => css`
     display: flex;
     flex-direction: column;
     gap: 16px;
+    align-items: start;
+    justify-content: center;
     padding: 16px;
     border-radius: 16px;
     background-color: ${theme.white};
     box-shadow: ${theme.boxShadow};
-    cursor: pointer;
 
-    &:hover {
+    &:hover,
+    &:focus {
       scale: 1.05;
     }
   `}
@@ -32,6 +34,7 @@ export const InformationContainer = styled.div`
   ${({ theme }) => css`
     display: flex;
     flex-direction: column;
+    align-items: start;
 
     & > span {
       &:nth-child(1) {

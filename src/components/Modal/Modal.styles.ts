@@ -56,18 +56,20 @@ export const Container = styled.div<{
   `}
 `;
 
-export const Header = styled.div`
+export const Footer = styled.div`
   ${({ theme }) => css`
     display: flex;
     gap: 8px;
     justify-content: space-between;
     align-items: center;
     color: ${theme.black};
+  `}
+`;
 
+export const Header = styled(Footer)`
+  ${({ theme }) => css`
     & > * {
       color: ${theme.black};
     }
   `}
 `;
-
-export const Footer = Header;
