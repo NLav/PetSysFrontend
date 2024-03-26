@@ -3,6 +3,7 @@ import { IToggleProps } from "./Toggle";
 
 export const Container = styled.div`
   ${() => css`
+    position: relative;
     display: flex;
     gap: 8px;
     justify-content: center;
@@ -11,8 +12,16 @@ export const Container = styled.div`
 `;
 
 export const Input = styled.input`
-  ${() => css`
-    display: none;
+  ${({ theme }) => css`
+    position: absolute;
+    width: 0;
+    height: 0;
+
+    &:focus {
+      & ~ ${Toggle} {
+        outline: 2px solid ${theme.black};
+      }
+    }
   `}
 `;
 
