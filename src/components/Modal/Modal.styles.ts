@@ -63,6 +63,10 @@ export const Header = styled.div`
     justify-content: space-between;
     align-items: center;
     color: ${theme.black};
+
+    & > * {
+      color: ${theme.black};
+    }
   `}
 `;
 
