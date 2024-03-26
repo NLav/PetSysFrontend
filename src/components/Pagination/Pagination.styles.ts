@@ -3,101 +3,97 @@ import styled, { css } from "styled-components";
 export const Container = styled.div`
   ${() => css`
     position: relative;
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: min-content min-content 1fr min-content min-content;
-    gap: 32px;
-    justify-content: space-between;
+    display: flex;
     align-items: center;
-    width: 100%;
-    padding: 0 136px;
-
-    @media (max-width: 500px) {
-      grid-template-columns: repeat(3, min-content);
-      gap: 8px;
-      padding: 0;
-    }
   `}
 `;
 
 export const ComboboxContainer = styled.div`
   ${() => css`
-    position: absolute;
-    inset: auto auto auto 0;
-    width: 120px;
+    min-width: 120px;
+    max-width: 120px;
+    margin-right: 32px;
   `}
 `;
 
-export const CaretButton = styled.button`
-  ${({ theme }) => css`
-    color: ${theme.black};
+export const PaginationContainer = styled.div`
+  ${() => css`
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 
-    &:disabled {
-      color: ${theme.gray2};
-    }
-
-    &:hover {
-      &:not(:disabled) {
-        scale: 1.25;
-      }
+    & > button {
+      border-radius: 8px;
     }
   `}
 `;
 
-export const PathContainer = styled.div`
+export const PaginationPathContainer = styled.div`
+  ${() => css`
+    display: flex;
+    margin: 0 auto;
+    width: fit-content;
+  `}
+`;
+
+export const PaginationPath = styled.div`
+  ${() => css`
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+    min-width: 40px;
+    height: 40px;
+    overflow: hidden;
+  `}
+`;
+
+export const PaginationPathBefore = styled(PaginationPath)`
+  ${() => css`
+    flex-direction: row-reverse;
+  `}
+`;
+
+export const PaginationPathAfter = styled(PaginationPath)`
+  ${() => css``}
+`;
+
+export const PaginationChild = styled.button`
   ${({ theme }) => css`
     display: flex;
-    gap: 8px;
     justify-content: center;
     align-items: center;
+    min-width: 40px;
+    height: 40px;
+    border: 2px solid ${theme.primary};
+    color: ${theme.black};
 
-    & > span,
-    & > form > input {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 32px;
-      height: 32px;
-      border: 4px solid;
-      border-radius: 4px;
-      color: ${theme.black};
-    }
-
-    & > svg {
-      color: ${theme.black};
-    }
-
-    @media (max-width: 500px) {
-      gap: 4px;
-    }
+    font-size: 1.25rem;
   `}
 `;
 
-export const NumberAround = styled.span<{ $visible: boolean }>`
-  ${({ theme, $visible }) => css`
-    border-color: ${theme.secondary} !important;
-    user-select: none;
-    cursor: pointer;
-
-    ${!$visible &&
-    css`
-      visibility: hidden;
-    `}
-
-    &:hover {
-      scale: 1.15;
-    }
+export const RestPageContainer = styled.form`
+  ${({ theme }) => css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    background-color: ${theme.primary};
+    color: ${theme.white};
+    border: 2px solid ${theme.primary};
   `}
 `;
 
 export const RestPageInput = styled.input`
   ${({ theme }) => css`
-    border-color: ${theme.primary} !important;
+    width: 100%;
+    height: 100%;
+    border: none;
     background-color: transparent;
-
-    scale: 1.15;
+    color: ${theme.black};
     text-align: center;
 
-    font-size: 1rem;
+    font-size: 1.25rem;
   `}
 `;

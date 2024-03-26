@@ -5,7 +5,6 @@ import {
   Plus,
 } from "@phosphor-icons/react";
 import { ActionBar, CardPet, Pagination, Spinner } from "components";
-import { useWindowSize } from "hooks";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
 import { getPetsPaginated } from "stores/pets/thunks";
@@ -32,7 +31,6 @@ const Pets = () => {
   );
 
   const dispatch = useAppDispatch();
-  const { windowSize } = useWindowSize();
 
   useEffect(() => {
     const handleGetPetsPaginated = () => {
@@ -116,10 +114,7 @@ const Pets = () => {
         )}
       </S.ListingContainer>
 
-      <Pagination
-        limitOptions={["3", "4", "5", "6", "8", "10"]}
-        numbersAroundRestPage={windowSize.width > 500 ? 3 : 1}
-      />
+      <Pagination limitOptions={["6", "8", "10", "12", "16", "20"]} />
     </S.Container>
   );
 };
