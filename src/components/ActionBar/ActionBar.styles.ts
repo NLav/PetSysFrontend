@@ -15,10 +15,10 @@ export const Container = styled.div`
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 8px;
     justify-content: start;
     width: 100%;
-    padding: 2rem 16px;
+    padding: 16px;
     border-radius: 16px;
     background-color: ${theme.secondary};
   `}
@@ -28,6 +28,7 @@ export const CollapseButton = styled.button<{ $collapseBar: boolean }>`
   ${({ theme, $collapseBar }) => css`
     position: absolute;
     inset: 16px 16px auto auto;
+    translate: 0 calc(-50% + 16px);
     color: ${theme.white};
     z-index: 2;
 
@@ -37,21 +38,18 @@ export const CollapseButton = styled.button<{ $collapseBar: boolean }>`
 
 export const Title = styled.span<{ $collapseBar: boolean }>`
   ${({ theme, $collapseBar }) => css`
-    position: absolute;
+    width: fit-content;
     color: ${theme.white};
     z-index: 1;
 
     font-size: 2rem;
     font-weight: bold;
 
-    ${$collapseBar
-      ? css`
-          inset: 16px auto auto 16px;
-        `
-      : css`
-          inset: 16px auto auto 50%;
-          transform: translateX(-50%);
-        `}
+    ${$collapseBar &&
+    css`
+      margin-left: 50%;
+      translate: -50% 0;
+    `}
   `}
 `;
 
@@ -62,7 +60,6 @@ export const ChildrenContainer = styled.div`
     grid-template-rows: 1fr;
     gap: 16px;
     width: 100%;
-    margin-top: 2rem;
 
     & * {
       color: ${theme.white};
