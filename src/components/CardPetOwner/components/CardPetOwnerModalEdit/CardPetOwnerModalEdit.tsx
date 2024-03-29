@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CameraSlash, Plus, Trash } from "@phosphor-icons/react";
+import { CameraSlash, Plus } from "@phosphor-icons/react";
 import { Button, Input, Modal } from "components";
 import { useWindowSize } from "hooks";
 import { Controller, useForm } from "react-hook-form";
@@ -14,7 +14,6 @@ interface ICardPetOwnerModalEditProps extends IPetOwnerDTO {
 const editPetOwnerSchema = z.object({
   name: z.string().min(1, "Campo Obrigatório"),
   address: z.string().min(1, "Campo Obrigatório"),
-  pets: z.number().array().optional(),
 });
 
 type editPetOwnerFormData = z.infer<typeof editPetOwnerSchema>;
@@ -31,24 +30,15 @@ const CardPetOwnerModalEdit = ({
   const {
     control,
     handleSubmit,
-    watch,
-    setValue,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(editPetOwnerSchema),
     defaultValues: {
       name: name,
       address: address,
-      pets: pets.map((pet) => pet.id),
+      petIds: pets.map((pet) => pet.id),
     },
   });
-
-  const handleRemovePet = (petId: number) => {
-    setValue(
-      "pets",
-      watch("pets").filter((pet) => pet !== petId)
-    );
-  };
 
   const onSubmit = (data: editPetOwnerFormData) => {
     console.log(data);
@@ -61,8 +51,6 @@ const CardPetOwnerModalEdit = ({
       width={windowSize.width > 500 ? "30vw" : "90vw"}
     >
       <S.Container onSubmit={handleSubmit(onSubmit)}>
-        <button onClick={() => console.log(watch("pets"))}>here</button>
-
         <S.InputsContainer>
           <Controller
             name="name"
@@ -103,28 +91,22 @@ const CardPetOwnerModalEdit = ({
           </S.PetsActionBar>
 
           <S.PetsContainer>
-            {pets
-              .filter((pet) => watch("pets").includes(pet.id))
-              .map((pet) => (
-                <S.PetsCard key={pet.id}>
-                  <div>
-                    {pet.image_url ? (
-                      <img src={pet.image_url} alt={`${pet.name}-picture`} />
-                    ) : (
-                      <S.NoImageContainer>
-                        <CameraSlash size={"50%"} />
-                        Sem Imagem
-                      </S.NoImageContainer>
-                    )}
-                  </div>
+            {pets.map((pet) => (
+              <S.PetsCard key={pet.id}>
+                <div>
+                  {pet.image_url ? (
+                    <img src={pet.image_url} alt={`${pet.name}-picture`} />
+                  ) : (
+                    <S.NoImageContainer>
+                      <CameraSlash size={"50%"} />
+                      Sem Imagem
+                    </S.NoImageContainer>
+                  )}
+                </div>
 
-                  <span>{pet.name}</span>
-
-                  <button type="button" onClick={() => handleRemovePet(pet.id)}>
-                    <Trash size={24} />
-                  </button>
-                </S.PetsCard>
-              ))}
+                <span>{pet.name}</span>
+              </S.PetsCard>
+            ))}
           </S.PetsContainer>
         </S.InputsContainer>
 
