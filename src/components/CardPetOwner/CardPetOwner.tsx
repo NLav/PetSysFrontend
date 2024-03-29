@@ -30,7 +30,9 @@ const CardPetOwner = ({ id, name, address, pets }: ICardPetOwnerProps) => {
         <S.PetsContainer>
           <span>Pets:</span>
 
-          <span>{pets.map((pet) => pet.name).join(", ")}</span>
+          <span>
+            {pets.length ? pets.map((pet) => pet.name).join(", ") : "-"}
+          </span>
         </S.PetsContainer>
       </S.Container>
 

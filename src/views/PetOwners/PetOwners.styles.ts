@@ -13,8 +13,8 @@ export const ListingContainer = styled.div`
   ${({ theme }) => css`
     position: relative;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(256px, 2fr));
-    grid-template-rows: max-content;
+    grid-template-columns: repeat(auto-fill, minmax(256px, 1fr));
+    grid-auto-rows: max-content;
     gap: 24px;
     height: 100%;
     padding: 16px;

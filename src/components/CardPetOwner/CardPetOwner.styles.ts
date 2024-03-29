@@ -6,8 +6,9 @@ export const Container = styled.button`
     grid-template-areas:
       "name pets"
       "address address";
-    grid-template-columns: repeat(2, 50%);
+    grid-template-columns: repeat(2, calc(50% - 8px));
     gap: 16px 0;
+    justify-content: space-between;
     padding: 16px;
     border-radius: 16px;
     background-color: ${theme.white};

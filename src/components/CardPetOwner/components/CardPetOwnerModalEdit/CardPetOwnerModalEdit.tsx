@@ -117,22 +117,24 @@ const CardPetOwnerModalEdit = ({
           <S.PetsActionBar>Pets</S.PetsActionBar>
 
           <S.PetsContainer>
-            {pets.map((pet) => (
-              <S.PetsCard key={pet.id}>
-                <div>
-                  {pet.image_url ? (
-                    <img src={pet.image_url} alt={`${pet.name}-picture`} />
-                  ) : (
-                    <S.NoImageContainer>
-                      <CameraSlash size={"50%"} />
-                      Sem Imagem
-                    </S.NoImageContainer>
-                  )}
-                </div>
+            {pets.length
+              ? pets.map((pet) => (
+                  <S.PetsCard key={pet.id}>
+                    <div>
+                      {pet.image_url ? (
+                        <img src={pet.image_url} alt={`${pet.name}-picture`} />
+                      ) : (
+                        <S.NoImageContainer>
+                          <CameraSlash size={"50%"} />
+                          Sem Imagem
+                        </S.NoImageContainer>
+                      )}
+                    </div>
 
-                <span>{pet.name}</span>
-              </S.PetsCard>
-            ))}
+                    <span>{pet.name}</span>
+                  </S.PetsCard>
+                ))
+              : "Nenhum pet vinculado"}
           </S.PetsContainer>
         </S.InputsContainer>
 
