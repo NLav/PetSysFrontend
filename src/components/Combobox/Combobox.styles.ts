@@ -2,12 +2,10 @@ import styled, { css, keyframes } from "styled-components";
 
 const showComboboxOptions = keyframes`
   from {
-      transform: translateY(100%);
       opacity: 0;
     }
 
   to {
-    transform: translateY(0);
     opacity: 1;
   }
 `;
@@ -24,6 +22,7 @@ export const Container = styled.div`
 
     & > input {
       width: 100%;
+      height: 40px;
       padding: 4px 8px;
       border: 2px solid ${theme.primary};
       border-radius: 8px;
@@ -42,7 +41,13 @@ export const Container = styled.div`
     }
 
     & > label {
-      z-index: -2;
+      position: absolute;
+      inset: 0 auto auto 8px;
+      padding: 0 2px;
+      border-radius: 2px;
+      background-color: ${theme.white};
+      translate: 0 -50%;
+      color: ${theme.gray4};
 
       font-size: 0.9rem;
     }
@@ -56,6 +61,7 @@ export const OptionsContainer = styled.div<{
     position: absolute;
     display: flex;
     flex-direction: column;
+    margin-bottom: 0.9rem;
     padding: 8px;
     border: 2px solid ${theme.primary};
     border-radius: 8px;
