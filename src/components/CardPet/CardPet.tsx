@@ -7,7 +7,14 @@ import { CardPetModalEdit } from "./components";
 
 interface ICardPetProps extends IPetDTO {}
 
-const CardPet = ({ id, name, image_url, birth_date, breed }: ICardPetProps) => {
+const CardPet = ({
+  id,
+  name,
+  image_url,
+  birth_date,
+  breed,
+  pet_owner_id,
+}: ICardPetProps) => {
   const [showModalEdit, setShowModalEdit] = useState(false);
 
   return (
@@ -49,6 +56,7 @@ const CardPet = ({ id, name, image_url, birth_date, breed }: ICardPetProps) => {
           image_url={image_url}
           birth_date={birth_date}
           breed={breed}
+          pet_owner_id={pet_owner_id}
           setShowModalEdit={setShowModalEdit}
         />
       )}

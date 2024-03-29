@@ -1,13 +1,14 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Input, Modal } from "components";
+import { Button, Combobox, Input, Modal } from "components";
 import { ToastContext } from "contexts";
 import { format } from "date-fns";
 import { useWindowSize } from "hooks";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { PetService } from "services";
 import { IPetDTO } from "services/dtos";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
+import { getPetOwnersListed } from "stores/petOwners/thunks";
 import { getPetsPaginated } from "stores/pets/thunks";
 import { convertInputDateToDate, generateId, getInputDateMinMax } from "utils";
 import { z } from "zod";
@@ -28,6 +29,7 @@ const editPetSchema = z.object({
   breed: z
     .string({ required_error: "Campo obrigatório!" })
     .min(1, "Campo obrigatório!"),
+  pet_owner_id: z.number().optional(),
 });
 
 type editPetFormData = z.infer<typeof editPetSchema>;
@@ -38,6 +40,7 @@ const CardPetModalEdit = ({
   image_url,
   birth_date,
   breed,
+  pet_owner_id,
   setShowModalEdit,
 }: ICardPetModalEditProps) => {
   const [showModalConfirmDelete, setShowModalConfirmDelete] = useState(false);
@@ -46,22 +49,33 @@ const CardPetModalEdit = ({
   const { windowSize } = useWindowSize();
 
   const { listingParams, meta } = useAppSelector((state) => state.pets);
+  const { petOwnersListed } = useAppSelector((state) => state.petOwners);
 
   const { addToast } = useContext(ToastContext);
 
   const {
     control,
+    watch,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<editPetFormData>({
     resolver: zodResolver(editPetSchema),
     defaultValues: {
       name: name,
-      image_url: image_url,
+      image_url: image_url || "",
       birth_date: format(new Date(birth_date), "yyyy-MM-dd"),
       breed: breed,
+      pet_owner_id: pet_owner_id,
     },
   });
+
+  const handleSetPetOwner = (petOwnerName: string) => {
+    setValue(
+      "pet_owner_id",
+      petOwnersListed.find((petOwner) => petOwner.name === petOwnerName)?.id
+    );
+  };
 
   const handleDelete = () => {
     PetService.delete(id)
@@ -113,6 +127,10 @@ const CardPetModalEdit = ({
         });
       });
   };
+
+  useEffect(() => {
+    dispatch(getPetOwnersListed());
+  }, [dispatch]);
 
   return (
     <>
@@ -184,6 +202,18 @@ const CardPetModalEdit = ({
                     required={true}
                   />
                 )}
+              />
+
+              <Combobox
+                title="Tutor"
+                options={petOwnersListed.map((petOwner) => petOwner.name)}
+                searchable={true}
+                setValue={handleSetPetOwner}
+                value={
+                  petOwnersListed.find(
+                    (petOwner) => petOwner.id === watch("pet_owner_id")
+                  )?.name
+                }
               />
             </S.InputsContainer>
 
