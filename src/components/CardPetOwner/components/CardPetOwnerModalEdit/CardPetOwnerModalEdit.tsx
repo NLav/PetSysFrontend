@@ -18,8 +18,8 @@ interface ICardPetOwnerModalEditProps extends IPetOwnerDTO {
 }
 
 const editPetOwnerSchema = z.object({
-  name: z.string().min(1, "Campo Obrigatório"),
-  address: z.string().min(1, "Campo Obrigatório"),
+  name: z.string().min(1, "Campo obrigatório"),
+  address: z.string().min(1, "Campo obrigatório"),
 });
 
 type editPetOwnerFormData = z.infer<typeof editPetOwnerSchema>;

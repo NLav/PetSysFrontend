@@ -1,12 +1,18 @@
+import { Plus } from "@phosphor-icons/react";
 import { ActionBar, Spinner } from "components";
 import { CardPetOwner } from "components/CardPetOwner";
 import { NoItemsContainer } from "components/NoItemsContainer";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
 import { getPetOwnersPaginated } from "stores/petOwners/thunks";
 import * as S from "./PetOwners.styles";
+import { PetOwnersModalAdd } from "./components";
+
+export let petOwnersModals: "add-modal" | null;
 
 const PetOwners = () => {
+  const [showModal, setShowModal] = useState<typeof petOwnersModals>(null);
+
   const { petOwnersPaginated, listingParams, meta, loading, error } =
     useAppSelector((state) => state.petOwners);
 
@@ -24,7 +30,21 @@ const PetOwners = () => {
 
   return (
     <S.Container>
-      <ActionBar title="Tutores"></ActionBar>
+      <ActionBar title="Tutores">
+        <button
+          onClick={() =>
+            setShowModal(showModal !== "add-modal" ? "add-modal" : null)
+          }
+        >
+          <Plus size={16} weight="bold" />
+
+          <span>Adicionar</span>
+        </button>
+
+        {showModal === "add-modal" && (
+          <PetOwnersModalAdd setShowModal={setShowModal} />
+        )}
+      </ActionBar>
 
       <S.ListingContainer>
         {loading.petOwnersPaginated ? (

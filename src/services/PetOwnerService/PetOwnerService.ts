@@ -34,6 +34,12 @@ class PetOwnerService {
     });
   }
 
+  public static async create(
+    newPet: Omit<IPetOwnerDTO, "id" | "pets">
+  ): Promise<IPetOwnerDTO> {
+    return await api.post("/pet-owners", newPet);
+  }
+
   public static async update(
     petOwnerId: number,
     newPetOwner: Omit<IPetOwnerDTO, "id" | "pets">

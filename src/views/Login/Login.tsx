@@ -12,8 +12,8 @@ import { z } from "zod";
 import * as S from "./Login.styles";
 
 const loginSchema = z.object({
-  email: z.string().min(1, "Campo Obrigatório!").email("E-mail inválido!"),
-  password: z.string().min(1, "Campo Obrigatório!"),
+  email: z.string().min(1, "Campo obrigatório!").email("E-mail inválido!"),
+  password: z.string().min(1, "Campo obrigatório!"),
 });
 
 type loginFormData = z.infer<typeof loginSchema>;
