@@ -7,6 +7,7 @@ export const Container = styled.button`
       "name pets"
       "address address";
     grid-template-columns: repeat(2, 50%);
+    gap: 16px 0;
     padding: 16px;
     border-radius: 16px;
     background-color: ${theme.white};
