@@ -33,6 +33,13 @@ class PetOwnerService {
       },
     });
   }
+
+  public static async update(
+    petOwnerId: number,
+    newPetOwner: Omit<IPetOwnerDTO, "id" | "pets">
+  ): Promise<IPetOwnerDTO> {
+    return await api.put(`/pet-owners/${petOwnerId}`, newPetOwner);
+  }
 }
 
 export { PetOwnerService };

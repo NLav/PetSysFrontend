@@ -1,9 +1,15 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CameraSlash, Plus } from "@phosphor-icons/react";
+import { CameraSlash } from "@phosphor-icons/react";
 import { Button, Input, Modal } from "components";
+import { ToastContext } from "contexts";
 import { useWindowSize } from "hooks";
+import { useContext } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { PetOwnerService } from "services";
 import { IPetOwnerDTO } from "services/dtos";
+import { useAppDispatch, useAppSelector } from "stores/hooks";
+import { getPetOwnersPaginated } from "stores/petOwners/thunks";
+import { generateId } from "utils";
 import { z } from "zod";
 import * as S from "./CardPetOwnerModalEdit.styles";
 
@@ -27,6 +33,12 @@ const CardPetOwnerModalEdit = ({
 }: ICardPetOwnerModalEditProps) => {
   const { windowSize } = useWindowSize();
 
+  const { addToast } = useContext(ToastContext);
+
+  const { listingParams, meta } = useAppSelector((state) => state.petOwners);
+
+  const dispatch = useAppDispatch();
+
   const {
     control,
     handleSubmit,
@@ -41,7 +53,27 @@ const CardPetOwnerModalEdit = ({
   });
 
   const onSubmit = (data: editPetOwnerFormData) => {
-    console.log(data);
+    PetOwnerService.update(id, data)
+      .then(() => {
+        addToast({
+          id: generateId(),
+          variant: "success",
+          title: "Sucesso",
+          description: "Tutor atualizado com sucesso",
+        });
+
+        setShowModalEdit(false);
+
+        dispatch(getPetOwnersPaginated({ listingParams, meta }));
+      })
+      .catch((error) => {
+        addToast({
+          id: generateId(),
+          variant: "danger",
+          title: "Erro ao atualizar tutor",
+          description: error.message,
+        });
+      });
   };
 
   return (
@@ -82,13 +114,7 @@ const CardPetOwnerModalEdit = ({
             )}
           />
 
-          <S.PetsActionBar>
-            <span>Pets</span>
-
-            <button type="button">
-              <Plus size={24} />
-            </button>
-          </S.PetsActionBar>
+          <S.PetsActionBar>Pets</S.PetsActionBar>
 
           <S.PetsContainer>
             {pets.map((pet) => (
