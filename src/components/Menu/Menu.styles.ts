@@ -97,7 +97,7 @@ export const DesktopCollapseButton = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 28px;
+    width: 24px;
     border-radius: 0 32px 32px 0;
     transform: translateX(2px);
     color: ${theme.white};
