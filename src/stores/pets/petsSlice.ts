@@ -5,6 +5,7 @@ import { getPetsPaginated } from "./thunks";
 
 interface IPetState {
   petsPaginated: IPetDTO[];
+  listingParams: IPetGetAllParams;
   meta: IPaginationMeta;
   loading: {
     petsPaginated: boolean;
@@ -12,7 +13,6 @@ interface IPetState {
   error: {
     petsPaginated: IError | null;
   };
-  listingParams: IPetGetAllParams;
 }
 
 const initialState: IPetState = {

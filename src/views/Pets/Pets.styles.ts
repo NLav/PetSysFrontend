@@ -23,14 +23,3 @@ export const ListingContainer = styled.div`
     overflow: auto;
   `}
 `;
-
-export const NoPetsContainer = styled.span`
-  ${({ theme }) => css`
-    position: absolute;
-    inset: 50% 50% auto auto;
-    transform: translate(50%, -50%);
-    color: ${theme.white};
-
-    font-size: 2rem;
-  `}
-`;

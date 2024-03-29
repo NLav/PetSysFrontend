@@ -13,7 +13,7 @@ class PetService {
       birth_date,
       breed,
     }: IPetGetAllParams,
-    { restPage: restPage, restLimit: restLimit }: IPaginationMeta
+    { restPage, restLimit }: IPaginationMeta
   ): Promise<AxiosResponse<IPaginatedList<IPetDTO>>> {
     return await api.get("/pets", {
       headers: { "rest-page": restPage, "rest-limit": restLimit },

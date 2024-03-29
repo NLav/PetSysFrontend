@@ -2,11 +2,11 @@ import styled, { css } from "styled-components";
 
 export const Container = styled.button`
   ${({ theme }) => css`
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    align-items: start;
-    justify-content: center;
+    display: grid;
+    grid-template-areas:
+      "name pets"
+      "address address";
+    grid-template-columns: repeat(2, 50%);
     padding: 16px;
     border-radius: 16px;
     background-color: ${theme.white};
@@ -16,17 +16,6 @@ export const Container = styled.button`
     &:focus {
       scale: 1.05;
     }
-  `}
-`;
-
-export const ImageContainer = styled.div`
-  ${() => css`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 16px;
-    overflow: hidden;
-    aspect-ratio: 1/1;
   `}
 `;
 
@@ -55,5 +44,23 @@ export const InformationContainer = styled.div`
         font-size: 1.2rem;
       }
     }
+  `}
+`;
+
+export const NameContainer = styled(InformationContainer)`
+  ${() => css`
+    grid-area: name;
+  `}
+`;
+
+export const AddressContainer = styled(InformationContainer)`
+  ${() => css`
+    grid-area: address;
+  `}
+`;
+
+export const PetsContainer = styled(InformationContainer)`
+  ${() => css`
+    grid-area: pets;
   `}
 `;

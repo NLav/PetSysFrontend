@@ -129,7 +129,7 @@ const CardPetModalEdit = ({
                 control={control}
                 render={({ field: { value, onChange } }) => (
                   <Input
-                    id="input-nome-pet"
+                    id="input-name-pet"
                     title="Nome"
                     value={value}
                     onChange={onChange}
@@ -144,7 +144,7 @@ const CardPetModalEdit = ({
                 control={control}
                 render={({ field: { value, onChange } }) => (
                   <Input
-                    id="input-link-da-imagem-pet"
+                    id="input-image-url-pet"
                     title="Link da imagem"
                     value={value}
                     onChange={onChange}
@@ -158,7 +158,7 @@ const CardPetModalEdit = ({
                 control={control}
                 render={({ field: { value, onChange } }) => (
                   <Input
-                    id="input-data-de-nascimento-pet"
+                    id="input-birth-date-pet"
                     title="Data de nascimento"
                     type="date"
                     value={value}
@@ -176,7 +176,7 @@ const CardPetModalEdit = ({
                 control={control}
                 render={({ field: { value, onChange } }) => (
                   <Input
-                    id="input-raca-pet"
+                    id="input-breed-pet"
                     title="Raça"
                     value={value}
                     onChange={onChange}

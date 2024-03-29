@@ -26,7 +26,7 @@ const CardPet = ({ id, name, image_url, birth_date, breed }: ICardPetProps) => {
         <S.InformationContainer>
           <span>Nome:</span>
 
-          <span data-tooltip="name">{name}</span>
+          <span>{name}</span>
         </S.InformationContainer>
 
         <S.InformationContainer>

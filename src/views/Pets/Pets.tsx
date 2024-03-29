@@ -5,6 +5,7 @@ import {
   Plus,
 } from "@phosphor-icons/react";
 import { ActionBar, CardPet, Pagination, Spinner } from "components";
+import { NoItemsContainer } from "components/NoItemsContainer";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
 import { getPetsPaginated } from "stores/pets/thunks";
@@ -106,15 +107,37 @@ const Pets = () => {
         {loading.petsPaginated ? (
           <Spinner />
         ) : error.petsPaginated ? (
-          <S.NoPetsContainer>Erro ao realizar listagem</S.NoPetsContainer>
+          <NoItemsContainer text="Erro ao realizar listagem" />
         ) : !petsPaginated.length ? (
-          <S.NoPetsContainer>Nenhum pet encontrado</S.NoPetsContainer>
+          <NoItemsContainer text="Nenhum pet encontrado" />
         ) : (
           petsPaginated.map((pet) => <CardPet key={pet.id} {...pet} />)
         )}
       </S.ListingContainer>
 
-      <Pagination limitOptions={["6", "8", "10", "12", "16", "20"]} />
+      <Pagination
+        meta={meta}
+        handleChangePage={(value) =>
+          dispatch(
+            getPetsPaginated({
+              listingParams,
+              meta: {
+                ...meta,
+                restPage: value,
+              },
+            })
+          )
+        }
+        handleChangeLimit={(value) =>
+          dispatch(
+            getPetsPaginated({
+              listingParams,
+              meta: { ...meta, restPage: "1", restLimit: value },
+            })
+          )
+        }
+        limitOptions={["6", "8", "10", "12", "16", "20"]}
+      />
     </S.Container>
   );
 };

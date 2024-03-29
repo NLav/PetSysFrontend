@@ -1,24 +1,27 @@
 import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 import { Combobox } from "components";
 import { useWindowSize } from "hooks";
+import { IPaginationMeta } from "interfaces";
 import { useEffect, useRef, useState } from "react";
-import { useAppDispatch, useAppSelector } from "stores/hooks";
-import { getPetsPaginated } from "stores/pets/thunks";
 import { useOnClickOutside } from "usehooks-ts";
 import { normalizeNumber } from "utils";
 import * as S from "./Pagination.styles";
 
 interface IPaginationProps {
+  meta: IPaginationMeta;
+  handleChangePage: (value: string) => void;
+  handleChangeLimit: (value: string) => void;
   limitOptions: string[];
-  numbersAroundRestPage?: number;
 }
 
-const Pagination = ({ limitOptions }: IPaginationProps) => {
+const Pagination = ({
+  meta,
+  handleChangePage,
+  handleChangeLimit,
+  limitOptions,
+}: IPaginationProps) => {
   const [restPageInput, setRestPageInput] = useState("");
 
-  const { listingParams, meta } = useAppSelector((state) => state.pets);
-
-  const dispatch = useAppDispatch();
   const { windowSize } = useWindowSize();
 
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -37,15 +40,7 @@ const Pagination = ({ limitOptions }: IPaginationProps) => {
   const handleChangeRestPage = (value: string) => {
     if (Number(value) < 1 || Number(value) > meta.restTotal) return;
 
-    dispatch(
-      getPetsPaginated({
-        listingParams,
-        meta: {
-          ...meta,
-          restPage: value,
-        },
-      })
-    );
+    handleChangePage(value);
   };
 
   useEffect(() => {
@@ -63,14 +58,7 @@ const Pagination = ({ limitOptions }: IPaginationProps) => {
             title="Itens por página"
             options={limitOptions}
             value={meta.restLimit}
-            setValue={(value) => {
-              dispatch(
-                getPetsPaginated({
-                  listingParams,
-                  meta: { ...meta, restPage: "1", restLimit: value },
-                })
-              );
-            }}
+            setValue={(value) => handleChangeLimit(value)}
             searchable={false}
           />
         </S.ComboboxContainer>
