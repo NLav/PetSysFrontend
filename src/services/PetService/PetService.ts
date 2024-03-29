@@ -39,7 +39,7 @@ class PetService {
     return await api.put(`/pets/${petId}`, newPet);
   }
 
-  public static async delete(petId: number): Promise<IPetDTO> {
+  public static async delete(petId: number): Promise<Pick<IPetDTO, "id">> {
     return await api.delete(`/pets/${petId}`);
   }
 }

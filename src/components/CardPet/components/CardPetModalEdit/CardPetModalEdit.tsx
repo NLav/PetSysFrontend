@@ -95,7 +95,7 @@ const CardPetModalEdit = ({
         addToast({
           id: generateId(),
           variant: "danger",
-          title: "Erro ao deletar Pet",
+          title: "Erro ao deletar pet",
           description: error.message,
         });
       });
