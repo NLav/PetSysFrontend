@@ -4,7 +4,11 @@ import { api } from "services/api";
 import { IPetOwnerDTO, IPetOwnerGetAllParams } from "services/dtos";
 
 class PetOwnerService {
-  public static async getAll(
+  public static async getAllListed(): Promise<IPetOwnerDTO[]> {
+    return await api.get("/pet-owners", { headers: { "rest-mode": "list" } });
+  }
+
+  public static async getAllPaginated(
     {
       orderBy,
       orderDirection,
@@ -15,7 +19,11 @@ class PetOwnerService {
     { restPage, restLimit }: IPaginationMeta
   ): Promise<AxiosResponse<IPaginatedList<IPetOwnerDTO>>> {
     return await api.get("/pet-owners", {
-      headers: { "rest-page": restPage, "rest-limit": restLimit },
+      headers: {
+        "rest-page": restPage,
+        "rest-limit": restLimit,
+        "rest-mode": "paginate",
+      },
       params: {
         orderBy,
         orderDirection,

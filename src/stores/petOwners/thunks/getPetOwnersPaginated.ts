@@ -4,7 +4,7 @@ import { PetOwnerService } from "services";
 import { IPetOwnerGetAllParams } from "./../../../services/dtos";
 
 export const getPetOwnersPaginated = createAsyncThunk(
-  "petOwners/listPaginated",
+  "petOwners/getPaginated",
   async (
     {
       listingParams,
@@ -16,7 +16,7 @@ export const getPetOwnersPaginated = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      return (await PetOwnerService.getAll(listingParams, meta)).data;
+      return (await PetOwnerService.getAllPaginated(listingParams, meta)).data;
     } catch (error) {
       return rejectWithValue({});
     }

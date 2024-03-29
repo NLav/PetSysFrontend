@@ -34,7 +34,7 @@ class PetService {
 
   public static async update(
     petId: number,
-    newPet: Omit<IPetDTO, "id">
+    newPet: Omit<IPetDTO, "id" | "pet_owner">
   ): Promise<IPetDTO> {
     return await api.put(`/pets/${petId}`, newPet);
   }

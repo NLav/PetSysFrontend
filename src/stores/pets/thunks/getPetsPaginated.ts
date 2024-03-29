@@ -4,7 +4,7 @@ import { PetService } from "services";
 import { IPetGetAllParams } from "services/dtos";
 
 export const getPetsPaginated = createAsyncThunk(
-  "pets/listPaginated",
+  "pets/getPaginated",
   async (
     {
       listingParams,
