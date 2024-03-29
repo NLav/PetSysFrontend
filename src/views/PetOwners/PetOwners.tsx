@@ -1,5 +1,5 @@
 import { Plus } from "@phosphor-icons/react";
-import { ActionBar, Spinner } from "components";
+import { ActionBar, Pagination, Spinner } from "components";
 import { CardPetOwner } from "components/CardPetOwner";
 import { NoItemsContainer } from "components/NoItemsContainer";
 import { useEffect, useState } from "react";
@@ -59,6 +59,30 @@ const PetOwners = () => {
           ))
         )}
       </S.ListingContainer>
+
+      <Pagination
+        meta={meta}
+        handleChangePage={(value) =>
+          dispatch(
+            getPetOwnersPaginated({
+              listingParams,
+              meta: {
+                ...meta,
+                restPage: value,
+              },
+            })
+          )
+        }
+        handleChangeLimit={(value) =>
+          dispatch(
+            getPetOwnersPaginated({
+              listingParams,
+              meta: { ...meta, restPage: "1", restLimit: value },
+            })
+          )
+        }
+        limitOptions={["9", "12", "15", "18", "24", "30"]}
+      />
     </S.Container>
   );
 };

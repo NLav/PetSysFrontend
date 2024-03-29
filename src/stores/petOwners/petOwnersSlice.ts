@@ -29,7 +29,7 @@ const initialState: IPetOwnerState = {
     name: "",
     address: "",
   },
-  meta: { restPage: "1", restLimit: "8", restTotal: 1 },
+  meta: { restPage: "1", restLimit: "9", restTotal: 1 },
   loading: {
     petOwnersListed: true,
     petOwnersPaginated: true,
