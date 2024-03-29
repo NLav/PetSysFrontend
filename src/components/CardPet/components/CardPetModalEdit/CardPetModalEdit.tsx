@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Combobox, Input, Modal } from "components";
+import { Button, Combobox, Input, Modal, Spinner } from "components";
 import { ToastContext } from "contexts";
 import { format } from "date-fns";
 import { useWindowSize } from "hooks";
@@ -49,7 +49,9 @@ const CardPetModalEdit = ({
   const { windowSize } = useWindowSize();
 
   const { listingParams, meta } = useAppSelector((state) => state.pets);
-  const { petOwnersListed } = useAppSelector((state) => state.petOwners);
+  const { petOwnersListed, loading } = useAppSelector(
+    (state) => state.petOwners
+  );
 
   const { addToast } = useContext(ToastContext);
 
@@ -140,97 +142,103 @@ const CardPetModalEdit = ({
           closeModal={() => setShowModalEdit(false)}
           width={windowSize.width > 500 ? "30vw" : "90vw"}
         >
-          <S.Container onSubmit={handleSubmit(onSubmit)}>
-            <S.InputsContainer>
-              <Controller
-                name="name"
-                control={control}
-                render={({ field: { value, onChange } }) => (
-                  <Input
-                    id="input-name-pet"
-                    title="Nome"
-                    value={value}
-                    onChange={onChange}
-                    errorMessage={errors.name?.message}
-                    required={true}
-                  />
-                )}
-              />
+          {loading.petOwnersListed ? (
+            <S.SpinnerContainer>
+              <Spinner />
+            </S.SpinnerContainer>
+          ) : (
+            <S.Container onSubmit={handleSubmit(onSubmit)}>
+              <S.InputsContainer>
+                <Controller
+                  name="name"
+                  control={control}
+                  render={({ field: { value, onChange } }) => (
+                    <Input
+                      id="input-name-pet"
+                      title="Nome"
+                      value={value}
+                      onChange={onChange}
+                      errorMessage={errors.name?.message}
+                      required={true}
+                    />
+                  )}
+                />
 
-              <Controller
-                name="image_url"
-                control={control}
-                render={({ field: { value, onChange } }) => (
-                  <Input
-                    id="input-image-url-pet"
-                    title="Link da imagem"
-                    value={value}
-                    onChange={onChange}
-                    errorMessage={errors.image_url?.message}
-                  />
-                )}
-              />
+                <Controller
+                  name="image_url"
+                  control={control}
+                  render={({ field: { value, onChange } }) => (
+                    <Input
+                      id="input-image-url-pet"
+                      title="Link da imagem"
+                      value={value}
+                      onChange={onChange}
+                      errorMessage={errors.image_url?.message}
+                    />
+                  )}
+                />
 
-              <Controller
-                name="birth_date"
-                control={control}
-                render={({ field: { value, onChange } }) => (
-                  <Input
-                    id="input-birth-date-pet"
-                    title="Data de nascimento"
-                    type="date"
-                    value={value}
-                    onChange={onChange}
-                    errorMessage={errors.birth_date?.message}
-                    required={true}
-                    min={getInputDateMinMax.min}
-                    max={getInputDateMinMax.max}
-                  />
-                )}
-              />
+                <Controller
+                  name="birth_date"
+                  control={control}
+                  render={({ field: { value, onChange } }) => (
+                    <Input
+                      id="input-birth-date-pet"
+                      title="Data de nascimento"
+                      type="date"
+                      value={value}
+                      onChange={onChange}
+                      errorMessage={errors.birth_date?.message}
+                      required={true}
+                      min={getInputDateMinMax.min}
+                      max={getInputDateMinMax.max}
+                    />
+                  )}
+                />
 
-              <Controller
-                name="breed"
-                control={control}
-                render={({ field: { value, onChange } }) => (
-                  <Input
-                    id="input-breed-pet"
-                    title="Raça"
-                    value={value}
-                    onChange={onChange}
-                    errorMessage={errors.breed?.message}
-                    required={true}
-                  />
-                )}
-              />
+                <Controller
+                  name="breed"
+                  control={control}
+                  render={({ field: { value, onChange } }) => (
+                    <Input
+                      id="input-breed-pet"
+                      title="Raça"
+                      value={value}
+                      onChange={onChange}
+                      errorMessage={errors.breed?.message}
+                      required={true}
+                    />
+                  )}
+                />
 
-              <Combobox
-                title="Tutor"
-                options={petOwnersListed.map((petOwner) => petOwner.name)}
-                searchable={true}
-                setValue={handleSetPetOwner}
-                value={
-                  petOwnersListed.find(
-                    (petOwner) => petOwner.id === watch("pet_owner_id")
-                  )?.name
-                }
-              />
-            </S.InputsContainer>
+                <Combobox
+                  title="Tutor"
+                  options={petOwnersListed.map((petOwner) => petOwner.name)}
+                  searchable={true}
+                  setValue={handleSetPetOwner}
+                  value={
+                    petOwnersListed.find(
+                      (petOwner) => petOwner.id === watch("pet_owner_id")
+                    )?.name
+                  }
+                />
+              </S.InputsContainer>
 
-            <S.ButtonsContainer>
-              <Button
-                type="button"
-                variant="danger"
-                onClick={() => setShowModalConfirmDelete(true)}
-              >
-                Deletar
-              </Button>
+              <S.ButtonsContainer>
+                <Button
+                  type="button"
+                  variant="danger"
+                  onClick={() => setShowModalConfirmDelete(true)}
+                >
+                  Deletar
+                </Button>
 
-              <Button type="submit" variant="primary">
-                Atualizar
-              </Button>
-            </S.ButtonsContainer>
-          </S.Container>
+                <Button type="submit" variant="primary">
+                  Atualizar
+                </Button>
+              </S.ButtonsContainer>
+            </S.Container>
+          )}
         </Modal>
       )}
 

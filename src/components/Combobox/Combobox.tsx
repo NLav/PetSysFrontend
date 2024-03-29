@@ -1,5 +1,6 @@
 import { InputHTMLAttributes, useEffect, useRef, useState } from "react";
 import { useOnClickOutside } from "usehooks-ts";
+import { normalizeString } from "utils";
 import * as S from "./Combobox.styles";
 
 export interface IComboboxProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -28,7 +29,9 @@ const Combobox = ({
 
   const filteredOptions = showEveryOption
     ? options
-    : options.filter((value) => value.includes(String(comboboxSearch)));
+    : options.filter((value) =>
+        normalizeString(value).includes(normalizeString(String(comboboxSearch)))
+      );
 
   useEffect(() => {
     setTimeout(

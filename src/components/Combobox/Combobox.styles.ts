@@ -62,6 +62,7 @@ export const OptionsContainer = styled.div<{
     display: flex;
     flex-direction: column;
     margin-bottom: 0.9rem;
+    max-height: 300px;
     padding: 8px;
     border: 2px solid ${theme.primary};
     border-radius: 8px;

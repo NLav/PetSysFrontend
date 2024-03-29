@@ -25,3 +25,10 @@ export const ButtonsContainer = styled.div`
     gap: 8px;
   `}
 `;
+
+export const SpinnerContainer = styled.div`
+  ${() => css`
+    position: relative;
+    height: 30vh;
+  `}
+`;
