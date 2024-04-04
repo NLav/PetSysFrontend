@@ -18,7 +18,7 @@ export const Container = styled.div`
     width: 100%;
     height: 100%;
     color: ${theme.gray4};
-    z-index: 1;
+    z-index: 100000;
 
     & > input {
       width: 100%;
@@ -28,6 +28,17 @@ export const Container = styled.div`
       border-radius: 8px;
       background-color: ${theme.white};
       color: ${theme.black};
+
+      &:focus + label,
+      &:not(:placeholder-shown) + label {
+        position: absolute;
+        inset: 0 auto auto 8px;
+        padding: 0 2px;
+        border-radius: 2px;
+        translate: 0 -50%;
+
+        font-size: 0.9rem;
+      }
 
       &:disabled {
         background-color: ${theme.gray1};
@@ -42,14 +53,12 @@ export const Container = styled.div`
 
     & > label {
       position: absolute;
-      inset: 0 auto auto 8px;
-      padding: 0 2px;
-      border-radius: 2px;
+      inset: 50% auto auto 8px;
       background-color: ${theme.white};
-      translate: 0 -50%;
       color: ${theme.gray4};
+      translate: 0 -50%;
 
-      font-size: 0.9rem;
+      font-size: 1.25rem;
     }
   `}
 `;

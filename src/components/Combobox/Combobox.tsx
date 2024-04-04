@@ -39,7 +39,8 @@ const Combobox = ({
         showOptions &&
         setOptionsPosition(
           window.innerHeight -
-            (comboboxRef.current?.getBoundingClientRect().bottom || 0) >
+            (comboboxRef.current?.parentElement?.getBoundingClientRect()
+              .bottom || 0) >
             (optionsRef.current?.getBoundingClientRect().height || 0)
             ? "bottom"
             : "top"
@@ -55,8 +56,6 @@ const Combobox = ({
 
   return (
     <S.Container ref={comboboxRef} onFocus={() => setShowOptions(true)}>
-      <label htmlFor="combobox-input">{title}</label>
-
       <input
         {...rest}
         id="combobox-input"
@@ -65,10 +64,13 @@ const Combobox = ({
           setComboboxSearch(event.target.value);
           setShowEveryOption(false);
         }}
+        placeholder=" "
         onClick={() => setShowOptions(true)}
         readOnly={!searchable}
         style={{ cursor: searchable ? "text" : "default" }}
       />
+
+      <label htmlFor="combobox-input">{title}</label>
 
       {showOptions && (
         <S.OptionsContainer ref={optionsRef} $optionsPosition={optionsPosition}>
