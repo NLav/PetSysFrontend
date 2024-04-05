@@ -1,11 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ActionBarModalForm, Input } from "components";
+import { ActionBarModalForm, Combobox, Input } from "components";
 import { ToastContext } from "contexts";
 import { format } from "date-fns";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { PetService } from "services";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
+import { getPetOwnersListed } from "stores/petOwners/thunks";
 import { getPetsPaginated } from "stores/pets/thunks";
 import { convertInputDateToDate, generateId, getInputDateMinMax } from "utils";
 import { z } from "zod";
@@ -26,12 +27,14 @@ const addPetSchema = z.object({
   breed: z
     .string({ required_error: "Campo obrigatório!" })
     .min(1, "Campo obrigatório!"),
+  pet_owner_id: z.number().optional(),
 });
 
 type addPetFormData = z.infer<typeof addPetSchema>;
 
 const PetsModalAdd = ({ setShowModal }: IPetsModalAddProps) => {
   const { listingParams, meta } = useAppSelector((state) => state.pets);
+  const { petOwnersListed } = useAppSelector((state) => state.petOwners);
 
   const dispatch = useAppDispatch();
 
@@ -39,7 +42,9 @@ const PetsModalAdd = ({ setShowModal }: IPetsModalAddProps) => {
 
   const {
     control,
+    watch,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<addPetFormData>({
     resolver: zodResolver(addPetSchema),
@@ -50,6 +55,13 @@ const PetsModalAdd = ({ setShowModal }: IPetsModalAddProps) => {
       breed: "",
     },
   });
+
+  const handleSetPetOwner = (petOwnerName: string) => {
+    setValue(
+      "pet_owner_id",
+      petOwnersListed.find((petOwner) => petOwner.name === petOwnerName)?.id
+    );
+  };
 
   const onSubmit = (data: addPetFormData) => {
     PetService.create({
@@ -77,6 +89,10 @@ const PetsModalAdd = ({ setShowModal }: IPetsModalAddProps) => {
         });
       });
   };
+
+  useEffect(() => {
+    dispatch(getPetOwnersListed());
+  }, [dispatch]);
 
   return (
     <ActionBarModalForm
@@ -151,6 +167,18 @@ const PetsModalAdd = ({ setShowModal }: IPetsModalAddProps) => {
             required={true}
           />
         )}
+      />
+
+      <Combobox
+        title="Tutor"
+        options={petOwnersListed.map((petOwner) => petOwner.name)}
+        searchable={true}
+        setValue={handleSetPetOwner}
+        value={
+          petOwnersListed.find(
+            (petOwner) => petOwner.id === watch("pet_owner_id")
+          )?.name || ""
+        }
       />
     </ActionBarModalForm>
   );
