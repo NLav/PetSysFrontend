@@ -27,12 +27,15 @@ export const Container = styled.div`
 export const CollapseButton = styled.button<{ $collapseBar: boolean }>`
   ${({ theme, $collapseBar }) => css`
     position: absolute;
-    inset: 16px 16px auto auto;
-    translate: 0 calc(-50% + 16px);
+    inset: 0 16px auto auto;
+    height: calc(32px + 2rem);
     color: ${theme.white};
     z-index: 2;
 
-    ${$collapseBar && "rotate: 180deg"}
+    ${$collapseBar &&
+    css`
+      rotate: 180deg;
+    `}
   `}
 `;
 
@@ -44,6 +47,7 @@ export const Title = styled.span<{ $collapseBar: boolean }>`
 
     font-size: 2rem;
     font-weight: bold;
+    line-height: 2rem;
 
     ${$collapseBar &&
     css`
