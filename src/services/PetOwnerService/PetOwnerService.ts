@@ -27,9 +27,9 @@ class PetOwnerService {
       params: {
         orderBy,
         orderDirection,
-        quickSearch: quickSearch === "" ? quickSearch : null,
-        name: name === "" ? name : null,
-        address: address === "" ? address : null,
+        quickSearch: quickSearch !== "" ? quickSearch : null,
+        name: name !== "" ? name : null,
+        address: address !== "" ? address : null,
       },
     });
   }

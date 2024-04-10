@@ -1,4 +1,9 @@
-import { Plus } from "@phosphor-icons/react";
+import {
+  ArrowsDownUp,
+  FunnelSimple,
+  MagnifyingGlass,
+  Plus,
+} from "@phosphor-icons/react";
 import { ActionBar, Pagination, Spinner } from "components";
 import { CardPetOwner } from "components/CardPetOwner";
 import { NoItemsContainer } from "components/NoItemsContainer";
@@ -6,9 +11,19 @@ import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
 import { getPetOwnersPaginated } from "stores/petOwners/thunks";
 import * as S from "./PetOwners.styles";
-import { PetOwnersModalAdd } from "./components";
+import {
+  PetOwnersModalAdd,
+  PetOwnersModalFilter,
+  PetOwnersModalOrder,
+  PetOwnersModalSearch,
+} from "./components";
 
-export let petOwnersModals: "add-modal" | null;
+export let petOwnersModals:
+  | "add-modal"
+  | "search-modal"
+  | "order-modal"
+  | "filter-modal"
+  | null;
 
 const PetOwners = () => {
   const [showModal, setShowModal] = useState<typeof petOwnersModals>(null);
@@ -41,8 +56,50 @@ const PetOwners = () => {
           <span>Adicionar</span>
         </button>
 
+        <button
+          onClick={() =>
+            setShowModal(showModal !== "search-modal" ? "search-modal" : null)
+          }
+        >
+          <MagnifyingGlass size={16} weight="bold" />
+
+          <span>Pesquisa</span>
+        </button>
+
+        <button
+          onClick={() =>
+            setShowModal(showModal !== "order-modal" ? "order-modal" : null)
+          }
+        >
+          <ArrowsDownUp size={16} weight="bold" />
+
+          <span>Ordenação</span>
+        </button>
+
+        <button
+          onClick={() =>
+            setShowModal(showModal !== "filter-modal" ? "filter-modal" : null)
+          }
+        >
+          <FunnelSimple size={16} weight="bold" />
+
+          <span>Filtros</span>
+        </button>
+
         {showModal === "add-modal" && (
           <PetOwnersModalAdd setShowModal={setShowModal} />
+        )}
+
+        {showModal === "search-modal" && (
+          <PetOwnersModalSearch setShowModal={setShowModal} />
+        )}
+
+        {showModal === "order-modal" && (
+          <PetOwnersModalOrder setShowModal={setShowModal} />
+        )}
+
+        {showModal === "filter-modal" && (
+          <PetOwnersModalFilter setShowModal={setShowModal} />
         )}
       </ActionBar>
 
