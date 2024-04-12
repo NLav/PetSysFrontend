@@ -34,6 +34,17 @@ export const Container = styled.div`
   `}
 `;
 
+export const CloseButton = styled.button`
+  ${() => css`
+    position: absolute;
+    inset: 8px 8px auto auto;
+
+    &:hover {
+      scale: 1.1;
+    }
+  `}
+`;
+
 export const UserProfilePicture = styled.img`
   ${({ theme }) => css`
     height: 128px;

@@ -1,4 +1,4 @@
-import { SignOut } from "@phosphor-icons/react";
+import { SignOut, X } from "@phosphor-icons/react";
 import { Button } from "components";
 import { useRef } from "react";
 import { LocalStorageService } from "services";
@@ -15,9 +15,18 @@ const ModalUserProfile = ({
 }: IModalUserProfileProps) => {
   const modalRef = useRef<HTMLDivElement | null>(null);
 
-  useOnClickOutside(modalRef, () => setShowModalUserProfile(false));
+  const handleCloseModal = () => {
+    setShowModalUserProfile(false);
+  };
+
+  useOnClickOutside(modalRef, handleCloseModal);
+
   return (
     <S.Container ref={modalRef}>
+      <S.CloseButton onClick={() => handleCloseModal()}>
+        <X size={24} />
+      </S.CloseButton>
+
       <div>
         <S.UserProfilePicture
           src="https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg"
