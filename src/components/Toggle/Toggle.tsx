@@ -4,6 +4,8 @@ import * as S from "./Toggle.styles";
 export interface IToggleProps extends InputHTMLAttributes<HTMLInputElement> {
   leftSideSibling?: React.ReactNode;
   rightSideSibling?: React.ReactNode;
+  insideLeftIcon?: React.ReactNode;
+  insideRightIcon?: React.ReactNode;
   width?: number;
   height?: number;
 }
@@ -11,6 +13,8 @@ export interface IToggleProps extends InputHTMLAttributes<HTMLInputElement> {
 const Toggle = ({
   leftSideSibling,
   rightSideSibling,
+  insideLeftIcon,
+  insideRightIcon,
   width = 64,
   height = 32,
   id,
@@ -19,7 +23,7 @@ const Toggle = ({
 }: IToggleProps) => {
   return (
     <S.Container>
-      {leftSideSibling && leftSideSibling}
+      {leftSideSibling}
 
       <S.Input
         {...rest}
@@ -33,10 +37,12 @@ const Toggle = ({
         $height={height}
         defaultChecked={defaultChecked}
       >
+        {insideLeftIcon}
         <div></div>
+        {insideRightIcon}
       </S.Toggle>
 
-      {rightSideSibling && rightSideSibling}
+      {rightSideSibling}
     </S.Container>
   );
 };

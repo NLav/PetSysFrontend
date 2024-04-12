@@ -31,9 +31,14 @@ export const Toggle = styled.label<{
 }>`
   ${({ theme, defaultChecked, $width, $height }) => css`
     position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: ${$width}px;
     height: ${$height}px;
+    padding: 0 4px;
     border-radius: 16px;
+    color: ${theme.black};
     background-color: ${theme.white};
     cursor: pointer;
 

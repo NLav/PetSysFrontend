@@ -98,7 +98,7 @@ const Menu = ({ menuOptions }: IMenuProps) => {
       </S.DesktopNavigationList>
 
       <S.ToggleContainer>
-        <ToggleDarkMode showIcons={!collapseMenu} />
+        <ToggleDarkMode iconsOutside={!collapseMenu} />
       </S.ToggleContainer>
 
       <S.UserContainer

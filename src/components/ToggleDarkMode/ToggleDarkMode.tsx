@@ -5,17 +5,19 @@ import { useContext } from "react";
 import * as S from "./ToggleDarkMode.styles";
 
 interface IToggleDarkMode {
-  showIcons?: boolean;
+  iconsOutside?: boolean;
 }
 
-const ToggleDarkMode = ({ showIcons = true }: IToggleDarkMode) => {
+const ToggleDarkMode = ({ iconsOutside = true }: IToggleDarkMode) => {
   const { isDarkMode, setIsDarkMode } = useContext(DarkModeContext);
   return (
     <S.Container>
       <Toggle
         id="dark-mode-toggle"
-        leftSideSibling={showIcons && <Sun size={32} />}
-        rightSideSibling={showIcons && <Moon size={32} />}
+        leftSideSibling={iconsOutside && <Sun size={32} />}
+        rightSideSibling={iconsOutside && <Moon size={32} />}
+        insideLeftIcon={!iconsOutside && <Moon size={24} />}
+        insideRightIcon={!iconsOutside && <Sun size={24} />}
         defaultChecked={isDarkMode}
         onChange={(event) => {
           setIsDarkMode(event.target.checked);

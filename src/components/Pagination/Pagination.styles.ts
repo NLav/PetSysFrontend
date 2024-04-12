@@ -74,8 +74,6 @@ export const PaginationChild = styled.button`
 export const RestPageContainer = styled.form`
   ${({ theme }) => css`
     display: flex;
-    justify-content: center;
-    align-items: center;
     width: 40px;
     min-width: 40px;
     height: 40px;
@@ -91,7 +89,7 @@ export const RestPageInput = styled.input`
     height: 100%;
     border: none;
     background-color: transparent;
-    color: ${theme.black};
+    color: ${theme.white};
     text-align: center;
 
     font-size: 1.25rem;
