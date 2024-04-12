@@ -35,23 +35,48 @@ const Menu = ({ menuOptions }: IMenuProps) => {
           <List size={64} />
         </S.MobileCollapseButton>
 
-        <S.LogoContainer>
-          <PawPrint size={136} />
-          PetSys
-        </S.LogoContainer>
+        {openMenu && (
+          <>
+            <S.LogoContainer>
+              <PawPrint size={136} />
+              PetSys
+            </S.LogoContainer>
 
-        <S.MobileNavigationList>
-          {menuOptions.map((option) => (
-            <Link key={option.label} to={option.href}>
-              {option.icon}
-              {option.label}
-            </Link>
-          ))}
-        </S.MobileNavigationList>
+            <S.MobileNavigationList>
+              {menuOptions.map((option) => (
+                <Link key={option.label} to={option.href}>
+                  {option.icon}
+                  {option.label}
+                </Link>
+              ))}
+            </S.MobileNavigationList>
 
-        <S.ToggleContainer>
-          <ToggleDarkMode />
-        </S.ToggleContainer>
+            <S.ToggleContainer>
+              <ToggleDarkMode />
+            </S.ToggleContainer>
+
+            <S.UserContainer
+              onClick={() => {
+                setShowModalUserProfile((current) => !current);
+                setOpenMenu(false);
+              }}
+              $collapseMenu={false}
+            >
+              <S.UserProfilePicture
+                src="https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg"
+                alt="profile-picture"
+              />
+
+              <span>
+                Olá, {LocalStorageService.getLoginInformation()?.name}
+              </span>
+            </S.UserContainer>
+          </>
+        )}
+
+        {showModalUserProfile && (
+          <ModalUserProfile setShowModalUserProfile={setShowModalUserProfile} />
+        )}
       </S.MobileContainer>
     );
   }
