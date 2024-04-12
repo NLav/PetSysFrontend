@@ -29,7 +29,7 @@ const ModalUserProfile = ({
 
       <div>
         <S.UserProfilePicture
-          src="https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg"
+          src={LocalStorageService.getLoginInformation()?.image_url}
           alt="profile-picture"
         />
 
@@ -37,7 +37,9 @@ const ModalUserProfile = ({
           {LocalStorageService.getLoginInformation()?.name}
         </S.UserName>
 
-        <S.UserEmail>pedro@example.com</S.UserEmail>
+        <S.UserEmail>
+          {LocalStorageService.getLoginInformation()?.email}
+        </S.UserEmail>
       </div>
 
       <Button variant="danger" onClick={() => handleLogout()}>

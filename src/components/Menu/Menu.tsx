@@ -63,7 +63,7 @@ const Menu = ({ menuOptions }: IMenuProps) => {
               $collapseMenu={false}
             >
               <S.UserProfilePicture
-                src="https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg"
+                src={LocalStorageService.getLoginInformation()?.image_url}
                 alt="profile-picture"
               />
 
