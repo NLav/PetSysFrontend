@@ -3,3 +3,4 @@ export * from "./dateInput";
 export * from "./formatNumber";
 export * from "./formatString";
 export * from "./generate";
+export * from "./handleUser";

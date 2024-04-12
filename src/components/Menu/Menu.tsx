@@ -4,8 +4,9 @@ import { CollapseMenuContext } from "contexts";
 import { useWindowSize } from "hooks";
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { LocalStorageService } from "services";
 import * as S from "./Menu.styles";
-import { MenuTooltip } from "./components";
+import { MenuTooltip, ModalUserProfile } from "./components";
 
 export interface IMenuOption {
   label: string;
@@ -18,8 +19,10 @@ interface IMenuProps {
 }
 
 const Menu = ({ menuOptions }: IMenuProps) => {
-  const { collapseMenu, setCollapseMenu } = useContext(CollapseMenuContext);
   const [openMenu, setOpenMenu] = useState(false);
+  const [showModalUserProfile, setShowModalUserProfile] = useState(false);
+
+  const { collapseMenu, setCollapseMenu } = useContext(CollapseMenuContext);
 
   const { windowSize } = useWindowSize();
 
@@ -97,6 +100,24 @@ const Menu = ({ menuOptions }: IMenuProps) => {
       <S.ToggleContainer>
         <ToggleDarkMode showIcons={!collapseMenu} />
       </S.ToggleContainer>
+
+      <S.UserContainer
+        onClick={() => setShowModalUserProfile((current) => !current)}
+        $collapseMenu={collapseMenu}
+      >
+        <S.UserProfilePicture
+          src="https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg"
+          alt="profile-picture"
+        />
+
+        {!collapseMenu && (
+          <span>Olá, {LocalStorageService.getLoginInformation()?.name}</span>
+        )}
+      </S.UserContainer>
+
+      {showModalUserProfile && (
+        <ModalUserProfile setShowModalUserProfile={setShowModalUserProfile} />
+      )}
     </S.DesktopContainer>
   );
 };

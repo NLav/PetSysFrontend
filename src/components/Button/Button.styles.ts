@@ -6,6 +6,8 @@ export const Button = styled.button<{
   $fontSize: string;
 }>`
   ${({ theme, $variant, $fontSize }) => css`
+    display: flex;
+    gap: 8px;
     width: 100%;
     border-radius: 16px;
     padding: 4px 8px;

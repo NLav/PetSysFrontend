@@ -13,6 +13,7 @@ export const MobileContainer = styled.div<{ $openMenu: boolean }>`
     color: ${theme.white};
     border-radius: 0 32px 32px 0;
     box-shadow: ${theme.boxShadow} inset;
+    z-index: 2;
 
     ${!$openMenu &&
     css`
@@ -116,6 +117,41 @@ export const DesktopCollapseButton = styled.button`
   `}
 `;
 
+export const UserContainer = styled.button<{
+  $collapseMenu: boolean;
+}>`
+  ${({ theme, $collapseMenu }) => css`
+    position: absolute;
+    inset: auto 0 0;
+    display: flex;
+    gap: 8px;
+    justify-content: ${$collapseMenu ? "center" : "start"};
+    align-items: center;
+    height: 64px;
+    padding: 8px;
+    border-radius: 0 0 32px 0;
+    background-color: ${theme.secondary};
+    color: ${theme.white};
+
+    font-size: 1.25rem;
+    font-weight: bold;
+
+    &:hover {
+      background-color: ${theme.secondaryDark};
+    }
+  `}
+`;
+
+export const UserProfilePicture = styled.img`
+  ${({ theme }) => css`
+    height: 100%;
+    border: 4px solid ${theme.gray1};
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+  `}
+`;
+
 export const LogoContainer = styled.div`
   ${() => css`
     display: flex;
@@ -178,6 +214,7 @@ export const DesktopStyledLink = styled(Link)<{ $selected: boolean }>`
 export const ToggleContainer = styled.div`
   ${() => css`
     margin-top: auto;
+    margin-bottom: 64px;
     z-index: 0;
   `}
 `;

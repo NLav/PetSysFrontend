@@ -18,7 +18,7 @@ export const Container = styled.div`
     width: 100%;
     height: 100%;
     color: ${theme.gray4};
-    z-index: 100000;
+    z-index: 1;
 
     & > input {
       width: 100%;
