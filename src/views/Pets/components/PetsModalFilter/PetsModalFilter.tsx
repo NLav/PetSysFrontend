@@ -9,7 +9,7 @@ import { z } from "zod";
 import { petsModals } from "../../Pets";
 
 interface IPetsModalFilterProps {
-  setShowModal: React.Dispatch<React.SetStateAction<typeof petsModals>>;
+  setShowModal: React.Dispatch<React.SetStateAction<petsModals>>;
 }
 
 const filterSchema = z.object({

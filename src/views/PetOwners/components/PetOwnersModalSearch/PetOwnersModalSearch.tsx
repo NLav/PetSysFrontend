@@ -7,7 +7,7 @@ import { petsModals } from "views/Pets";
 import { z } from "zod";
 
 interface IPetOwnersModalSearchProps {
-  setShowModal: React.Dispatch<React.SetStateAction<typeof petsModals>>;
+  setShowModal: React.Dispatch<React.SetStateAction<petsModals>>;
 }
 
 const quickSearchSchema = z.object({

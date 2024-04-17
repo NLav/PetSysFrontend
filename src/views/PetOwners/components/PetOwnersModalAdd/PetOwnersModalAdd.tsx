@@ -11,7 +11,7 @@ import { petOwnersModals } from "views/PetOwners";
 import { z } from "zod";
 
 interface IPetOwnerModalsAddProps {
-  setShowModal: React.Dispatch<React.SetStateAction<typeof petOwnersModals>>;
+  setShowModal: React.Dispatch<React.SetStateAction<petOwnersModals>>;
 }
 
 const addPetOwnerSchema = z.object({

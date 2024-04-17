@@ -13,7 +13,7 @@ import { z } from "zod";
 import { petsModals } from "../../Pets";
 
 interface IPetsModalAddProps {
-  setShowModal: React.Dispatch<React.SetStateAction<typeof petsModals>>;
+  setShowModal: React.Dispatch<React.SetStateAction<petsModals>>;
 }
 
 const addPetSchema = z.object({

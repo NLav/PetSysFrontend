@@ -6,7 +6,7 @@ import { petOwnersModals } from "views/PetOwners";
 import * as S from "./PetOwnersModalOrder.styles";
 
 interface IPetsModalOrderProps {
-  setShowModal: React.Dispatch<React.SetStateAction<typeof petOwnersModals>>;
+  setShowModal: React.Dispatch<React.SetStateAction<petOwnersModals>>;
 }
 
 const PetOwnersModalOrder = ({ setShowModal }: IPetsModalOrderProps) => {
