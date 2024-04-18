@@ -10,10 +10,10 @@ import { getPetOwnersListed } from "stores/petOwners/thunks";
 import { getPetsPaginated } from "stores/pets/thunks";
 import { convertInputDateToDate, generateId, getInputDateMinMax } from "utils";
 import { z } from "zod";
-import { petsModals } from "../../Pets";
+import { PetsModals } from "../../Pets";
 
 interface IPetsModalAddProps {
-  setShowModal: React.Dispatch<React.SetStateAction<petsModals>>;
+  setShowModal: React.Dispatch<React.SetStateAction<PetsModals>>;
 }
 
 const addPetSchema = z.object({

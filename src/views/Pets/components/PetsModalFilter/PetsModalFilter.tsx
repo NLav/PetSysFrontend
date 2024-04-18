@@ -6,10 +6,10 @@ import { useAppDispatch, useAppSelector } from "stores/hooks";
 import { getPetsPaginated } from "stores/pets/thunks";
 import { convertInputDateToDate } from "utils";
 import { z } from "zod";
-import { petsModals } from "../../Pets";
+import { PetsModals } from "../../Pets";
 
 interface IPetsModalFilterProps {
-  setShowModal: React.Dispatch<React.SetStateAction<petsModals>>;
+  setShowModal: React.Dispatch<React.SetStateAction<PetsModals>>;
 }
 
 const filterSchema = z.object({

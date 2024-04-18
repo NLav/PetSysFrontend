@@ -7,11 +7,11 @@ import { PetOwnerService } from "services";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
 import { getPetOwnersPaginated } from "stores/petOwners/thunks";
 import { generateId } from "utils";
-import { petOwnersModals } from "views/PetOwners";
+import { PetOwnersModals } from "views/PetOwners";
 import { z } from "zod";
 
 interface IPetOwnerModalsAddProps {
-  setShowModal: React.Dispatch<React.SetStateAction<petOwnersModals>>;
+  setShowModal: React.Dispatch<React.SetStateAction<PetOwnersModals>>;
 }
 
 const addPetOwnerSchema = z.object({

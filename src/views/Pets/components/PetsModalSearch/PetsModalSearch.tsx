@@ -4,10 +4,10 @@ import { Controller, useForm } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
 import { getPetsPaginated } from "stores/pets/thunks";
 import { z } from "zod";
-import { petsModals } from "../../Pets";
+import { PetsModals } from "../../Pets";
 
 interface IPetsModalSearchProps {
-  setShowModal: React.Dispatch<React.SetStateAction<petsModals>>;
+  setShowModal: React.Dispatch<React.SetStateAction<PetsModals>>;
 }
 
 const quickSearchSchema = z.object({

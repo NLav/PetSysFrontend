@@ -3,11 +3,11 @@ import { ActionBarModalForm, Input } from "components";
 import { Controller, useForm } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
 import { getPetOwnersPaginated } from "stores/petOwners/thunks";
-import { petsModals } from "views/Pets";
+import { PetsModals } from "views/Pets";
 import { z } from "zod";
 
 interface IPetOwnersModalSearchProps {
-  setShowModal: React.Dispatch<React.SetStateAction<petsModals>>;
+  setShowModal: React.Dispatch<React.SetStateAction<PetsModals>>;
 }
 
 const quickSearchSchema = z.object({

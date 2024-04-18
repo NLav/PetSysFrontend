@@ -2,11 +2,11 @@ import { SortAscending, SortDescending } from "@phosphor-icons/react";
 import { ActionBarModal } from "components";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
 import { getPetsPaginated } from "stores/pets/thunks";
-import { petsModals } from "../../Pets";
+import { PetsModals } from "../../Pets";
 import * as S from "./PetsModalOrder.styles";
 
 interface IPetsModalOrderProps {
-  setShowModal: React.Dispatch<React.SetStateAction<petsModals>>;
+  setShowModal: React.Dispatch<React.SetStateAction<PetsModals>>;
 }
 
 const PetsModalOrder = ({ setShowModal }: IPetsModalOrderProps) => {

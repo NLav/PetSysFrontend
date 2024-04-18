@@ -18,7 +18,7 @@ import {
   PetOwnersModalSearch,
 } from "./components";
 
-export type petOwnersModals =
+export type PetOwnersModals =
   | "add-modal"
   | "search-modal"
   | "order-modal"
@@ -26,7 +26,7 @@ export type petOwnersModals =
   | null;
 
 const PetOwners = () => {
-  const [showModal, setShowModal] = useState<petOwnersModals>(null);
+  const [showModal, setShowModal] = useState<PetOwnersModals>(null);
 
   const { petOwnersPaginated, listingParams, meta, loading, error } =
     useAppSelector((state) => state.petOwners);
