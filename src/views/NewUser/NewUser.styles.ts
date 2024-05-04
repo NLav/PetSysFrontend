@@ -14,17 +14,6 @@ export const Container = styled.form`
   `}
 `;
 
-export const LogoContainer = styled.div`
-  ${() => css`
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    align-items: center;
-
-    font-size: 1.5rem;
-  `}
-`;
-
 export const InputsContainer = styled.div`
   ${() => css`
     display: flex;
@@ -38,7 +27,7 @@ export const InputsContainer = styled.div`
   `}
 `;
 
-export const ButtonContainer = styled.div`
+export const ButtonsContainer = styled.div`
   ${() => css`
     display: flex;
     gap: 8px;

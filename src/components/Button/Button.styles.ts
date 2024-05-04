@@ -58,7 +58,7 @@ export const Button = styled.button<{
       }
     `}
 
-    ${$variant === "ghost" &&
+    ${$variant === "primary-ghost" &&
     css`
       color: ${theme.black};
       color: ${theme.primaryDark};
@@ -67,6 +67,30 @@ export const Button = styled.button<{
       &:hover {
         color: ${theme.primaryDark};
         border-color: ${theme.primaryDark};
+      }
+    `}
+
+    ${$variant === "secondary-ghost" &&
+    css`
+      color: ${theme.black};
+      color: ${theme.secondaryDark};
+      border: 2px solid ${theme.secondaryDark};
+
+      &:hover {
+        color: ${theme.secondaryDark};
+        border-color: ${theme.secondaryDark};
+      }
+    `}
+
+    ${$variant === "white-ghost" &&
+    css`
+      color: ${theme.black};
+      color: ${theme.white};
+      border: 2px solid ${theme.white};
+
+      &:hover {
+        color: ${theme.white};
+        border-color: ${theme.white};
       }
     `}
   `}

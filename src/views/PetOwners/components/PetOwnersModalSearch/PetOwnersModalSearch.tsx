@@ -61,7 +61,7 @@ const PetOwnersModalSearch = ({ setShowModal }: IPetOwnersModalSearchProps) => {
       buttons={[
         {
           label: "Limpar Pesquisa",
-          variant: "ghost",
+          variant: "primary-ghost",
           type: "button",
           onClick: () => handleClearSearch(),
         },

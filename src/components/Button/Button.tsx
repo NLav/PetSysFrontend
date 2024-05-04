@@ -2,7 +2,14 @@ import { ButtonHTMLAttributes } from "react";
 import * as S from "./Button.styles";
 
 export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant: "primary" | "secondary" | "success" | "danger" | "ghost";
+  variant:
+    | "primary"
+    | "secondary"
+    | "success"
+    | "danger"
+    | "primary-ghost"
+    | "secondary-ghost"
+    | "white-ghost";
   fontSize?: string;
 }
 

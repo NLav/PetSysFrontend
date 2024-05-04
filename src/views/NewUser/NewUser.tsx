@@ -1,24 +1,21 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { PawPrint } from "@phosphor-icons/react";
-import { AxiosError } from "axios";
 import { Button, Input } from "components";
 import { ToastContext } from "contexts";
 import { useContext } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { AuthService, LocalStorageService } from "services";
-import { generateId } from "utils";
 import { z } from "zod";
-import * as S from "./Login.styles";
+import * as S from "./NewUser.styles";
 
-const loginSchema = z.object({
+const newUserSchema = z.object({
+  name: z.string().min(1, "Campo obrigatório!"),
   email: z.string().min(1, "Campo obrigatório!").email("E-mail inválido!"),
-  password: z.string().min(1, "Campo obrigatório!"),
+  password: z.string().min(1, "Campo obrigatório"),
 });
 
-type loginFormData = z.infer<typeof loginSchema>;
+type newUserFormData = z.infer<typeof newUserSchema>;
 
-const Login = () => {
+const NewUser = () => {
   const { addToast } = useContext(ToastContext);
 
   const navigate = useNavigate();
@@ -27,39 +24,37 @@ const Login = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<loginFormData>({
-    resolver: zodResolver(loginSchema),
+  } = useForm<newUserFormData>({
+    resolver: zodResolver(newUserSchema),
     defaultValues: {
+      name: "",
       email: "",
       password: "",
     },
   });
 
-  const onSubmit = (data: loginFormData) => {
-    AuthService.signIn(data)
-      .then((response) => {
-        LocalStorageService.setLoginInformation(response);
-
-        navigate("/pets");
-      })
-      .catch((error: AxiosError) => {
-        addToast({
-          id: generateId(),
-          variant: "danger",
-          title: "Erro ao fazer login",
-          description: error.message,
-        });
-      });
+  const onSubmit = (data: newUserFormData) => {
+    asdfasfdasdfafaf;
   };
 
   return (
     <S.Container onSubmit={handleSubmit(onSubmit)}>
-      <S.LogoContainer>
-        <PawPrint size={200} />
-        PetSys
-      </S.LogoContainer>
-
       <S.InputsContainer>
+        <Controller
+          name="name"
+          control={control}
+          render={({ field: { value, onChange } }) => (
+            <Input
+              id="input-name"
+              title="Nome"
+              value={value}
+              onChange={onChange}
+              errorMessage={errors.name?.message}
+              required={true}
+            />
+          )}
+        />
+
         <Controller
           name="email"
           control={control}
@@ -92,21 +87,21 @@ const Login = () => {
         />
       </S.InputsContainer>
 
-      <S.ButtonContainer>
+      <S.ButtonsContainer>
         <Button
           variant="white-ghost"
           type="button"
-          onClick={() => navigate("new-user")}
+          onClick={() => navigate("/login")}
         >
-          Criar
+          Voltar
         </Button>
 
         <Button variant="secondary" type="submit">
-          Entrar
+          Criar
         </Button>
-      </S.ButtonContainer>
+      </S.ButtonsContainer>
     </S.Container>
   );
 };
 
-export { Login };
+export { NewUser };
