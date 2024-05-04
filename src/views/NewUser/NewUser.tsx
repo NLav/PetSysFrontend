@@ -12,7 +12,15 @@ import * as S from "./NewUser.styles";
 const newUserSchema = z.object({
   name: z.string().min(1, "Campo obrigatório!"),
   email: z.string().min(1, "Campo obrigatório!").email("E-mail inválido!"),
-  password: z.string().min(1, "Campo obrigatório"),
+  passwords: z
+    .object({
+      password: z.string().min(1, "Campo obrigatório"),
+      confirmPassword: z.string().min(1, "Campo obrigatório"),
+    })
+    .refine((values) => values.password === values.confirmPassword, {
+      message: "As senhas devem ser iguais!",
+      path: ["confirmPassword"],
+    }),
 });
 
 type newUserFormData = z.infer<typeof newUserSchema>;
@@ -35,12 +43,19 @@ const NewUser = () => {
     defaultValues: {
       name: "",
       email: "",
-      password: "",
+      passwords: {
+        password: "",
+        confirmPassword: "",
+      },
     },
   });
 
   const onSubmit = (data: newUserFormData) => {
-    UserService.create(data)
+    UserService.create({
+      name: data.name,
+      email: data.email,
+      password: data.passwords.password,
+    })
       .then(() => {
         addToast({
           id: generateId(),
@@ -95,7 +110,7 @@ const NewUser = () => {
         />
 
         <Controller
-          name="password"
+          name="passwords.password"
           control={control}
           render={({ field: { value, onChange } }) => (
             <Input
@@ -104,7 +119,23 @@ const NewUser = () => {
               value={value}
               type="password"
               onChange={onChange}
-              errorMessage={errors.password?.message}
+              errorMessage={errors.passwords?.password?.message}
+              required={true}
+            />
+          )}
+        />
+
+        <Controller
+          name="passwords.confirmPassword"
+          control={control}
+          render={({ field: { value, onChange } }) => (
+            <Input
+              id="input-confirm-password"
+              title="Confirmar senha"
+              value={value}
+              type="password"
+              onChange={onChange}
+              errorMessage={errors.passwords?.confirmPassword?.message}
               required={true}
             />
           )}
