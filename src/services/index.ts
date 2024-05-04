@@ -1,4 +1,5 @@
-export { AuthService } from "./AuthService";
-export { LocalStorageService } from "./LocalStorageService";
-export { PetOwnerService } from "./PetOwnerService";
-export { PetService } from "./PetService";
+export * from "./AuthService";
+export * from "./LocalStorageService";
+export * from "./PetOwnerService";
+export * from "./PetService";
+export * from "./UserService";

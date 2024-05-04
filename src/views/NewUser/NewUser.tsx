@@ -4,6 +4,8 @@ import { ToastContext } from "contexts";
 import { useContext } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { UserService } from "services";
+import { generateId } from "utils";
 import { z } from "zod";
 import * as S from "./NewUser.styles";
 
@@ -20,6 +22,10 @@ const NewUser = () => {
 
   const navigate = useNavigate();
 
+  const handleGoBack = () => {
+    navigate("/login");
+  };
+
   const {
     control,
     handleSubmit,
@@ -34,7 +40,25 @@ const NewUser = () => {
   });
 
   const onSubmit = (data: newUserFormData) => {
-    asdfasfdasdfafaf;
+    UserService.create(data)
+      .then(() => {
+        addToast({
+          id: generateId(),
+          variant: "success",
+          title: "Sucesso",
+          description: "Usuário criado com sucesso",
+        });
+
+        handleGoBack();
+      })
+      .catch((error) => {
+        addToast({
+          id: generateId(),
+          variant: "danger",
+          title: "Erro ao criar usuário",
+          description: error.message,
+        });
+      });
   };
 
   return (
@@ -91,7 +115,7 @@ const NewUser = () => {
         <Button
           variant="white-ghost"
           type="button"
-          onClick={() => navigate("/login")}
+          onClick={() => handleGoBack()}
         >
           Voltar
         </Button>
