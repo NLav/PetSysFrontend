@@ -14,6 +14,12 @@ export const InputsContainer = styled.div`
     display: flex;
     width: 100%;
 
+    & > button {
+      position: absolute;
+      inset: 0 8px 0 auto;
+      color: ${theme.gray4};
+    }
+
     & > input {
       width: 100%;
       height: 40px;
