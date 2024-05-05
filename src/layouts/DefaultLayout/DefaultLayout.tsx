@@ -22,7 +22,7 @@ const DefaultLayout = () => {
     },
     {
       label: "Funcionários",
-      href: "/employees",
+      href: "/users",
       icon: <UsersFour />,
     },
   ];

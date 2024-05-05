@@ -1,7 +1,6 @@
 import { DefaultLayout, LoginLayout } from "layouts";
 import { createBrowserRouter } from "react-router-dom";
-import { Employees, Login, PetOwners, Pets } from "views";
-import { NewUser } from "views/NewUser";
+import { Login, NewUser, PetOwners, Pets, Users } from "views";
 
 export const router = createBrowserRouter([
   {
@@ -17,8 +16,8 @@ export const router = createBrowserRouter([
         element: <PetOwners />,
       },
       {
-        path: "/employees",
-        element: <Employees />,
+        path: "/users",
+        element: <Users />,
       },
     ],
   },

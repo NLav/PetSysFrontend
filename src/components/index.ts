@@ -4,6 +4,7 @@ export { ActionBarModalForm } from "./ActionBarModalForm";
 export { Button } from "./Button";
 export { CardImage } from "./CardImage";
 export { CardPet } from "./CardPet";
+export { CardUser } from "./CardUser";
 export { Combobox } from "./Combobox";
 export { Input } from "./Input";
 export { Menu } from "./Menu";
