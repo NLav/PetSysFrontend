@@ -25,6 +25,19 @@ class UserService {
   ): Promise<Pick<IUserDTO, "id">> {
     return await api.post("/users", newUser);
   }
+
+  public static async update(
+    userId: number,
+    newUser: Omit<IUserDTO, "id" | "password">
+  ): Promise<IUserDTO> {
+    return await api.put(`/users/${userId}`, newUser);
+  }
+
+  public static async delete(
+    userId: IUserDTO["id"]
+  ): Promise<Pick<IUserDTO, "id">> {
+    return await api.delete(`/users/${userId}`);
+  }
 }
 
 export { UserService };

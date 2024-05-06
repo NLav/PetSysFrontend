@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { IUserDTO } from "services/dtos";
 import * as S from "./CardUser.styles";
+import { CardUserModalEdit } from "./components/CardUserModalEdit";
 
 interface ICardUserProps extends Omit<IUserDTO, "password"> {}
 
@@ -27,17 +28,14 @@ const CardUser = ({ id, name, email }: ICardUserProps) => {
         </S.EmailContainer>
       </S.Container>
 
-      {/*
       {showModalEdit && (
-        <CardPetOwnerModalEdit
+        <CardUserModalEdit
           id={id}
           name={name}
-          address={address}
-          pets={pets}
+          email={email}
           setShowModalEdit={setShowModalEdit}
         />
       )}
-      */}
     </>
   );
 };
