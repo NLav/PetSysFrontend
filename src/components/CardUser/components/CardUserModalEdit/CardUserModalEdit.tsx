@@ -14,6 +14,7 @@ import * as S from "./CardUserModalEdit.styles";
 
 interface ICardUserModalEditProps extends Omit<IUserDTO, "password"> {
   setShowModalEdit: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowModalChangePassword: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const editUserSchema = z.object({
@@ -32,6 +33,7 @@ const CardUserModalEdit = ({
   name,
   email,
   setShowModalEdit,
+  setShowModalChangePassword,
 }: ICardUserModalEditProps) => {
   const [showModalConfirmDelete, setShowModalConfirmDelete] = useState(false);
 
@@ -126,7 +128,6 @@ const CardUserModalEdit = ({
                   />
                 )}
               />
-
               <Controller
                 name="email"
                 control={control}
@@ -141,8 +142,16 @@ const CardUserModalEdit = ({
                   />
                 )}
               />
-            </S.InputsContainer>
 
+              <button
+                onClick={() => {
+                  setShowModalEdit(false);
+                  setShowModalChangePassword(true);
+                }}
+              >
+                Trocar senha
+              </button>
+            </S.InputsContainer>
             <S.ButtonsContainer>
               <Button
                 type="button"

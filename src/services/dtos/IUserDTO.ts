@@ -11,3 +11,8 @@ export interface IUserGetAllParams
   orderDirection: "asc" | "desc";
   quickSearch: string;
 }
+
+export interface IChangePasswordParams {
+  currentPassword: string;
+  newPassword: string;
+}

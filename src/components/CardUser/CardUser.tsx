@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { IUserDTO } from "services/dtos";
 import * as S from "./CardUser.styles";
-import { CardUserModalEdit } from "./components/CardUserModalEdit";
+import { CardUserModalChangePassword, CardUserModalEdit } from "./components";
 
 interface ICardUserProps extends Omit<IUserDTO, "password"> {}
 
 const CardUser = ({ id, name, email }: ICardUserProps) => {
   const [showModalEdit, setShowModalEdit] = useState(false);
+  const [showModalChangePassword, setShowModalChangePassword] = useState(false);
 
   return (
     <>
@@ -34,6 +35,15 @@ const CardUser = ({ id, name, email }: ICardUserProps) => {
           name={name}
           email={email}
           setShowModalEdit={setShowModalEdit}
+          setShowModalChangePassword={setShowModalChangePassword}
+        />
+      )}
+
+      {showModalChangePassword && (
+        <CardUserModalChangePassword
+          id={id}
+          setShowModalEdit={setShowModalEdit}
+          setShowModalChangePassword={setShowModalChangePassword}
         />
       )}
     </>

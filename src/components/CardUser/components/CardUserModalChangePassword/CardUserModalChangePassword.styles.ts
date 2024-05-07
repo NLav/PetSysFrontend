@@ -16,13 +16,6 @@ export const InputsContainer = styled.div`
     margin-bottom: 16px;
     padding-bottom: 16px;
     border-bottom: 2px solid ${theme.gray2};
-
-    & > button {
-      justify-content: right;
-      color: ${theme.black};
-
-      text-decoration: underline;
-    }
   `}
 `;
 
@@ -30,12 +23,5 @@ export const ButtonsContainer = styled.div`
   ${() => css`
     display: flex;
     gap: 8px;
-  `}
-`;
-
-export const SpinnerContainer = styled.div`
-  ${() => css`
-    position: relative;
-    height: 30vh;
   `}
 `;
