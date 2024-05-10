@@ -6,9 +6,10 @@ import {
 } from "@phosphor-icons/react";
 import { ActionBar, CardPet, Pagination, Spinner } from "components";
 import { NoItemsContainer } from "components/NoItemsContainer";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
 import { getPetsPaginated } from "stores/pets/thunks";
+import { getNumberOfColumns } from "utils";
 import * as S from "./Pets.styles";
 import {
   PetsModalAdd,
@@ -26,22 +27,57 @@ export type PetsModals =
 
 const Pets = () => {
   const [showModal, setShowModal] = useState<PetsModals>(null);
+  const [numberOfColumns, setNumberOfColumns] = useState<number>(0);
+  const [limitOptions, setLimitOptions] = useState<string[]>([]);
 
   const { petsPaginated, listingParams, meta, loading, error } = useAppSelector(
     (state) => state.pets
   );
 
+  const childWidth = 240;
+
+  const listingRef = useRef<HTMLDivElement | null>(null);
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const handleGetPetsPaginated = () => {
-      dispatch(getPetsPaginated({ listingParams, meta }));
+    const handleResize = () => {
+      if (listingRef && listingRef !== null) {
+        setNumberOfColumns(getNumberOfColumns(listingRef, childWidth));
+      }
     };
 
-    handleGetPetsPaginated();
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    setLimitOptions([
+      String(numberOfColumns * 2),
+      String(numberOfColumns * 4),
+      String(numberOfColumns * 8),
+    ]);
+  }, [numberOfColumns]);
+
+  useEffect(() => {
+    const handleGetPetsPaginated = () => {
+      dispatch(
+        getPetsPaginated({
+          listingParams,
+          meta: { ...meta, restLimit: limitOptions[0] },
+        })
+      );
+    };
+
+    limitOptions && limitOptions[0] && handleGetPetsPaginated();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [limitOptions]);
 
   return (
     <S.Container>
@@ -103,7 +139,12 @@ const Pets = () => {
         )}
       </ActionBar>
 
-      <S.ListingContainer>
+      <S.ListingContainer
+        ref={listingRef}
+        style={{
+          gridTemplateColumns: `repeat(${numberOfColumns}, 1fr)`,
+        }}
+      >
         {loading.petsPaginated ? (
           <Spinner />
         ) : error.petsPaginated ? (
@@ -136,7 +177,7 @@ const Pets = () => {
             })
           )
         }
-        limitOptions={["6", "8", "10", "12", "16", "20"]}
+        limitOptions={limitOptions}
       />
     </S.Container>
   );
