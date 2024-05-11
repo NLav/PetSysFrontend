@@ -1,7 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { IPaginationMeta } from "interfaces";
+import { IPaginatedList, IPaginationMeta } from "interfaces";
 import { UserService } from "services";
-import { IUserGetAllParams } from "services/dtos";
+import { IUserDTO, IUserGetAllParams } from "services/dtos";
+
+const responseCache: Record<
+  string,
+  IPaginatedList<Omit<IUserDTO, "password">>
+> = {};
 
 export const getUsersPaginated = createAsyncThunk(
   "users/getPaginated",
@@ -15,8 +20,18 @@ export const getUsersPaginated = createAsyncThunk(
     },
     { rejectWithValue }
   ) => {
+    const cacheKey = JSON.stringify({ listingParams, meta });
+
+    if (responseCache[cacheKey]) {
+      return responseCache[cacheKey];
+    }
+
     try {
-      return (await UserService.getAll(listingParams, meta)).data;
+      const responseData = (await UserService.getAll(listingParams, meta)).data;
+
+      responseCache[cacheKey] = responseData;
+
+      return responseData;
     } catch (error) {
       return rejectWithValue({});
     }

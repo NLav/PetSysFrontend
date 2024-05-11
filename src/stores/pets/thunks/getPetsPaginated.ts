@@ -1,7 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { IPaginationMeta } from "interfaces";
+import { IPaginatedList, IPaginationMeta } from "interfaces";
 import { PetService } from "services";
-import { IPetGetAllParams } from "services/dtos";
+import { IPetDTO, IPetGetAllParams } from "services/dtos";
+
+const responseCache: Record<string, IPaginatedList<IPetDTO>> = {};
 
 export const getPetsPaginated = createAsyncThunk(
   "pets/getPaginated",
@@ -15,8 +17,18 @@ export const getPetsPaginated = createAsyncThunk(
     },
     { rejectWithValue }
   ) => {
+    const cacheKey = JSON.stringify({ listingParams, meta });
+
+    if (responseCache[cacheKey]) {
+      return responseCache[cacheKey];
+    }
+
     try {
-      return (await PetService.getAll(listingParams, meta)).data;
+      const responseData = (await PetService.getAll(listingParams, meta)).data;
+
+      responseCache[cacheKey] = responseData;
+
+      return responseData;
     } catch (error) {
       return rejectWithValue({});
     }

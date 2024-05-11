@@ -4,7 +4,7 @@ import { api } from "services/api";
 import { IPetOwnerDTO, IPetOwnerGetAllParams } from "services/dtos";
 
 class PetOwnerService {
-  public static async getAllListed(): Promise<IPetOwnerDTO[]> {
+  public static async getAllListed(): Promise<AxiosResponse<IPetOwnerDTO[]>> {
     return await api.get("/pet-owners", { headers: { "rest-mode": "list" } });
   }
 

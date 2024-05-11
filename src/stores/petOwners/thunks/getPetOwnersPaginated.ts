@@ -1,7 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { IPaginationMeta } from "interfaces";
+import { IPaginatedList, IPaginationMeta } from "interfaces";
 import { PetOwnerService } from "services";
-import { IPetOwnerGetAllParams } from "./../../../services/dtos";
+import { IPetOwnerDTO, IPetOwnerGetAllParams } from "./../../../services/dtos";
+
+const responseCache: Record<string, IPaginatedList<IPetOwnerDTO>> = {};
 
 export const getPetOwnersPaginated = createAsyncThunk(
   "petOwners/getPaginated",
@@ -15,8 +17,20 @@ export const getPetOwnersPaginated = createAsyncThunk(
     },
     { rejectWithValue }
   ) => {
+    const cacheKey = JSON.stringify({ listingParams, meta });
+
+    if (responseCache[cacheKey]) {
+      return responseCache[cacheKey];
+    }
+
     try {
-      return (await PetOwnerService.getAllPaginated(listingParams, meta)).data;
+      const responseData = (
+        await PetOwnerService.getAllPaginated(listingParams, meta)
+      ).data;
+
+      responseCache[cacheKey] = responseData;
+
+      return responseData;
     } catch (error) {
       return rejectWithValue({});
     }
