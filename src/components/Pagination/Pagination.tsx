@@ -50,6 +50,7 @@ const Pagination = ({
   useOnClickOutside(inputRef, () =>
     setRestPageInput(normalizeNumber(meta.restPage, 2))
   );
+
   return (
     <S.Container>
       {windowSize.width > 500 && (

@@ -49,6 +49,10 @@ const Combobox = ({
     );
   }, [showOptions]);
 
+  useEffect(() => {
+    setComboboxSearch(value);
+  }, [value]);
+
   useOnClickOutside(optionsRef, () => {
     setShowOptions(false);
     setShowEveryOption(true);
