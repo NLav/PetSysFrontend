@@ -27,7 +27,7 @@ export type PetsModals =
 
 const Pets = () => {
   const [showModal, setShowModal] = useState<PetsModals>(null);
-  const [numberOfColumns, setNumberOfColumns] = useState<number>(0);
+  const [numberOfColumns, setNumberOfColumns] = useState<number>(1);
   const [limitOptions, setLimitOptions] = useState<string[]>([]);
 
   const { petsPaginated, listingParams, meta, loading, error } = useAppSelector(
@@ -142,7 +142,7 @@ const Pets = () => {
       <S.ListingContainer
         ref={listingRef}
         style={{
-          gridTemplateColumns: `repeat(${numberOfColumns}, 1fr)`,
+          gridTemplateColumns: `repeat(${numberOfColumns}, ${100 / numberOfColumns - 1}%)`,
         }}
       >
         {loading.petsPaginated ? (

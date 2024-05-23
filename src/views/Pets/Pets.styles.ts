@@ -14,7 +14,8 @@ export const ListingContainer = styled.div`
     position: relative;
     display: grid;
     grid-auto-rows: max-content;
-    gap: 24px;
+    gap: 24px 0;
+    justify-content: space-between;
     height: 100%;
     padding: 16px;
     border-radius: 16px;
