@@ -7,9 +7,10 @@ import {
 } from "@phosphor-icons/react";
 import { ActionBar, CardUser, Pagination } from "components";
 import { NoItemsContainer } from "components/NoItemsContainer";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
 import { getUsersPaginated } from "stores/users/thunks";
+import { getNumberOfColumns } from "utils";
 import * as S from "./Users.styles";
 
 export type UsersModals =
@@ -22,21 +23,56 @@ export type UsersModals =
 
 const Users = () => {
   const [showModal, setShowModal] = useState<UsersModals>(null);
+  const [numberOfColumns, setNumberOfColumns] = useState<number>(1);
+  const [limitOptions, setLimitOptions] = useState<string[]>([]);
 
   const { usersPaginated, listingParams, meta, loading, error } =
     useAppSelector((state) => state.users);
 
+  const childWidth = 240;
+
+  const listingRef = useRef<HTMLDivElement | null>(null);
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const handleGetUsersPaginated = () => {
-      dispatch(getUsersPaginated({ listingParams, meta }));
+    const handleResize = () => {
+      if (listingRef && listingRef !== null) {
+        setNumberOfColumns(getNumberOfColumns(listingRef, childWidth));
+      }
     };
 
-    handleGetUsersPaginated();
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    setLimitOptions([
+      String(numberOfColumns * 4),
+      String(numberOfColumns * 8),
+      String(numberOfColumns * 10),
+    ]);
+  }, [numberOfColumns]);
+
+  useEffect(() => {
+    const handleGetUsersPaginated = () => {
+      dispatch(
+        getUsersPaginated({
+          listingParams,
+          meta: { ...meta, restLimit: limitOptions[0] },
+        })
+      );
+    };
+
+    limitOptions && limitOptions[0] && handleGetUsersPaginated();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [limitOptions]);
 
   return (
     <S.Container>
@@ -100,7 +136,12 @@ const Users = () => {
           */}
       </ActionBar>
 
-      <S.ListingContainer>
+      <S.ListingContainer
+        ref={listingRef}
+        style={{
+          gridTemplateColumns: `repeat(${numberOfColumns}, ${100 / numberOfColumns - 1}%)`,
+        }}
+      >
         {loading.usersPaginated ? (
           <Spinner />
         ) : error.usersPaginated ? (
@@ -133,7 +174,7 @@ const Users = () => {
             })
           )
         }
-        limitOptions={["6", "8", "10", "12", "16", "20"]}
+        limitOptions={limitOptions}
       />
     </S.Container>
   );
