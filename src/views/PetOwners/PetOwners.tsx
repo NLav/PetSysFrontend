@@ -7,9 +7,10 @@ import {
 import { ActionBar, Pagination, Spinner } from "components";
 import { CardPetOwner } from "components/CardPetOwner";
 import { NoItemsContainer } from "components/NoItemsContainer";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
 import { getPetOwnersPaginated } from "stores/petOwners/thunks";
+import { getNumberOfColumns } from "utils";
 import * as S from "./PetOwners.styles";
 import {
   PetOwnersModalAdd,
@@ -27,21 +28,56 @@ export type PetOwnersModals =
 
 const PetOwners = () => {
   const [showModal, setShowModal] = useState<PetOwnersModals>(null);
+  const [numberOfColumns, setNumberOfColumns] = useState<number>(1);
+  const [limitOptions, setLimitOptions] = useState<string[]>([]);
 
   const { petOwnersPaginated, listingParams, meta, loading, error } =
     useAppSelector((state) => state.petOwners);
 
+  const childWidth = 320;
+
+  const listingRef = useRef<HTMLDivElement | null>(null);
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const handleGetPetOwnersPaginated = () => {
-      dispatch(getPetOwnersPaginated({ listingParams, meta }));
+    const handleResize = () => {
+      if (listingRef && listingRef !== null) {
+        setNumberOfColumns(getNumberOfColumns(listingRef, childWidth));
+      }
     };
 
-    handleGetPetOwnersPaginated();
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    setLimitOptions([
+      String(numberOfColumns * 4),
+      String(numberOfColumns * 8),
+      String(numberOfColumns * 10),
+    ]);
+  }, [numberOfColumns]);
+
+  useEffect(() => {
+    const handleGetPetOwnersPaginated = () => {
+      dispatch(
+        getPetOwnersPaginated({
+          listingParams,
+          meta: { ...meta, restLimit: limitOptions[0] },
+        })
+      );
+    };
+
+    limitOptions && limitOptions[0] && handleGetPetOwnersPaginated();
 
     //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [limitOptions]);
 
   return (
     <S.Container>
@@ -103,7 +139,12 @@ const PetOwners = () => {
         )}
       </ActionBar>
 
-      <S.ListingContainer>
+      <S.ListingContainer
+        ref={listingRef}
+        style={{
+          gridTemplateColumns: `repeat(${numberOfColumns}, ${100 / numberOfColumns - 1}%)`,
+        }}
+      >
         {loading.petOwnersPaginated ? (
           <Spinner />
         ) : error.petOwnersPaginated ? (
@@ -138,7 +179,7 @@ const PetOwners = () => {
             })
           )
         }
-        limitOptions={["9", "12", "15", "18", "24", "30"]}
+        limitOptions={limitOptions}
       />
     </S.Container>
   );
