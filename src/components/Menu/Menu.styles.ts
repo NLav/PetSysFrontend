@@ -139,6 +139,14 @@ export const UserContainer = styled.button<{
     &:hover {
       background-color: ${theme.secondaryDark};
     }
+
+    & > span {
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      text-align: start;
+    }
   `}
 `;
 

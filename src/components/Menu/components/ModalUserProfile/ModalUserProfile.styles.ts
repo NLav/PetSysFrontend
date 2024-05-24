@@ -57,6 +57,8 @@ export const UserProfilePicture = styled.img`
 
 export const UserName = styled.h1`
   ${() => css`
+    text-align: center;
+
     font-size: 2rem;
   `}
 `;

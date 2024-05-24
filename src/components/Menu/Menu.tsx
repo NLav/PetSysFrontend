@@ -22,6 +22,9 @@ const Menu = ({ menuOptions }: IMenuProps) => {
   const [openMenu, setOpenMenu] = useState(false);
   const [showModalUserProfile, setShowModalUserProfile] = useState(false);
 
+  const userName =
+    LocalStorageService.getLoginInformation()?.name?.split(" ")[0];
+
   const { collapseMenu, setCollapseMenu } = useContext(CollapseMenuContext);
 
   const { windowSize } = useWindowSize();
@@ -67,9 +70,7 @@ const Menu = ({ menuOptions }: IMenuProps) => {
                 alt="profile-picture"
               />
 
-              <span>
-                Olá, {LocalStorageService.getLoginInformation()?.name}
-              </span>
+              <span>Olá, {userName}</span>
             </S.UserContainer>
           </>
         )}
@@ -135,9 +136,7 @@ const Menu = ({ menuOptions }: IMenuProps) => {
           alt="profile-picture"
         />
 
-        {!collapseMenu && (
-          <span>Olá, {LocalStorageService.getLoginInformation()?.name}</span>
-        )}
+        {!collapseMenu && <span>Olá, {userName}</span>}
       </S.UserContainer>
 
       {showModalUserProfile && (
