@@ -21,7 +21,7 @@ const Combobox = ({
   const [comboboxSearch, setComboboxSearch] = useState(value);
   const [showEveryOption, setShowEveryOption] = useState(true);
   const [optionsPosition, setOptionsPosition] = useState<"top" | "bottom">(
-    "top"
+    "bottom"
   );
   const [optionsInset, setOptionsInset] = useState("0 0 auto");
   const [optionsWidth, setOptionsWidth] = useState("fit-content");
@@ -47,7 +47,7 @@ const Combobox = ({
             ? "bottom"
             : "top"
         ),
-      100
+      200
     );
   }, [showOptions]);
 
@@ -56,28 +56,28 @@ const Combobox = ({
   }, [value]);
 
   useEffect(() => {
-    const comboboxCurrent = comboboxRef.current?.getClientRects()[0];
+    setTimeout(() => {
+      const comboboxCurrent = comboboxRef.current?.getClientRects()[0];
 
-    if (comboboxCurrent) {
-      const insetPositions = {
-        top:
-          optionsPosition === "top"
-            ? "auto"
-            : `${comboboxCurrent.y + comboboxCurrent.height}px`,
-        right: "auto",
-        bottom:
-          optionsPosition === "top"
-            ? `${window.innerHeight - comboboxCurrent.y}px`
-            : "auto",
-        left: `${comboboxCurrent.x}px`,
-      };
+      if (comboboxCurrent) {
+        const insetPositions = {
+          top:
+            optionsPosition === "top" ? "auto" : `${comboboxCurrent.bottom}px`,
+          right: "auto",
+          bottom:
+            optionsPosition === "top"
+              ? `${window.innerHeight - comboboxCurrent.top}px`
+              : "auto",
+          left: "auto",
+        };
 
-      setOptionsInset(
-        `${insetPositions.top} ${insetPositions.right} ${insetPositions.bottom} ${insetPositions.left}`
-      );
-      setOptionsWidth(`${comboboxCurrent.width}px`);
-    }
-  }, [comboboxRef, optionsPosition]);
+        setOptionsInset(
+          `${insetPositions.top} ${insetPositions.right} ${insetPositions.bottom} ${insetPositions.left}`
+        );
+        setOptionsWidth(`${comboboxCurrent.width}px`);
+      }
+    }, 200);
+  }, [optionsPosition]);
 
   useOnClickOutside(optionsRef, () => {
     setShowOptions(false);
@@ -99,9 +99,7 @@ const Combobox = ({
         readOnly={!searchable}
         style={{ cursor: searchable ? "text" : "default" }}
       />
-
       <label htmlFor="combobox-input">{title}</label>
-
       {showOptions && (
         <S.OptionsContainer
           ref={optionsRef}

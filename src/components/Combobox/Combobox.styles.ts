@@ -72,7 +72,6 @@ export const OptionsContainer = styled.div<{
     inset: ${$optionsInset};
     display: flex;
     flex-direction: column;
-    margin-bottom: 0.9rem;
     width: ${$optionsWidth};
     max-height: 300px;
     padding: 8px;
