@@ -23,6 +23,8 @@ const Combobox = ({
   const [optionsPosition, setOptionsPosition] = useState<"top" | "bottom">(
     "top"
   );
+  const [optionsInset, setOptionsInset] = useState("0 0 auto");
+  const [optionsWidth, setOptionsWidth] = useState("fit-content");
 
   const comboboxRef = useRef<HTMLDivElement | null>(null);
   const optionsRef = useRef<HTMLDivElement | null>(null);
@@ -53,6 +55,30 @@ const Combobox = ({
     setComboboxSearch(value);
   }, [value]);
 
+  useEffect(() => {
+    const comboboxCurrent = comboboxRef.current?.getClientRects()[0];
+
+    if (comboboxCurrent) {
+      const insetPositions = {
+        top:
+          optionsPosition === "top"
+            ? "auto"
+            : `${comboboxCurrent.y + comboboxCurrent.height}px`,
+        right: "auto",
+        bottom:
+          optionsPosition === "top"
+            ? `${window.innerHeight - comboboxCurrent.y}px`
+            : "auto",
+        left: `${comboboxCurrent.x}px`,
+      };
+
+      setOptionsInset(
+        `${insetPositions.top} ${insetPositions.right} ${insetPositions.bottom} ${insetPositions.left}`
+      );
+      setOptionsWidth(`${comboboxCurrent.width}px`);
+    }
+  }, [comboboxRef, optionsPosition]);
+
   useOnClickOutside(optionsRef, () => {
     setShowOptions(false);
     setShowEveryOption(true);
@@ -77,7 +103,11 @@ const Combobox = ({
       <label htmlFor="combobox-input">{title}</label>
 
       {showOptions && (
-        <S.OptionsContainer ref={optionsRef} $optionsPosition={optionsPosition}>
+        <S.OptionsContainer
+          ref={optionsRef}
+          $optionsInset={optionsInset}
+          $optionsWidth={optionsWidth}
+        >
           {filteredOptions.length ? (
             filteredOptions.map((option, index) => (
               <button

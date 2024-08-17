@@ -64,13 +64,16 @@ export const Container = styled.div`
 `;
 
 export const OptionsContainer = styled.div<{
-  $optionsPosition: "top" | "bottom";
+  $optionsInset: string;
+  $optionsWidth: string;
 }>`
-  ${({ theme, $optionsPosition }) => css`
-    position: absolute;
+  ${({ theme, $optionsInset, $optionsWidth }) => css`
+    position: fixed;
+    inset: ${$optionsInset};
     display: flex;
     flex-direction: column;
     margin-bottom: 0.9rem;
+    width: ${$optionsWidth};
     max-height: 300px;
     padding: 8px;
     border: 2px solid ${theme.primary};
@@ -80,14 +83,6 @@ export const OptionsContainer = styled.div<{
     overflow: auto;
     animation: ${showComboboxOptions} 0.2s linear;
     z-index: -1;
-
-    ${$optionsPosition === "top"
-      ? css`
-          inset: auto 0 calc(100% - 1rem);
-        `
-      : css`
-          inset: 100% 0 auto;
-        `}
 
     & > button {
       padding: 4px 8px;
