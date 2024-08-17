@@ -2,12 +2,10 @@ import styled, { css, keyframes } from "styled-components";
 
 const showActionBarModal = keyframes`
   from {
-      transform: translateX(100%);
       opacity: 0;
     }
 
     to {
-      transform: translateX(0);
       opacity: 1;
     }
 `;
