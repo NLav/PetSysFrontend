@@ -45,9 +45,7 @@ const Modal = ({
   useOnClickOutside(modalRef, closeModal);
 
   return (
-    <>
-      <S.Background></S.Background>
-
+    <S.Background>
       <S.Container ref={modalRef} $width={width} $height={height}>
         <S.Header>
           {title}
@@ -73,7 +71,7 @@ const Modal = ({
           </S.Footer>
         )}
       </S.Container>
-    </>
+    </S.Background>
   );
 };
 

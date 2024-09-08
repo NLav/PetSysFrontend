@@ -3,12 +3,12 @@ import { IModalProps } from "./Modal";
 
 const showModal = keyframes`
   from {
-    transform: scale(0) translate(50%, -50%);
+    transform: scale(0);
     opacity: 0;
   }
 
   to {
-    transform: scale(1) translate(50%, -50%);
+    transform: scale(1);
     opacity: 1;
   }
 `;
@@ -17,6 +17,9 @@ export const Background = styled.div`
   ${() => css`
     position: fixed;
     inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: #00000088;
     z-index: 100;
   `}
@@ -27,19 +30,15 @@ export const Container = styled.div<{
   $height: IModalProps["height"];
 }>`
   ${({ theme, $width, $height }) => css`
-    position: fixed;
-    inset: 50% 50% auto auto;
     width: ${$width};
     height: ${$height};
     padding: 16px;
     border-radius: 16px;
-    transform: scale(1) translate(50%, -50%);
     background-color: ${theme.white};
     color: ${theme.black};
     box-shadow: ${theme.boxShadow};
     animation: ${showModal} 0.2s linear;
-    z-index: 101;
-    transform-origin: top right;
+    transform-origin: center center;
     transition: 0;
 
     & > div {
